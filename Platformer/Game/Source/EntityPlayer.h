@@ -97,7 +97,8 @@ public:
 			oldY = this->y;
 			interpolating = true;
 
-			
+			pos_dif_x = newX - oldX;
+			pos_dif_y = newY - oldY;
 		}
 		else {
 			h += iSpeed;
@@ -105,8 +106,9 @@ public:
 			if (1 - h < 0)
 				h = 1;
 
-			float x_ = oldX * (1 - h) + newX * h;
-			float y_ = oldY * (1 - h) + newY * h;
+			
+			float x_ = oldX + pos_dif_x * h;
+			float y_ = oldY + pos_dif_y * h;
 
 			b2Vec2 pos = { PIXEL_TO_METERS(x_),PIXEL_TO_METERS(y_) };
 			Hitbox->body->SetTransform(pos, 0);
@@ -132,8 +134,10 @@ private:
 	float oldY;
 	float newX;
 	float newY;
+	float pos_dif_x;
+	float pos_dif_y;
 	float h = 0;
-
+	float inter_speed;
 
 	b2Vec2 spawnPosition;
 	PhysBody* Hitbox;

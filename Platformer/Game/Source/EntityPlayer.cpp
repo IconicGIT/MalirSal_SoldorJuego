@@ -21,7 +21,7 @@ EntityPlayer::EntityPlayer(b2Vec2 startPosition, int health) : Entity()
 	Hitbox->body->GetFixtureList()->SetRestitution(0);
 	Hitbox->body->SetFixedRotation(true);
 	Hitbox->body->ResetMassData();
-	
+	inter_speed = 0.05;
 }
 
 
@@ -65,11 +65,21 @@ bool EntityPlayer::Update(float dt)
 {
 	
 	if (goLeft = (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN))
+	{
 		moveType = STEP_FREE;
 
+	}
 	if (goLeft = (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN))
+	{
 		moveType = STEP_TILES;
+		
+		while ((int)x % 48 - 28  != 0) x--;
+		while ((int)y % 48 - 28 != 0) y++;
 
+		b2Vec2 pos = { x, y };
+
+		Hitbox->body->SetTransform(pos, 0);
+	}
 	switch (moveType)
 	{
 	case STEP_FREE:
@@ -96,7 +106,16 @@ bool EntityPlayer::Update(float dt)
 		{
 			
 		}
-		Interpolate(x + 48, y, 0.01f);
+		
+		if (goRight) Interpolate(x + 48, y, inter_speed);
+		else if (goLeft) Interpolate(x - 48, y, inter_speed);
+		else if (goUp) Interpolate(x, y - 48, inter_speed);
+		else if (goDown) Interpolate(x, y + 48, inter_speed);
+
+		if (interpolating)
+		{
+			Interpolate(newX, newY, 0.01f);
+		}
 		/*b2Vec2 movement = { (float)METERS_TO_PIXELS((goRight - goLeft)), (float)METERS_TO_PIXELS((goDown - goUp))};
 		Hitbox->body->SetLinearVelocity(movement);*/
 
