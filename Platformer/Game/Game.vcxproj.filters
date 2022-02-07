@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Source\Window.cpp" />
+    <ClCompile Include="Source\Textures.cpp" />
+    <ClCompile Include="Source\Scene.cpp" />
+    <ClCompile Include="Source\Render.cpp" />
+    <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\Input.cpp" />
+    <ClCompile Include="Source\Audio.cpp" />
+    <ClCompile Include="Source\App.cpp" />
+    <ClCompile Include="Source\Log.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\External\PugiXml\src\pugixml.cpp">
+      <Filter>External\PugiXml</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Physics.cpp" />
+    <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\Pathfinding.cpp" />
+    <ClCompile Include="Source\Map.cpp" />
+    <ClCompile Include="Source\EnemyBird.cpp">
+      <Filter>Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EnemyMushroom.cpp">
+      <Filter>Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EnemySnake.cpp">
+      <Filter>Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Item.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ModuleFonts.cpp" />
+    <ClCompile Include="Source\RocketBanana.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UIElements.h">
+      <Filter>UI elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UIElements.cpp">
+      <Filter>UI elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UIHandler.h">
+      <Filter>UI elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UIHandler.cpp">
+      <Filter>UI elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UI_Panel.cpp">
+      <Filter>UI elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UI_Button.cpp">
+      <Filter>UI elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UI_Slider.cpp">
+      <Filter>UI elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EntityHandler.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Window.h" />
+    <ClInclude Include="Source\Textures.h" />
+    <ClInclude Include="Source\Scene.h" />
+    <ClInclude Include="Source\Render.h" />
+    <ClInclude Include="Source\Module.h" />
+    <ClInclude Include="Source\Input.h" />
+    <ClInclude Include="Source\Audio.h" />
+    <ClInclude Include="Source\App.h" />
+    <ClInclude Include="Source\Defs.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DynArray.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\List.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Log.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SString.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\External\PugiXml\src\pugiconfig.hpp">
+      <Filter>External\PugiXml</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\External\PugiXml\src\pugixml.hpp">
+      <Filter>External\PugiXml</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Physics.h" />
+    <ClInclude Include="Source\p2List.h" />
+    <ClInclude Include="Source\p2Point.h" />
+    <ClInclude Include="Source\p2DynArray.h" />
+    <ClInclude Include="Source\Point.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player.h" />
+    <ClInclude Include="Source\Pathfinding.h" />
+    <ClInclude Include="Source\Map.h" />
+    <ClInclude Include="Source\PQueue.h" />
+    <ClInclude Include="Source\EnemySnake.h">
+      <Filter>Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EnemyBird.h">
+      <Filter>Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EnemyMushroom.h">
+      <Filter>Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Item.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ModuleFonts.h" />
+    <ClInclude Include="Source\RocketBanana.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI_Panel.h">
+      <Filter>UI elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI_Button.h">
+      <Filter>UI elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI_Slider.h">
+      <Filter>UI elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EntityHandler.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="External">
+      <UniqueIdentifier>{83a966c7-b4bb-4eff-9c2c-3ff3c7b55a60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{2cad778a-d356-48b0-9fee-587f1bbb187e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\PugiXml">
+      <UniqueIdentifier>{2855ff7f-53a1-413d-a75b-18b4ade921dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{38972e11-c0c7-4ef0-99bd-7531f5193225}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\Enemies">
+      <UniqueIdentifier>{bf2708ce-cfd0-45d2-9b0f-ddb97f5327e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI elements">
+      <UniqueIdentifier>{3a721049-e0e7-434d-9564-f355be7ae416}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xml">
+      <UniqueIdentifier>{16ee8875-e9e8-40ca-8a9e-8f75d1df6dee}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\Output\config.xml">
+      <Filter>xml</Filter>
+    </Xml>
+  </ItemGroup>
+</Project>
