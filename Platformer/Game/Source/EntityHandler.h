@@ -19,7 +19,7 @@
 #include "EntityPlayer.h"
 #include "EntityDummy.h"
 #include "Item.h"
-
+class EntityPlayer;
 
 enum EntityType
 {
