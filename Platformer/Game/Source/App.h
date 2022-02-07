@@ -21,7 +21,6 @@ class Map;
 class PathFinding;
 class Physics;
 class ModuleFonts;
-class Player;
 class EntityHandler;
 //class UI_Handler;
 
@@ -108,7 +107,6 @@ public:
 	Map* map;
 	Physics* physics;
 	ModuleFonts* fonts;
-	Player* player;
 	EntityHandler* entityHandler;
 	/*UI_Handler* UI_handler;*/
 	PathFinding* pathfinding;

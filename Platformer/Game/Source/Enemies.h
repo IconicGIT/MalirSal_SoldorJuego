@@ -1,5 +1,6 @@
-#ifndef __ENTITY_PLAYER_H__
-#define __ENTITY_PLAYER_H__
+#pragma once
+#ifndef __ENTITY_ENEMIES_H__
+#define __ENTITY_ENEMIES_H__
 
 #include "Entity.h"
 #include "p2Point.h"
@@ -14,34 +15,11 @@
 #include "EntityHandler.h"
 
 
-enum TileType
-{
-	TILE_WIN = 1,
-	TILE_DAMAGE = 2,
-	TILE_SPAWN = 3,
-	TILE_WALL = 4
-};
-
-enum MovementDirection
-{
-	MOV_NULL = 0,
-	MOV_UP,
-	MOV_DOWN,
-	MOV_LEFT,
-	MOV_RIGHT
-};
-
-enum PlayerMovementType
-{
-	STEP_FREE = 0,
-	STEP_TILES
-};
-
-class EntityPlayer : public Entity
+class EntityEnemy : public Entity
 {
 public:
-	EntityPlayer(b2Vec2 startPosition, int health);
-	virtual ~EntityPlayer();
+	EntityEnemy(b2Vec2 startPosition, int health);
+	virtual ~EntityEnemy();
 
 	bool Awake();
 	bool Start();
@@ -83,21 +61,21 @@ public:
 		Hitbox->body->SetTransform(v, 0);
 	}
 
-	void Interpolate(int x, int y, float speed) 
+	void Interpolate(int x, int y, float speed)
 	{
-		newX = (float)x ;
-		newY = (float)y ;
-		if (!interpolating && (oldX != newX || oldY != newY) )
+		newX = (float)x + 24;
+		newY = (float)y + 24;
+		if (!interpolating && (oldX != newX || oldY != newY))
 		{
 			h = 0;
-			iSpeed = speed; 
+			iSpeed = speed;
 			if (speed > 1) iSpeed = 1;
 			if (speed < 0) iSpeed = 0;
-			oldX = this->x;
-			oldY = this->y;
+			oldX = METERS_TO_PIXELS(Hitbox->body->GetPosition().x);
+			oldY = METERS_TO_PIXELS(Hitbox->body->GetPosition().y);
 			interpolating = true;
 
-			
+
 		}
 		else {
 			h += iSpeed;
@@ -118,11 +96,11 @@ public:
 			}
 
 		}
-		
 
-		
+
+
 	}
-		
+
 
 private:
 
@@ -139,15 +117,10 @@ private:
 	PhysBody* Hitbox;
 	int health;
 	float x, y;
-
 	float speed;
-	b2Vec2 tileVspeed;
-
-	float tileSpeed;
 	b2Vec2 Vspeed;
 
 	MovementDirection direction;
-	PlayerMovementType moveType;
 
 	bool canMove;
 
@@ -163,12 +136,60 @@ private:
 	int gidRight;
 	int gidNow;
 
-	int playerId;
-
 	iPoint mapPos;
 
 
 
 };
 
+
+
+//class EnemySnake : public Entity
+//{
+//public:
+//	EnemySnake(b2Vec2 startPosition, int health);
+//	virtual ~EnemySnake();
+//
+//	// Called before render is available
+//	
+//	
+//	int CheckDistanceToPhysBody(PhysBody* PhysPos)
+//	{
+//		b2Vec2 dist = PhysPos->body->GetPosition() - Hitbox->body->GetPosition();
+//
+//		return (abs(dist.x) + abs(dist.y));
+//	}
+//
+//	void SnakeAttack();
+//	// Called before the first frame
+//	
+//
+//	int lastTime = 0;
+//	int currentTime = 0;
+//	bool snakeDirection = true;
+//	int snakeAnim = 0;
+//	bool snakeAgro = false;
+//	int snakeAttackAnim = 0;
+//	int snakeAttackTime = 0;
+//
+//	
+//
+//	void DoDamage(int damage);
+//
+//private:
+//	p2List<PhysBody*> acidThrown;
+//	SDL_Rect r_snakeIdle[6];
+//	SDL_Rect r_snakeAttack[4];
+//	
+//	PhysBody* acidBox;
+//	
+//	const int maxDistanceAgroBase = 13;
+//	bool lastAcidDirection = true;
+//	int health;
+//	int attackCooldown = 0;
+//	bool acidOnMap = false;
+//	
+//};
+
 #endif // __ENEMY_SNAKE_H__
+

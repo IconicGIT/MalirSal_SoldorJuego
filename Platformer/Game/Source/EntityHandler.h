@@ -70,7 +70,7 @@ public:
 	
 	p2List<Item*> items;
 
-
+	p2List<EntityPlayer*> players;
 
 	SDL_Texture* texturePath;
 

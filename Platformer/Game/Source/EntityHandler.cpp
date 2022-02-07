@@ -98,7 +98,6 @@ bool EntityHandler::Update(float dt)
 
 		entitiy->Update(dt);
 	}
-	player->Update(dt);
 
 	//for (int i = 0; i < enemiesMushroom.count(); i++)
 	//{
@@ -229,17 +228,17 @@ bool EntityHandler::LoadState(pugi::xml_node& data)
 		}
 		i = 0;
 
-		//for (prop = data.child("EnemySnake"); prop.type() == pugi::node_element; prop = prop.next_sibling("EnemySnake"))
-		//{
-		//	CreateEntity(ENEMY_SNAKE, 0, 0);
-		//	EnemySnake* ent = nullptr;
-		//	enemiesSnake.at(i, ent);
-		//	ent->LoadState(prop);
+		for (prop = data.child("chicken_idle"); prop.type() == pugi::node_element; prop = prop.next_sibling("chicken_idle"))
+		{
+			CreateEntity(ENTITY_PLAYER, 0, 0);
+			EntityPlayer* ent = nullptr;
+			players.at(i, ent);
+			ent->LoadState(prop);
 
-		//	i++;
+			i++;
 
-		//}
-		//i = 0;
+		}
+		i = 0;
 
 		//for (prop = data.child("EnemyBird"); prop.type() == pugi::node_element; prop = prop.next_sibling("EnemyBird"))
 		//{
@@ -294,23 +293,15 @@ bool EntityHandler::SaveState(pugi::xml_node& data) const
 	}
 	data.remove_child(iteratorRemove);
 
-	//for (pugi::xml_node iteratorRemove = data.first_child(); iteratorRemove; iteratorRemove = iteratorRemove.next_sibling())
-	//{
-	//	pugi::xml_node toRemove = iteratorRemove;
-	//	data.remove_child(toRemove);
-	//	data.remove_child(toRemove.next_sibling());
-	//}
 
+	for (int i = 0; i < players.count(); i++)
+	{
 
+		EntityPlayer* pl;
+		players.at(i, pl);
 
-	//for (int i = 0; i < enemiesMushroom.count(); i++)
-	//{
-
-	//	EnemyMushroom* iteratorMushroom;
-	//	enemiesMushroom.at(i, iteratorMushroom);
-
-	//	iteratorMushroom->SaveState(data);
-	//}
+		pl->SaveState(data);
+	}
 
 	//for (int i = 0; i < enemiesBird.count(); i++)
 	//{
@@ -351,6 +342,7 @@ void EntityHandler::CreateEntity(enum EntityType type, int x, int y)
 		b2Vec2 pos(x + 24, y + 24);
 		EntityPlayer* newPlayer = new EntityPlayer(pos, 2);
 		player = newPlayer;
+		players.add(newPlayer);
 		allEntities.add(newPlayer);
 		newPlayer->Start();
 		newPlayer->SetID(all_ids);

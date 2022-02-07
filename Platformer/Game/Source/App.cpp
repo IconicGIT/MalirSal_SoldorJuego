@@ -217,6 +217,8 @@ bool App::Update()
 		SDL_Delay(fabs(floor((long)frameSpeed - elapsedTime)));
 	}
 
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) ret = false;
+
 
 	FinishUpdate();
 	return ret;
