@@ -72,13 +72,17 @@ bool Render::PreUpdate()
 
 bool Render::Update(float dt)
 {
-
+	//cameraFollow = true;
 	if (cameraFollow == true) // Camera follow at the center, for debug purposes
 	{
+		//LOG(" LOL ");
 		app->entityHandler->GetMainPlayer()->GetPhysBody()->GetPosition(camera.x, camera.y);
+		//LOG("%i", camera.x);
 		app->win->GetWindowSize(windowX, windowY);
-		camera.x -= windowX * 0.5;
-		camera.y -= windowY * 0.5;
+		//LOG("%i", windowX);
+		camera.x = camera.x +windowX * 0.5;
+		camera.y = camera.y + windowY * 0.5;
+		//LOG("%i UWU", camera.x);
 	}
 	else // Implement other ways of camera movement
 	{

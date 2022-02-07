@@ -100,6 +100,7 @@ bool EntityPlayer::Update(float dt)
 	currentAnimation = &idle_left;
 
 	// DEBUG KEYS
+	// 
 	//////////////
 	if (goLeft = (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)) // Step Free
 	{
@@ -141,6 +142,16 @@ bool EntityPlayer::Update(float dt)
 			app->render->cameraFollow = true;
 		}
 	}
+
+	if (app->render->cameraFollow == true)
+	{
+		LOG("True");
+	}
+	else
+	{
+		LOG("False");
+	}
+	
 	//////////////////
 
 
