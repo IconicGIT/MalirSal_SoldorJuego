@@ -1,4 +1,3 @@
-
 #include "Input.h"
 #include "SDL/include/SDL.h"
 #include "p2List.h"
@@ -9,6 +8,7 @@
 #include "Window.h"
 #include "Audio.h";
 #include "EntityPlayer.h"
+#include "Animation.h"
 
 EntityPlayer::EntityPlayer(b2Vec2 startPosition, int health) : Entity()
 {
@@ -35,6 +35,8 @@ bool EntityPlayer::Awake()
 
 bool EntityPlayer::Start()
 {
+	sprite = app->tex->Load("Assets/textures/chickens/chicken_idle.png");
+
 	moveType = STEP_FREE;
 	AdminMode = false;
 	canMove = true;
@@ -52,6 +54,15 @@ bool EntityPlayer::Start()
 	oldY = 0;
 
 	LOG("player started");
+
+	chicken_idle.PushBack({ 6, 311, 48, 48 });
+	chicken_idle.PushBack({ 54, 311, 48, 48 });
+	chicken_idle.PushBack({ 102, 311, 48, 48 });
+	chicken_idle.PushBack({ 6, 359, 30, 24 });
+	chicken_idle.PushBack({ 54, 359, 30, 24 });
+	chicken_idle.PushBack({ 102, 359, 30, 24 });
+	chicken_idle.speed = 0.5f;
+
 	return true;
 }
 bool EntityPlayer::CleanUp()
@@ -61,9 +72,17 @@ bool EntityPlayer::CleanUp()
 	return true;
 }
 
+void EntityPlayer::LvlUp(int exp_used)
+{
+	level++;
+	// Increase stats
+	exp -= exp_used;
+	//Increase exp needed
+}
+
 bool EntityPlayer::Update(float dt)
 {
-	
+	chicken_ = &chicken_idle;
 	if (goLeft = (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN))
 	{
 		moveType = STEP_FREE;
@@ -282,7 +301,8 @@ bool EntityPlayer::Update(float dt)
 	LOG("gidLeft %i", gidLeft);
 	LOG("gidRight %i", gidRight);
 	LOG("------------------------");*/
-
+	chicken_->Update();
+	app->render->DrawTexture(sprite, x, y, &chicken_->GetCurrentFrame());
 
 	return true;
 }

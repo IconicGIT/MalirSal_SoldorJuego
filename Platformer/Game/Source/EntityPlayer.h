@@ -125,6 +125,7 @@ public:
 		
 	}
 		
+	void LvlUp(int exp_used);
 
 private:
 
@@ -171,8 +172,13 @@ private:
 
 	iPoint mapPos;
 
+	int level;
+	int exp;
+	int exp_lvlUp;
 
-
+	SDL_Texture* sprite;
+	Animation chicken_idle;
+	Animation* chicken_;
 };
 
 #endif // __ENEMY_SNAKE_H__
