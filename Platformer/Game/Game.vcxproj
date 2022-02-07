@@ -21,7 +21,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -94,6 +94,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Enemies.cpp" />
+    <ClCompile Include="Source\EntityDummy.cpp" />
     <ClCompile Include="Source\EntityHandler.cpp" />
     <ClCompile Include="Source\EntityPlayer.cpp" />
     <ClCompile Include="Source\Item.cpp" />
@@ -111,6 +112,7 @@
     <ClCompile Include="Source\Window.cpp" />
     <ClInclude Include="Source\Enemies.h" />
     <ClInclude Include="Source\Entity.h" />
+    <ClInclude Include="Source\EntityDummy.h" />
     <ClInclude Include="Source\EntityHandler.h" />
     <ClInclude Include="Source\EntityPlayer.h" />
     <ClInclude Include="Source\Item.h" />

@@ -17,6 +17,7 @@
 //entities
 #include "Entity.h"
 #include "EntityPlayer.h"
+#include "EntityDummy.h"
 #include "Item.h"
 
 
@@ -24,6 +25,7 @@ enum EntityType
 {
 	ENTITY_NULL = -1,
 	ENTITY_PLAYER,
+	ENTITY_DUMMY,
 	ITEM_BANANA
 };
 
@@ -69,12 +71,13 @@ public:
 	p2List<Entity*> allEntities;
 	
 	p2List<Item*> items;
+	p2List<EntityDummy*> dummies;
 
 	p2List<EntityPlayer*> players;
 
 	SDL_Texture* texturePath;
 
-	PhysBody  GetNearestEnemy(PhysBody* Character);
+	PhysBody* GetNearestEnemy(PhysBody* Character);
 
 	EntityPlayer* GetMainPlayer() const
 	{

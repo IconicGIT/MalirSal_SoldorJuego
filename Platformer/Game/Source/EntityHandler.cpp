@@ -30,7 +30,9 @@ bool EntityHandler::Start()
 
 	all_ids = 0;
 
-	CreateEntity(ENTITY_PLAYER, 3 * 48, 28 * 48);
+	CreateEntity(ENTITY_PLAYER, 6 * 48, 28 * 48);
+	CreateEntity(ENTITY_DUMMY, 12 * 48, 22 * 48);
+	
 	
 
 	return true;
@@ -48,41 +50,6 @@ bool EntityHandler::CleanUp()
 		entity->CleanUp();
 	}
 
-	/*for (int i = 0; i < enemiesMushroom.count(); i++)
-	{
-
-		EnemyMushroom* iteratorMushroom;
-		enemiesMushroom.at(i, iteratorMushroom);
-
-		iteratorMushroom->CleanUp();
-	}
-
-	for (int i = 0; i < enemiesBird.count(); i++)
-	{
-
-		EnemyBird* iteratorBird;
-		enemiesBird.at(i, iteratorBird);
-
-		iteratorBird->CleanUp();
-	}
-
-	for (int i = 0; i < enemiesSnake.count(); i++)
-	{
-
-		EnemySnake* iteratorSnake;
-		enemiesSnake.at(i, iteratorSnake);
-
-		iteratorSnake->CleanUp();
-	}
-	for (int i = 0; i < rockets.count(); i++)
-	{
-
-		RocketBanana* iteratorRocket;
-		rockets.at(i, iteratorRocket);
-
-		iteratorRocket->CleanUp();
-	}*/
-
 
 	return true;
 }
@@ -99,55 +66,10 @@ bool EntityHandler::Update(float dt)
 		entitiy->Update(dt);
 	}
 
-	//for (int i = 0; i < enemiesMushroom.count(); i++)
-	//{
-	//
-	//	EnemyMushroom* iteratorMushroom;
-	//	enemiesMushroom.at(i, iteratorMushroom);
-	//
-	//	iteratorMushroom->Update(dt);
-	//}
-	//
-	//for (int i = 0; i < enemiesBird.count(); i++)
-	//{
-	//
-	//	EnemyBird* iteratorBird;
-	//	enemiesBird.at(i, iteratorBird);
-	//
-	//	iteratorBird->Update(dt);
-	//}
-	//
-	//for (int i = 0; i < enemiesSnake.count(); i++)
-	//{
-	//
-	//	EnemySnake* iteratorSnake;
-	//	enemiesSnake.at(i, iteratorSnake);
-	//
-	//	iteratorSnake->Update(dt);
-	//}
-	//
-	//for (int i = 0; i < items.count(); i++)
-	//{
-	//
-	//	Item* iteratorItem;
-	//	items.at(i, iteratorItem);
-	//
-	//	iteratorItem->Update(dt);
-	//}
-	//
-	//for (int i = 0; i < rockets.count(); i++)
-	//{
-	//
-	//	RocketBanana* iteratorRocket;
-	//	rockets.at(i, iteratorRocket);
-	//
-	//	iteratorRocket->Update(dt);
-	//}
-
 	return true;
 }
 
-PhysBody EntityHandler::GetNearestEnemy(PhysBody* Character)
+PhysBody* EntityHandler::GetNearestEnemy(PhysBody* Character)
 {
 	PhysBody* NearEnemy = nullptr;
 	int temp = 1000;
@@ -188,7 +110,7 @@ PhysBody EntityHandler::GetNearestEnemy(PhysBody* Character)
 			NearEnemy = iteratorMushroom->GetPhysBody();
 		}
 	}*/
-	return *NearEnemy;
+	return NearEnemy;
 }
 
 bool EntityHandler::LoadState(pugi::xml_node& data)
@@ -346,6 +268,17 @@ void EntityHandler::CreateEntity(enum EntityType type, int x, int y)
 		allEntities.add(newPlayer);
 		newPlayer->Start();
 		newPlayer->SetID(all_ids);
+		all_ids++;
+	}
+	break;
+	case ENTITY_DUMMY:
+	{
+		b2Vec2 pos(x + 24, y + 24);
+		EntityDummy* newDummy = new EntityDummy(pos, 2);
+		dummies.add(newDummy);
+		allEntities.add(newDummy);
+		newDummy->Start();
+		newDummy->SetID(all_ids);
 		all_ids++;
 	}
 	break;
