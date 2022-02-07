@@ -55,13 +55,15 @@ bool EntityPlayer::Start()
 
 	LOG("player started");
 
-	chicken_idle.PushBack({ 6, 311, 48, 48 });
-	chicken_idle.PushBack({ 54, 311, 48, 48 });
-	chicken_idle.PushBack({ 102, 311, 48, 48 });
-	chicken_idle.PushBack({ 6, 359, 30, 24 });
-	chicken_idle.PushBack({ 54, 359, 30, 24 });
-	chicken_idle.PushBack({ 102, 359, 30, 24 });
-	chicken_idle.speed = 0.5f;
+	chicken_idle.PushBack({ 16, 28, 60, 60 });
+	chicken_idle.PushBack({ 65, 0, 65, 80 });
+	chicken_idle.PushBack({ 130, 0, 65, 80 });
+	chicken_idle.PushBack({ 195, 0, 65, 80 });
+	chicken_idle.PushBack({ 0, 90, 65, 80 });
+	chicken_idle.PushBack({ 65, 90, 65, 80 });
+	chicken_idle.PushBack({ 131, 90, 65, 80 });
+	chicken_idle.PushBack({ 195, 90, 65, 80 });
+	chicken_idle.speed = 0.02f;
 
 	return true;
 }
@@ -92,12 +94,12 @@ bool EntityPlayer::Update(float dt)
 	{
 		moveType = STEP_TILES;
 		
-		while ((int)x % 48 - 28  != 0) x--;
-		while ((int)y % 48 - 28 != 0) y++;
+		//while ((int)x % 48 - 28  != 0) x--;
+		//while ((int)y % 48 - 28 != 0) y++;
 
-		b2Vec2 pos = { x, y };
+		//b2Vec2 pos = { x, y };
 
-		Hitbox->body->SetTransform(pos, 0);
+		//Hitbox->body->SetTransform(pos, 0);
 	}
 	switch (moveType)
 	{
@@ -302,7 +304,7 @@ bool EntityPlayer::Update(float dt)
 	LOG("gidRight %i", gidRight);
 	LOG("------------------------");*/
 	chicken_->Update();
-	app->render->DrawTexture(sprite, x, y, &chicken_->GetCurrentFrame());
+	app->render->DrawTexture(sprite, x - 32, y - 40, &chicken_->GetCurrentFrame());
 
 	return true;
 }
