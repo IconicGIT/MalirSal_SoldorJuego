@@ -87,7 +87,7 @@ public:
 	{
 		newX = (float)x ;
 		newY = (float)y ;
-		if (!interpolating && (oldX != newX || oldY != newY) )
+		if (!interpolating)
 		{
 			h = 0;
 			iSpeed = speed; 
