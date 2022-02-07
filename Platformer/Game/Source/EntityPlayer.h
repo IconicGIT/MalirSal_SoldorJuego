@@ -31,6 +31,12 @@ enum MovementDirection
 	MOV_RIGHT
 };
 
+enum PlayerMovementType
+{
+	STEP_FREE = 0,
+	STEP_TILES
+};
+
 class EntityPlayer : public Entity
 {
 public:
@@ -79,16 +85,16 @@ public:
 
 	void Interpolate(int x, int y, float speed) 
 	{
-		newX = (float)x + 24;
-		newY = (float)y + 24;
+		newX = (float)x ;
+		newY = (float)y ;
 		if (!interpolating && (oldX != newX || oldY != newY) )
 		{
 			h = 0;
 			iSpeed = speed; 
 			if (speed > 1) iSpeed = 1;
 			if (speed < 0) iSpeed = 0;
-			oldX = METERS_TO_PIXELS(Hitbox->body->GetPosition().x);
-			oldY = METERS_TO_PIXELS(Hitbox->body->GetPosition().y);
+			oldX = this->x;
+			oldY = this->y;
 			interpolating = true;
 
 			
@@ -133,10 +139,15 @@ private:
 	PhysBody* Hitbox;
 	int health;
 	float x, y;
+
 	float speed;
+	b2Vec2 tileVspeed;
+
+	float tileSpeed;
 	b2Vec2 Vspeed;
 
 	MovementDirection direction;
+	PlayerMovementType moveType;
 
 	bool canMove;
 
@@ -152,59 +163,12 @@ private:
 	int gidRight;
 	int gidNow;
 
+	int playerId;
+
 	iPoint mapPos;
 
 
 
 };
-
-
-
-//class EnemySnake : public Entity
-//{
-//public:
-//	EnemySnake(b2Vec2 startPosition, int health);
-//	virtual ~EnemySnake();
-//
-//	// Called before render is available
-//	
-//	
-//	int CheckDistanceToPhysBody(PhysBody* PhysPos)
-//	{
-//		b2Vec2 dist = PhysPos->body->GetPosition() - Hitbox->body->GetPosition();
-//
-//		return (abs(dist.x) + abs(dist.y));
-//	}
-//
-//	void SnakeAttack();
-//	// Called before the first frame
-//	
-//
-//	int lastTime = 0;
-//	int currentTime = 0;
-//	bool snakeDirection = true;
-//	int snakeAnim = 0;
-//	bool snakeAgro = false;
-//	int snakeAttackAnim = 0;
-//	int snakeAttackTime = 0;
-//
-//	
-//
-//	void DoDamage(int damage);
-//
-//private:
-//	p2List<PhysBody*> acidThrown;
-//	SDL_Rect r_snakeIdle[6];
-//	SDL_Rect r_snakeAttack[4];
-//	
-//	PhysBody* acidBox;
-//	
-//	const int maxDistanceAgroBase = 13;
-//	bool lastAcidDirection = true;
-//	int health;
-//	int attackCooldown = 0;
-//	bool acidOnMap = false;
-//	
-//};
 
 #endif // __ENEMY_SNAKE_H__

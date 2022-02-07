@@ -35,8 +35,13 @@ bool EntityPlayer::Awake()
 
 bool EntityPlayer::Start()
 {
+	moveType = STEP_FREE;
 	AdminMode = false;
 	canMove = true;
+
+
+	tileSpeed = 48;
+	tileVspeed = { tileSpeed ,tileSpeed };
 
 	speed = 3;
 	Vspeed = { speed,speed };
@@ -58,25 +63,44 @@ bool EntityPlayer::CleanUp()
 
 bool EntityPlayer::Update(float dt)
 {
-	/*goLeft = (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN);
-	goRight = (app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN);
+	
+	if (goLeft = (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN))
+		moveType = STEP_FREE;
 
-	goUp = (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN);
-	goDown = (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN);*/
+	if (goLeft = (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN))
+		moveType = STEP_TILES;
 
-	goLeft = (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT);
-	goRight = (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT);
+	switch (moveType)
+	{
+	case STEP_FREE:
+	{
+		goLeft = (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT);
+		goRight = (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT);
 
-	goUp = (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT);
-	goDown = (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT);
+		goUp = (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT);
+		goDown = (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT);
 
-	x = Hitbox->body->GetPosition().x;
-	y = Hitbox->body->GetPosition().y;
+		b2Vec2 movement = { (goRight - goLeft) * Vspeed.x, (goDown - goUp) * Vspeed.y };
+		Hitbox->body->SetLinearVelocity(movement);
+	}
+		break;
+	case STEP_TILES:
+	{
+		goLeft = (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN);
+		goRight = (app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN);
 
-	b2Vec2 movement = { (goRight - goLeft) * Vspeed.x, (goDown - goUp) * Vspeed.y };
-	Hitbox->body->SetLinearVelocity(movement);
+		goUp = (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN);
+		goDown = (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN);
 
-	/*
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		{
+			
+		}
+		Interpolate(x + 48, y, 0.01f);
+		/*b2Vec2 movement = { (float)METERS_TO_PIXELS((goRight - goLeft)), (float)METERS_TO_PIXELS((goDown - goUp))};
+		Hitbox->body->SetLinearVelocity(movement);*/
+
+		/*
 	if (app->input->GetKey(SDL_SCANCODE_SPACE))
 	{
 		Interpolate(8 * 48, 28 * 48, 0.01f);
@@ -124,12 +148,12 @@ bool EntityPlayer::Update(float dt)
 			canMove = true;
 			direction = MOV_NULL;
 		}
-		
+
 	}
 		break;
 	case MOV_DOWN:
 	{
-		
+
 		if (gidDown != TILE_WALL)
 		{
 			canMove = false;
@@ -162,7 +186,7 @@ bool EntityPlayer::Update(float dt)
 		break;
 	case MOV_RIGHT:
 	{
-		
+
 		if (gidRight != TILE_WALL)
 		{
 			canMove = false;
@@ -185,6 +209,19 @@ bool EntityPlayer::Update(float dt)
 	Hitbox->body->SetLinearVelocity(movement);
 	LOG("Pos x %f", Hitbox->body->GetPosition().x);
 	LOG("Pos  %f", Hitbox->body->GetPosition().y);*/
+
+	}
+		break;
+	default:
+		break;
+	}
+
+	
+
+	x = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().x);
+	y = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().y);
+
+	
 
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
