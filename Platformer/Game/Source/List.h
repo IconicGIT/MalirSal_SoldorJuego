@@ -9,7 +9,7 @@ struct ListItem
 {
 	tdata data;
 	ListItem<tdata>* next;
-	ListItem<tdata>* prev;
+	ListItem<tdata>* prev;	
 
 	inline ListItem(const tdata& _data)
 	{
