@@ -16,21 +16,15 @@
 
 //entities
 #include "Entity.h"
-#include "EnemySnake.h"
-#include "EnemyBird.h"
-#include "RocketBanana.h"
-#include "EnemyMushroom.h"
+#include "EntityPlayer.h"
 #include "Item.h"
 
 
 enum EntityType
 {
 	ENTITY_NULL = -1,
-	ENEMY_MUSHROOM,
-	ENEMY_SNAKE,
-	ENEMY_BIRD,
-	ITEM_BANANA,
-	ROCKET_BANANA
+	ENTITY_PLAYER,
+	ITEM_BANANA
 };
 
 class Item;
@@ -52,7 +46,7 @@ public:
 	bool CleanUp();
 	void CreateEntity(enum EntityType type, int x, int y);
 	void DestroyEnemy(b2Body* body);
-	void DamageEnemy(b2Body* body, int damage);
+	/*void DamageEnemy(b2Body* body, int damage);*/
 	void HandleEnemyDespawn();
 	void DestroyAllEnemies();
 
@@ -73,26 +67,23 @@ public:
 	
 	
 	p2List<Entity*> allEntities;
-
-	p2List<EnemyMushroom*> enemiesMushroom;
-	p2List<EnemySnake*> enemiesSnake;
-	p2List<EnemyBird*> enemiesBird;
-	p2List<RocketBanana*> rockets;
 	
 	p2List<Item*> items;
 
 
-	SDL_Texture* attention;
-	SDL_Texture* textureMushroom;
-	SDL_Texture* textureBird;
-	SDL_Texture* textureSnake;
+
 	SDL_Texture* texturePath;
 
 	PhysBody  GetNearestEnemy(PhysBody* Character);
-	
+
+	EntityPlayer* GetMainPlayer() const
+	{
+		return player;
+	}
+
 private:
 
-	
+	EntityPlayer* player;
 	int all_ids;
 	
 

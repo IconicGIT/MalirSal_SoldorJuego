@@ -1,7 +1,7 @@
 #include "UI_Button.h"
 #include "Input.h"
 #include "Scene.h"
-#include "Player.h"
+
 #include "Audio.h"
 
 UI_Button::UI_Button(int id) : UI_Element(id)
@@ -136,11 +136,7 @@ void UI_Button::OnMouseRelease()
 		//app->scene->Start();
 		//app->player->Start();
 
-		app->scene->UI_button_start_game->SetActive(false);
-		app->scene->UI_button_quit_game->SetActive(false);
-		app->scene->UI_panel_title->SetActive(false);
-		app->scene->loadingScreenActive = true;
-
+		
 		
 	}
 		break;
@@ -155,30 +151,18 @@ void UI_Button::OnMouseRelease()
 		
 		if (app->scene->state == INTRO)
 		{
-			app->scene->UI_button_settings->SetActive(true);
-			app->scene->UI_panel_pause_menu->SetActive(false);
-			app->scene->UI_button_settings->SetActive(true);
-
-			app->scene->UI_button_start_game->SetActive(true);
-			app->scene->UI_button_quit_game->SetActive(true);
-
-			
+	
 
 		}
 		else if (app->scene->state == GAMEPLAY)
 		{
-			app->SetPause(false);
-			app->scene->UI_button_open_pause_menu->SetActive(true);
+
 		}
 	}
 	break;
 	case ACTION_SETTINGS_OPEN:
 	{
-		app->scene->menuOpen = true;
-		app->scene->UI_panel_pause_menu->SetActive(true);
-		app->scene->UI_button_start_game->SetActive(false);
-		app->scene->UI_button_quit_game->SetActive(false);
-		active = !active;
+
 	}
 	break;
 	case ACTION_SETTINGS_CLOSE:
@@ -203,9 +187,7 @@ void UI_Button::OnMouseRelease()
 		break;
 	case ACTION_EXIT_GAME:
 	{
-		app->scene->UI_panel_pause_menu_exit_game->SetActive(true);
-		app->scene->UI_button_exit_game_confirm->SetActive(true);
-		app->scene->UI_button_exit_game_deny->SetActive(true);
+
 	}
 		break;
 	case ACTION_EXIT_GAME_CONFIRM:
@@ -215,9 +197,7 @@ void UI_Button::OnMouseRelease()
 		break;
 	case ACTION_EXIT_GAME_DENY:
 	{
-		app->scene->UI_panel_pause_menu_exit_game->SetActive(false);
-		app->scene->UI_button_exit_game_confirm->SetActive(false);
-		app->scene->UI_button_exit_game_deny->SetActive(false);
+
 	}
 		break;
 	default:

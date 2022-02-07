@@ -1,4 +1,4 @@
-#include "Player.h"
+
 #include "Input.h"
 #include "SDL/include/SDL.h"
 #include "p2List.h"
@@ -25,13 +25,13 @@ bool EntityHandler::Awake()
 
 bool EntityHandler::Start()
 {
-	textureMushroom = app->tex->Load("Assets/textures/mushroom_walk.png"); 
-	textureSnake = app->tex->Load("Assets/textures/snake.png");
-	textureBird = app->tex->Load("Assets/textures/bird.png");
-	attention = app->tex->Load("Assets/textures/attention_sign.png");
+
 	texturePath = app->tex->Load("Assets/maps/meta.png");
 
 	all_ids = 0;
+
+	CreateEntity(ENTITY_PLAYER, 3 * 48, 28 * 48);
+	
 
 	return true;
 }
@@ -98,6 +98,7 @@ bool EntityHandler::Update(float dt)
 
 		entitiy->Update(dt);
 	}
+	player->Update(dt);
 
 	//for (int i = 0; i < enemiesMushroom.count(); i++)
 	//{
@@ -152,7 +153,7 @@ PhysBody EntityHandler::GetNearestEnemy(PhysBody* Character)
 	PhysBody* NearEnemy = nullptr;
 	int temp = 1000;
 	
-	for (int i = 0; i < enemiesSnake.count(); i++)
+	/*for (int i = 0; i < enemiesSnake.count(); i++)
 	{
 		EnemySnake* iteratorSnake;
 		enemiesSnake.at(i, iteratorSnake);
@@ -187,7 +188,7 @@ PhysBody EntityHandler::GetNearestEnemy(PhysBody* Character)
 			temp = j;
 			NearEnemy = iteratorMushroom->GetPhysBody();
 		}
-	}
+	}*/
 	return *NearEnemy;
 }
 
@@ -228,73 +229,42 @@ bool EntityHandler::LoadState(pugi::xml_node& data)
 		}
 		i = 0;
 
-		for (prop = data.child("EnemySnake"); prop.type() == pugi::node_element; prop = prop.next_sibling("EnemySnake"))
-		{
-			CreateEntity(ENEMY_SNAKE, 0, 0);
-			EnemySnake* ent = nullptr;
-			enemiesSnake.at(i, ent);
-			ent->LoadState(prop);
+		//for (prop = data.child("EnemySnake"); prop.type() == pugi::node_element; prop = prop.next_sibling("EnemySnake"))
+		//{
+		//	CreateEntity(ENEMY_SNAKE, 0, 0);
+		//	EnemySnake* ent = nullptr;
+		//	enemiesSnake.at(i, ent);
+		//	ent->LoadState(prop);
 
-			i++;
+		//	i++;
 
-		}
-		i = 0;
+		//}
+		//i = 0;
 
-		for (prop = data.child("EnemyBird"); prop.type() == pugi::node_element; prop = prop.next_sibling("EnemyBird"))
-		{
-			CreateEntity(ENEMY_BIRD, 0, 0);
-			EnemyBird* ent = nullptr;
-			enemiesBird.at(i, ent);
-			ent->LoadState(prop);
+		//for (prop = data.child("EnemyBird"); prop.type() == pugi::node_element; prop = prop.next_sibling("EnemyBird"))
+		//{
+		//	CreateEntity(ENEMY_BIRD, 0, 0);
+		//	EnemyBird* ent = nullptr;
+		//	enemiesBird.at(i, ent);
+		//	ent->LoadState(prop);
 
-			i++;
+		//	i++;
 
-		}
-		i = 0;
+		//}
+		//i = 0;
 
-		for (prop = data.child("EnemyMushroom"); prop.type() == pugi::node_element; prop = prop.next_sibling("EnemyMushroom"))
-		{
-			CreateEntity(ENEMY_MUSHROOM, 0, 0);
-			EnemyMushroom* ent = nullptr;
-			enemiesMushroom.at(i,ent);
-			ent->LoadState(prop);
+		//for (prop = data.child("EnemyMushroom"); prop.type() == pugi::node_element; prop = prop.next_sibling("EnemyMushroom"))
+		//{
+		//	CreateEntity(ENEMY_MUSHROOM, 0, 0);
+		//	EnemyMushroom* ent = nullptr;
+		//	enemiesMushroom.at(i,ent);
+		//	ent->LoadState(prop);
 
-			i++;
-		
-		}
-		i = 0;
+		//	i++;
+		//
+		//}
+		//i = 0;
 
-		/*for (prop = data.child("EnemyBird"); prop.type() == pugi::node_element; prop = prop.next_sibling("EnemyBird"))
-		{
-			EnemyBird* temp;
-			enemiesBird.at(i, temp);
-			if (temp == nullptr || enemiesBird.count() == 0)
-			{
-				CreateEntity(EntityType::ENEMY_BIRD, 0, 0);
-				enemiesBird.at(i, temp);
-			}
-
-
-			temp->LoadState(prop);
-			i++;
-
-		}
-		
-
-		for (prop = data.child("EnemySnake"); prop.type() == pugi::node_element; prop = prop.next_sibling("EnemySnake"))
-		{
-			EnemySnake* temp;
-			enemiesSnake.at(i, temp);
-			if (temp == nullptr || enemiesSnake.count() == 0)
-			{
-				CreateEntity(EntityType::ENEMY_SNAKE, 0, 0);
-				enemiesSnake.at(i, temp);
-			}
-
-			temp->LoadState(prop);
-			i++;
-
-		}*/
 		
 	}
 
@@ -333,41 +303,41 @@ bool EntityHandler::SaveState(pugi::xml_node& data) const
 
 
 
-	for (int i = 0; i < enemiesMushroom.count(); i++)
-	{
+	//for (int i = 0; i < enemiesMushroom.count(); i++)
+	//{
 
-		EnemyMushroom* iteratorMushroom;
-		enemiesMushroom.at(i, iteratorMushroom);
+	//	EnemyMushroom* iteratorMushroom;
+	//	enemiesMushroom.at(i, iteratorMushroom);
 
-		iteratorMushroom->SaveState(data);
-	}
+	//	iteratorMushroom->SaveState(data);
+	//}
 
-	for (int i = 0; i < enemiesBird.count(); i++)
-	{
+	//for (int i = 0; i < enemiesBird.count(); i++)
+	//{
 
-		EnemyBird* iteratorBird;
-		enemiesBird.at(i, iteratorBird);
+	//	EnemyBird* iteratorBird;
+	//	enemiesBird.at(i, iteratorBird);
 
-		iteratorBird->SaveState(data);
-	}
+	//	iteratorBird->SaveState(data);
+	//}
 
-	for (int i = 0; i < enemiesSnake.count(); i++)
-	{
+	//for (int i = 0; i < enemiesSnake.count(); i++)
+	//{
 
-		EnemySnake* iteratorSnake;
-		enemiesSnake.at(i, iteratorSnake);
+	//	EnemySnake* iteratorSnake;
+	//	enemiesSnake.at(i, iteratorSnake);
 
-		iteratorSnake->SaveState(data);
-	}
+	//	iteratorSnake->SaveState(data);
+	//}
 
-	for (int i = 0; i < items.count(); i++)
-	{
+	//for (int i = 0; i < items.count(); i++)
+	//{
 
-		Item* it;
-		items.at(i, it);
+	//	Item* it;
+	//	items.at(i, it);
 
-		it->SaveState(data);
-	}
+	//	it->SaveState(data);
+	//}
 	return true;
 }
 
@@ -376,7 +346,18 @@ void EntityHandler::CreateEntity(enum EntityType type, int x, int y)
 	
 	switch (type)
 	{
-	case ENEMY_MUSHROOM:
+	case ENTITY_PLAYER:
+	{
+		b2Vec2 pos(x + 24, y + 24);
+		EntityPlayer* newPlayer = new EntityPlayer(pos, 2);
+		player = newPlayer;
+		allEntities.add(newPlayer);
+		newPlayer->Start();
+		newPlayer->SetID(all_ids);
+		all_ids++;
+	}
+	break;
+	/*case ENEMY_MUSHROOM:
 	{
 		b2Vec2 pos(x, y);
 		EnemyMushroom* newMushroom = new EnemyMushroom(pos, 2);
@@ -410,7 +391,7 @@ void EntityHandler::CreateEntity(enum EntityType type, int x, int y)
 		all_ids++;
 
 		break;
-	}
+	}*/
 	case ITEM_BANANA:
 	{
 		b2Vec2 pos(x, y);
@@ -423,19 +404,19 @@ void EntityHandler::CreateEntity(enum EntityType type, int x, int y)
 
 		break;
 	} 
-	case ROCKET_BANANA:
-	{
-		b2Vec2 pos(x, y);
-		RocketBanana* newRocket = new RocketBanana(pos, 1);
-		
-		rockets.add(newRocket);
-		allEntities.add(newRocket);
-		newRocket->Start();
-		newRocket->SetID(all_ids);
-		all_ids++;
-		break;
-	} 
-		
+	//case ROCKET_BANANA:
+	//{
+	//	b2Vec2 pos(x, y);
+	//	RocketBanana* newRocket = new RocketBanana(pos, 1);
+	//	
+	//	rockets.add(newRocket);
+	//	allEntities.add(newRocket);
+	//	newRocket->Start();
+	//	newRocket->SetID(all_ids);
+	//	all_ids++;
+	//	break;
+	//} 
+	//	
 	default:
 		break;
 	}
@@ -451,7 +432,7 @@ void EntityHandler::DestroyEnemy(b2Body* body)
 
 
 
-	p2List_item<EnemyMushroom*>* mushroom = enemiesMushroom.getFirst();
+	/*p2List_item<EnemyMushroom*>* mushroom = enemiesMushroom.getFirst();
 	for (int i = 0; i < enemiesMushroom.count(); i++)
 	{
 		if (cont) break;
@@ -539,7 +520,7 @@ void EntityHandler::DestroyEnemy(b2Body* body)
 		}
 		else
 			rocket = rocket->next;
-	}
+	}*/
 
 	p2List_item<Item*>* it = items.getFirst();
 	for (int i = 0; i < items.count(); i++)
@@ -572,81 +553,81 @@ EntityType EntityHandler::GetEntityType(b2Body* body) const
 	bool cont = false;
 
 
-	p2List_item<EnemyMushroom*>* mushroom = enemiesMushroom.getFirst();
-	for (int i = 0; i < enemiesMushroom.count(); i++)
-	{
-		//LOG("n: %i", enemiesMushroom.count());
-		if (cont) break;
-		EnemyMushroom* iteratorMushroom;
-		enemiesMushroom.at(i, iteratorMushroom);
+	//p2List_item<EnemyMushroom*>* mushroom = enemiesMushroom.getFirst();
+	//for (int i = 0; i < enemiesMushroom.count(); i++)
+	//{
+	//	//LOG("n: %i", enemiesMushroom.count());
+	//	if (cont) break;
+	//	EnemyMushroom* iteratorMushroom;
+	//	enemiesMushroom.at(i, iteratorMushroom);
 
 
 
-		if (iteratorMushroom->GetPhysBody()->body == body)
-		{
-			return ENEMY_MUSHROOM;
-			cont = true;
-		}
-		else
-			mushroom = mushroom->next;
-	}
+	//	if (iteratorMushroom->GetPhysBody()->body == body)
+	//	{
+	//		return ENEMY_MUSHROOM;
+	//		cont = true;
+	//	}
+	//	else
+	//		mushroom = mushroom->next;
+	//}
 
-	p2List_item<EnemyBird*>* bird = enemiesBird.getFirst();
+	//p2List_item<EnemyBird*>* bird = enemiesBird.getFirst();
 
-	for (int i = 0; i < enemiesBird.count(); i++)
-	{
-		if (cont) break;
+	//for (int i = 0; i < enemiesBird.count(); i++)
+	//{
+	//	if (cont) break;
 
-		EnemyBird* iteratorBird;
-		enemiesBird.at(i, iteratorBird);
-
-
-		if (iteratorBird->GetPhysBody()->body == body)
-		{
-			return ENEMY_BIRD;
-			cont = true;
-
-		}
-		else
-			bird = bird->next;
-	}
+	//	EnemyBird* iteratorBird;
+	//	enemiesBird.at(i, iteratorBird);
 
 
-	p2List_item<EnemySnake*>* snake = enemiesSnake.getFirst();
-	for (int i = 0; i < enemiesSnake.count(); i++)
-	{
-		if (cont) break;
+	//	if (iteratorBird->GetPhysBody()->body == body)
+	//	{
+	//		return ENEMY_BIRD;
+	//		cont = true;
 
-		EnemySnake* iteratorSnake;
-		enemiesSnake.at(i, iteratorSnake);
-
-		if (iteratorSnake->GetPhysBody()->body == body)
-		{
-			return ENEMY_SNAKE;
-			cont = true;
-
-		}
-		else
-			snake = snake->next;
-	}
-
-	p2List_item<RocketBanana*>* rocket = rockets.getFirst();
-	for (int i = 0; i < rockets.count(); i++)
-	{
-		if (cont) break;
-
-		RocketBanana* iteratorRocket;
-		rockets.at(i, iteratorRocket);
+	//	}
+	//	else
+	//		bird = bird->next;
+	//}
 
 
-		if (iteratorRocket->GetPhysBody()->body == body)
-		{
-			return ROCKET_BANANA;
-			cont = true;
-		}
-		else
-			rocket = rocket->next;
-	}
+	//p2List_item<EnemySnake*>* snake = enemiesSnake.getFirst();
+	//for (int i = 0; i < enemiesSnake.count(); i++)
+	//{
+	//	if (cont) break;
+
+	//	EnemySnake* iteratorSnake;
+	//	enemiesSnake.at(i, iteratorSnake);
+
+	//	if (iteratorSnake->GetPhysBody()->body == body)
+	//	{
+	//		return ENEMY_SNAKE;
+	//		cont = true;
+
+	//	}
+	//	else
+	//		snake = snake->next;
+	//}
+
+	//p2List_item<RocketBanana*>* rocket = rockets.getFirst();
+	//for (int i = 0; i < rockets.count(); i++)
+	//{
+	//	if (cont) break;
+
+	//	RocketBanana* iteratorRocket;
+	//	rockets.at(i, iteratorRocket);
+
+
+	//	if (iteratorRocket->GetPhysBody()->body == body)
+	//	{
+	//		return ROCKET_BANANA;
+	//		cont = true;
+	//	}
+	//	else
+	//		rocket = rocket->next;
+	//}
 
 	p2List_item<Item*>* it = items.getFirst();
 	for (int i = 0; i < items.count(); i++)
@@ -669,124 +650,125 @@ EntityType EntityHandler::GetEntityType(b2Body* body) const
 	return ENTITY_NULL;
 }
 
-void EntityHandler::DamageEnemy(b2Body* body, int damage)
-{
-
-	bool cont = false;
-
-	
-	for (int i = 0; i < enemiesMushroom.count(); i++)
-	{
-		if (cont) break;
-		EnemyMushroom* iteratorMushroom;
-		enemiesMushroom.at(i, iteratorMushroom);
-
-
-
-		if (iteratorMushroom->GetPhysBody()->body == body)
-		{
-			LOG("found type");	iteratorMushroom->DoDamage(damage);
-			cont = true;
-		}
-	}
-
-
-	for (int i = 0; i < enemiesBird.count(); i++)
-	{
-		if (cont) break;
-
-		EnemyBird* iteratorBird;
-		enemiesBird.at(i, iteratorBird);
-
-
-
-		if (iteratorBird->GetPhysBody()->body == body)
-		{
-			LOG("found type"); 
-			iteratorBird->DoDamage(damage);
-			cont = true;
-		}
-	}
-
-
-
-	for (int i = 0; i < enemiesSnake.count(); i++)
-	{
-		if (cont) break;
-
-		EnemySnake* iteratorSnake;
-		enemiesSnake.at(i, iteratorSnake);
-
-		if (iteratorSnake->GetPhysBody()->body == body)
-		{
-			LOG("found type");
-			iteratorSnake->DoDamage(damage);
-			cont = true;
-		}
-	}
-
-	for (int i = 0; i < rockets.count(); i++)
-	{
-		if (cont) break;
-
-		RocketBanana* iteratorRocket;
-		rockets.at(i, iteratorRocket);
-
-		if (iteratorRocket->GetPhysBody()->body == body)
-		{
-			LOG("found type");
-			iteratorRocket->DoDamage(damage);
-			cont = true;
-		}
-	}
-}
+//void EntityHandler::DamageEnemy(b2Body* body, int damage)
+//{
+//
+//	bool cont = false;
+//
+//	
+//	for (int i = 0; i < enemiesMushroom.count(); i++)
+//	{
+//		if (cont) break;
+//		EnemyMushroom* iteratorMushroom;
+//		enemiesMushroom.at(i, iteratorMushroom);
+//
+//
+//
+//		if (iteratorMushroom->GetPhysBody()->body == body)
+//		{
+//			LOG("found type");	iteratorMushroom->DoDamage(damage);
+//			cont = true;
+//		}
+//	}
+//
+//
+//	for (int i = 0; i < enemiesBird.count(); i++)
+//	{
+//		if (cont) break;
+//
+//		EnemyBird* iteratorBird;
+//		enemiesBird.at(i, iteratorBird);
+//
+//
+//
+//		if (iteratorBird->GetPhysBody()->body == body)
+//		{
+//			LOG("found type"); 
+//			iteratorBird->DoDamage(damage);
+//			cont = true;
+//		}
+//	}
+//
+//
+//
+//	for (int i = 0; i < enemiesSnake.count(); i++)
+//	{
+//		if (cont) break;
+//
+//		EnemySnake* iteratorSnake;
+//		enemiesSnake.at(i, iteratorSnake);
+//
+//		if (iteratorSnake->GetPhysBody()->body == body)
+//		{
+//			LOG("found type");
+//			iteratorSnake->DoDamage(damage);
+//			cont = true;
+//		}
+//	}
+//
+//	for (int i = 0; i < rockets.count(); i++)
+//	{
+//		if (cont) break;
+//
+//		RocketBanana* iteratorRocket;
+//		rockets.at(i, iteratorRocket);
+//
+//		if (iteratorRocket->GetPhysBody()->body == body)
+//		{
+//			LOG("found type");
+//			iteratorRocket->DoDamage(damage);
+//			cont = true;
+//		}
+//	}
+//}
 
 void EntityHandler::HandleEnemyDespawn()
 {
 
-	for (int i = 0; i < enemiesMushroom.count(); i++)
-	{
+	//for (int i = 0; i < enemiesMushroom.count(); i++)
+	//{
 
-		EnemyMushroom* iteratorMushroom;
-		enemiesMushroom.at(i, iteratorMushroom);
+	//	EnemyMushroom* iteratorMushroom;
+	//	enemiesMushroom.at(i, iteratorMushroom);
 
-		if (PhysBodyIsInMap(iteratorMushroom->GetPhysBody())) 
-			DestroyEnemy(iteratorMushroom->GetPhysBody()->body);
-	}
+	//	if (PhysBodyIsInMap(iteratorMushroom->GetPhysBody())) 
+	//		DestroyEnemy(iteratorMushroom->GetPhysBody()->body);
+	//}
 
-	for (int i = 0; i < enemiesBird.count(); i++)
-	{
+	//for (int i = 0; i < enemiesBird.count(); i++)
+	//{
 
-		EnemyBird* iteratorBird;
-		enemiesBird.at(i, iteratorBird);
+	//	EnemyBird* iteratorBird;
+	//	enemiesBird.at(i, iteratorBird);
 
-		if (PhysBodyIsInMap(iteratorBird->GetPhysBody()))
-			DestroyEnemy(iteratorBird->GetPhysBody()->body);
-	}
+	//	if (PhysBodyIsInMap(iteratorBird->GetPhysBody()))
+	//		DestroyEnemy(iteratorBird->GetPhysBody()->body);
+	//}
 
-	for (int i = 0; i < enemiesSnake.count(); i++)
-	{
+	//for (int i = 0; i < enemiesSnake.count(); i++)
+	//{
 
-		EnemySnake* iteratorSnake;
-		enemiesSnake.at(i, iteratorSnake);
+	//	EnemySnake* iteratorSnake;
+	//	enemiesSnake.at(i, iteratorSnake);
 
-		if (PhysBodyIsInMap(iteratorSnake->GetPhysBody()))
-			DestroyEnemy(iteratorSnake->GetPhysBody()->body);
-	}
-	for (int i = 0; i < rockets.count(); i++)
-	{
+	//	if (PhysBodyIsInMap(iteratorSnake->GetPhysBody()))
+	//		DestroyEnemy(iteratorSnake->GetPhysBody()->body);
+	//}
+	//for (int i = 0; i < rockets.count(); i++)
+	//{
 
-		RocketBanana* iteratorRocket;
-		rockets.at(i, iteratorRocket);
+	//	RocketBanana* iteratorRocket;
+	//	rockets.at(i, iteratorRocket);
 
-		if (PhysBodyIsInMap(iteratorRocket->GetPhysBody()))
-			DestroyEnemy(iteratorRocket->GetPhysBody()->body);
-	}
+	//	if (PhysBodyIsInMap(iteratorRocket->GetPhysBody()))
+	//		DestroyEnemy(iteratorRocket->GetPhysBody()->body);
+	//}
 }
 
 void EntityHandler::DestroyAllEnemies()
 {
-	int a = enemiesMushroom.count();
+	int a = 0;
+	/*a = enemiesMushroom.count();
 	for (int i = a; i > 0; i--)
 	{
 
@@ -824,7 +806,7 @@ void EntityHandler::DestroyAllEnemies()
 		rockets.at(i - 1, iteratorRocket);
 
 		DestroyEnemy(iteratorRocket->GetPhysBody()->body);
-	}
+	}*/
 
 	a = items.count();
 	for (int i = a; i > 0; i--)

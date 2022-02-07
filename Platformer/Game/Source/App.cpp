@@ -10,12 +10,9 @@
 #include "Pathfinding.h"
 #include "Physics.h"
 #include "ModuleFonts.h"
-#include "Player.h"
 #include "EntityHandler.h"
-#include "UIHandler.h"
-#include "EnemySnake.h"
-#include "EnemyMushroom.h"
-#include "EnemyBird.h"
+//#include "UIHandler.h"
+
 
 #include "Defs.h"
 #include "Log.h"
@@ -39,9 +36,9 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	pathfinding = new PathFinding();
 	physics = new Physics();
 	fonts = new ModuleFonts();
-	player = new Player();
-	entityMaster = new EntityHandler();
-	UI_handler = new UI_Handler();
+
+	entityHandler = new EntityHandler();
+	/*UI_handler = new UI_Handler();*/
 
 
 	// Ordered for awake / Start / Update
@@ -52,13 +49,14 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(physics);
 	AddModule(fonts);
-	AddModule(UI_handler);
+	/*AddModule(UI_handler);*/
+	AddModule(entityHandler);
 	AddModule(scene);
 	
 	AddModule(map);
 	AddModule(pathfinding);
-	AddModule(player);
-	AddModule(entityMaster);
+	//AddModule(player);
+	
 	
 
 	

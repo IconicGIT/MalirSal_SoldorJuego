@@ -30,7 +30,7 @@ Physics::~Physics()
 bool Physics::Start()
 {
 	LOG("Creating Physics 2D environment");
-
+	debug = true;
 	world = new b2World(b2Vec2(GRAVITY_X, -GRAVITY_Y));
 	/*b2BodyDef groundBD;
 	groundBD.type = b2_staticBody;

@@ -93,10 +93,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\EnemyBird.cpp" />
     <ClCompile Include="Source\EntityHandler.cpp" />
-    <ClCompile Include="Source\EnemyMushroom.cpp" />
-    <ClCompile Include="Source\EnemySnake.cpp" />
+    <ClCompile Include="Source\EntityPlayer.cpp" />
     <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\App.cpp" />
@@ -105,37 +103,24 @@
     <ClCompile Include="Source\Map.cpp" />
     <ClCompile Include="Source\ModuleFonts.cpp" />
     <ClCompile Include="Source\Pathfinding.cpp" />
-    <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Physics.cpp" />
-    <ClCompile Include="Source\RocketBanana.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\Render.cpp" />
-    <ClCompile Include="Source\UIElements.cpp" />
-    <ClCompile Include="Source\UIElements.h" />
     <ClCompile Include="Source\Textures.cpp" />
-    <ClCompile Include="Source\UIHandler.cpp" />
-    <ClCompile Include="Source\UIHandler.h" />
-    <ClCompile Include="Source\UI_Button.cpp" />
-    <ClCompile Include="Source\UI_Panel.cpp" />
-    <ClCompile Include="Source\UI_Slider.cpp" />
     <ClCompile Include="Source\Window.cpp" />
-    <ClInclude Include="Source\EnemyBird.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityHandler.h" />
-    <ClInclude Include="Source\EnemyMushroom.h" />
-    <ClInclude Include="Source\EnemySnake.h" />
+    <ClInclude Include="Source\EntityPlayer.h" />
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\ModuleFonts.h" />
     <ClInclude Include="Source\Pathfinding.h" />
-    <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Physics.h" />
     <ClInclude Include="Source\p2DynArray.h" />
     <ClInclude Include="Source\p2List.h" />
     <ClInclude Include="Source\p2Point.h" />
     <ClInclude Include="Source\Point.h" />
     <ClInclude Include="Source\PQueue.h" />
-    <ClInclude Include="Source\RocketBanana.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\Audio.h" />
     <ClInclude Include="Source\Input.h" />
@@ -143,9 +128,6 @@
     <ClInclude Include="Source\Module.h" />
     <ClInclude Include="Source\Render.h" />
     <ClInclude Include="Source\Textures.h" />
-    <ClInclude Include="Source\UI_Button.h" />
-    <ClInclude Include="Source\UI_Panel.h" />
-    <ClInclude Include="Source\UI_Slider.h" />
     <ClInclude Include="Source\Window.h" />
     <ClInclude Include="Source\Defs.h" />
     <ClInclude Include="Source\List.h" />

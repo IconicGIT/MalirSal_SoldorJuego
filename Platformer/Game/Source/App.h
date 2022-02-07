@@ -23,11 +23,7 @@ class Physics;
 class ModuleFonts;
 class Player;
 class EntityHandler;
-class EnemySnake;
-class EnemyMushroom;
-class EnemyBird;
-class RocketBanana;
-class UI_Handler;
+//class UI_Handler;
 
 class App
 {
@@ -113,8 +109,8 @@ public:
 	Physics* physics;
 	ModuleFonts* fonts;
 	Player* player;
-	EntityHandler* entityMaster;
-	UI_Handler* UI_handler;
+	EntityHandler* entityHandler;
+	/*UI_Handler* UI_handler;*/
 	PathFinding* pathfinding;
 
 
