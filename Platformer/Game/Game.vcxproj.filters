@@ -28,6 +28,9 @@
     <ClCompile Include="Source\EntityPlayer.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Enemies.cpp">
+      <Filter>Entities\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -81,6 +84,9 @@
     </ClInclude>
     <ClInclude Include="Source\EntityPlayer.h">
       <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemies.h">
+      <Filter>Entities\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

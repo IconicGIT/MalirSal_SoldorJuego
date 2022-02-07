@@ -13,7 +13,7 @@
 EntityPlayer::EntityPlayer(b2Vec2 startPosition, int health) : Entity()
 {
 	spawnPosition = startPosition;
-	name.Create("enemySnake");
+	name.Create("chicken_idle");
 	Hitbox = app->physics->CreateCircle(spawnPosition.x, spawnPosition.y, 16);
 	Hitbox->body->SetSleepingAllowed(false);
 	this->health = health;
