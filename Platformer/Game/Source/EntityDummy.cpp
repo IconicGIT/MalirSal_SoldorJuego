@@ -6,7 +6,8 @@
 #include "Textures.h"
 #include "Render.h"
 #include "Window.h"
-#include "Audio.h";
+#include "Audio.h"
+#include "Pathfinding.h"
 #include "EntityDummy.h"
 #include "Animation.h"
 
@@ -82,7 +83,8 @@ bool EntityDummy::Update(float dt)
 {
 	chicken_ = &chicken_idle;
 	
-
+	app->pathfinding->CreatePath(iPoint(x, y), app->entityHandler->players.getFirst()->data->GetPosition());
+	
 	x = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().x);
 	y = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().y);
 

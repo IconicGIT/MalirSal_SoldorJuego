@@ -6,9 +6,10 @@
 #include "Textures.h"
 #include "Render.h"
 #include "Window.h"
-#include "Audio.h";
+#include "Audio.h"
 #include "EntityPlayer.h"
 #include "Animation.h"
+#include "Pathfinding.h"
 
 EntityPlayer::EntityPlayer(b2Vec2 startPosition, int health) : Entity()
 {
@@ -56,7 +57,7 @@ bool EntityPlayer::Start()
 	LOG("player started");
 
 	idle_left.PushBack({ 5, 4, 63, 64 });
-	idle_left.PushBack({ 71, 4, 63, 64 });
+	idle_left.PushBack({ 71, 4, 63, 64 });	
 	idle_left.PushBack({ 132, 4, 63, 64 });
 	idle_left.PushBack({ 191, 4, 63, 64 });
 	idle_left.PushBack({ 5, 91, 63, 64 });
@@ -95,6 +96,7 @@ void EntityPlayer::LvlUp(int exp_used)
 
 bool EntityPlayer::Update(float dt)
 {
+
 	currentAnimation = &idle_left;
 
 	// DEBUG KEYS
@@ -107,6 +109,7 @@ bool EntityPlayer::Update(float dt)
 	if (goLeft = (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)) // Step Tiles
 	{
 		moveType = STEP_TILES;
+		
 		
 		//while ((int)x % 48 - 28  != 0) x--;
 		//while ((int)y % 48 - 28 != 0) y++;
@@ -142,7 +145,7 @@ bool EntityPlayer::Update(float dt)
 
 
 
-
+	
 
 
 

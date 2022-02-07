@@ -62,10 +62,15 @@ public:
 		return app->pathfinding->CheckBoundaries(positionInMap);
 
 	}
-
+	
 	PhysBody* GetPhysBody() const
 	{
 		return Hitbox;
+	}
+
+	iPoint GetPosition()
+	{
+		return iPoint(x, y);	
 	}
 
 	void setPosition(int x, int y)

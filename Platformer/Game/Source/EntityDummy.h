@@ -129,7 +129,7 @@ private:
 	float tileSpeed;
 	b2Vec2 Vspeed;
 
-	MovementDirection direction;
+	//MovementDirection direction;
 
 	bool canMove;
 
