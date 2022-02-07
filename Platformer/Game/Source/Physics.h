@@ -80,6 +80,11 @@ public:
 		return debug;
 	}
 
+	void SetDebug(bool U)
+	{
+		debug = U;
+	}
+
 private:
 
 	bool debug;

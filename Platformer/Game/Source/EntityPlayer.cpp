@@ -96,12 +96,15 @@ void EntityPlayer::LvlUp(int exp_used)
 bool EntityPlayer::Update(float dt)
 {
 	currentAnimation = &idle_left;
-	if (goLeft = (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN))
+
+	// DEBUG KEYS
+	//////////////
+	if (goLeft = (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)) // Step Free
 	{
 		moveType = STEP_FREE;
 
 	}
-	if (goLeft = (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN))
+	if (goLeft = (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)) // Step Tiles
 	{
 		moveType = STEP_TILES;
 		
@@ -112,6 +115,37 @@ bool EntityPlayer::Update(float dt)
 
 		//Hitbox->body->SetTransform(pos, 0);
 	}
+	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+	{
+		if (app->physics->GetDebug() == true)
+		{
+			app->physics->SetDebug(false);
+		}
+		else
+		{
+			app->physics->SetDebug(true);
+		}
+		
+	}
+	if (app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+	{
+		if (app->render->cameraFollow == true)
+		{
+			app->render->cameraFollow = false;
+		}
+		else
+		{
+			app->render->cameraFollow = true;
+		}
+	}
+	//////////////////
+
+
+
+
+
+
+
 	switch (moveType)
 	{
 	case STEP_FREE:

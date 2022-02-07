@@ -52,6 +52,9 @@ public:
 	SDL_Rect camera;
 	SDL_Rect viewport;
 	SDL_Color background;
+	uint windowX, windowY;
+
+	bool cameraFollow = false;
 };
 
 #endif // __RENDER_H__

@@ -360,11 +360,9 @@ PhysBody* Physics::CreateKinematicChain(int x, int y, int* points, int size)
 // 
 bool Physics::PostUpdate()
 {
-	if(app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-		debug = !debug;
+	
 
-	if(!debug)
-		return true;
+	
 
 	b2Body* clickedBody = NULL;
 	b2Vec2 mousePos = { PIXEL_TO_METERS(app->input->GetMouseX()), PIXEL_TO_METERS(app->input->GetMouseY()) };

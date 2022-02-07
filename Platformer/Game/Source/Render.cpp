@@ -1,6 +1,8 @@
 #include "App.h"
 #include "Window.h"
 #include "Render.h"
+#include "EntityPlayer.h"
+#include "EntityHandler.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -70,6 +72,20 @@ bool Render::PreUpdate()
 
 bool Render::Update(float dt)
 {
+
+	if (cameraFollow == true) // Camera follow at the center, for debug purposes
+	{
+		app->entityHandler->GetMainPlayer()->GetPhysBody()->GetPosition(camera.x, camera.y);
+		app->win->GetWindowSize(windowX, windowY);
+		camera.x -= windowX * 0.5;
+		camera.y -= windowY * 0.5;
+	}
+	else // Implement other ways of camera movement
+	{
+
+	}
+	
+
 	return true;
 }
 
