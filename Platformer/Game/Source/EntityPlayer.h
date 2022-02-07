@@ -151,7 +151,7 @@ private:
 	float tileSpeed;
 	b2Vec2 Vspeed;
 
-	MovementDirection direction;
+	MovementDirection lastDirection;
 	PlayerMovementType moveType;
 
 	bool canMove;
@@ -177,8 +177,9 @@ private:
 	int exp_lvlUp;
 
 	SDL_Texture* sprite;
-	Animation chicken_idle;
-	Animation* chicken_;
+	Animation idle_left;
+	Animation idle_right;
+	Animation* currentAnimation;
 };
 
 #endif // __ENEMY_SNAKE_H__

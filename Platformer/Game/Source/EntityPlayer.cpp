@@ -55,15 +55,26 @@ bool EntityPlayer::Start()
 
 	LOG("player started");
 
-	chicken_idle.PushBack({ 16, 28, 60, 60 });
-	chicken_idle.PushBack({ 65, 0, 65, 80 });
-	chicken_idle.PushBack({ 130, 0, 65, 80 });
-	chicken_idle.PushBack({ 195, 0, 65, 80 });
-	chicken_idle.PushBack({ 0, 90, 65, 80 });
-	chicken_idle.PushBack({ 65, 90, 65, 80 });
-	chicken_idle.PushBack({ 131, 90, 65, 80 });
-	chicken_idle.PushBack({ 195, 90, 65, 80 });
-	chicken_idle.speed = 0.02f;
+	idle_left.PushBack({ 5, 4, 63, 64 });
+	idle_left.PushBack({ 71, 4, 63, 64 });
+	idle_left.PushBack({ 132, 4, 63, 64 });
+	idle_left.PushBack({ 191, 4, 63, 64 });
+	idle_left.PushBack({ 5, 91, 63, 64 });
+	idle_left.PushBack({ 71, 91, 63, 64 });
+	idle_left.PushBack({ 132, 91, 63, 64 });
+	idle_left.PushBack({ 191, 91, 63, 64 });
+	idle_left.speed = 0.1f;
+
+
+	idle_right.PushBack({ 266, 4, 63, 64 });
+	idle_right.PushBack({ 325, 4, 63, 64 });
+	idle_right.PushBack({ 386, 4, 63, 64 });
+	idle_right.PushBack({ 452, 4, 63, 64 });
+	idle_right.PushBack({ 266, 91, 63, 64 });
+	idle_right.PushBack({ 325, 91, 63, 64 });
+	idle_right.PushBack({ 386, 91, 63, 64 });
+	idle_right.PushBack({ 452, 91, 63, 64 });
+	idle_right.speed = 0.1f;
 
 	return true;
 }
@@ -84,7 +95,7 @@ void EntityPlayer::LvlUp(int exp_used)
 
 bool EntityPlayer::Update(float dt)
 {
-	chicken_ = &chicken_idle;
+	currentAnimation = &idle_left;
 	if (goLeft = (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN))
 	{
 		moveType = STEP_FREE;
@@ -303,8 +314,36 @@ bool EntityPlayer::Update(float dt)
 	LOG("gidLeft %i", gidLeft);
 	LOG("gidRight %i", gidRight);
 	LOG("------------------------");*/
-	chicken_->Update();
-	app->render->DrawTexture(sprite, x - 32, y - 40, &chicken_->GetCurrentFrame());
+	if (goUp)
+	{
+		//lastDirection = MOV_UP;
+	}
+	else if (goDown)
+	{
+		//lastDirection = MOV_DOWN;
+	}
+	else if (goLeft)
+	{
+		lastDirection = MOV_LEFT;
+	}
+	else if (goRight)
+	{
+		lastDirection = MOV_RIGHT;
+	}
+	else
+	{
+		if (lastDirection == MOV_RIGHT)
+		{
+			currentAnimation = &idle_right;
+		}
+		else
+		{
+			currentAnimation = &idle_left;
+		}
+	}
+
+	currentAnimation->Update();
+	app->render->DrawTexture(sprite, x - 32, y - 32, &currentAnimation->GetCurrentFrame());
 
 	return true;
 }
