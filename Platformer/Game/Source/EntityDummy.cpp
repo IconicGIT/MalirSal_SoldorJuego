@@ -78,12 +78,18 @@ bool EntityDummy::Start()
 	backBar.speed = 0.1f;
 	backBar.loop = false;
 
+	recHealth = { 18, 121,  59, 6 };
+	recHealthBG = { 17, 133,   61, 8 };
 
 	healthVariation.PushBack({ 18, 121,  59, 6 });
 
 	currentLifeAnimation = &healthVariation;
 
-	// 
+	changingSpeed = 0.1f;
+	totalHealth = 100;
+	health = totalHealth;
+	changingHP = 0;
+
 
 	return true;
 }
@@ -137,40 +143,85 @@ bool EntityDummy::Update(float dt)
 
 	// Life Logic
 
-	//health;
-	//currentLifeAnimation->GetCurrentFrame().w;// start
+
+	currentLifeAnimation->GetCurrentFrame().w;// start
 
 	//Helathnew;
 	//newanim; // End
 	//
 	//steps;
-	//
-	//
-	//
-	//oldHP = health;
-	//oldHPAnim= *currentLifeAnimation;
-	//
-	//// Apply damage
-	//
-	//newHP = health;
-	//
-	//Interpolatefunction(oldHP, newHP, oldHPAnim, int steps);
-	//{
-	//
-	//	newHPAnim.w = newHP* oldHPAnim.w / oldHP;
-	//
-	//	
-	//	for (int i = 0; i < steps; i++)
-	//	{
-	//
-	//	}
-	//
-	//}
+	
+	
+	
+	oldHP = health;
+	oldHPAnim= *currentLifeAnimation;
+	
+	// Apply damage
+	
+	/*newHP = health;
+	
+	Interpolatefunction(oldHP, newHP, oldHPAnim, int steps);
+	{
+	
+		newHPAnim.w = newHP * oldHPAnim.w / oldHP;
+	
+		
+		for (int i = 0; i < steps; i++)
+		{
+	
+		}
+	
+	}*/
 
+	/*float skill_time = (float)healingCooldown;
+
+	float skill_fill_f = (healingCooldownMax - skill_time) / healingCooldownMax * 132;
+	int skill_fill_i = (int)skill_fill_f;
+
+	SDL_Rect r = { 264, 92, skill_fill_i, 20 };
+
+	if (app->scene->UI_player_skill_bar_fill != nullptr)
+		app->scene->UI_player_skill_bar_fill->rec_sprite = r;*/
 
 	//Life
-	app->render->DrawTexture(LifeBars, x-30 , y-25 , &backBar.GetCurrentFrame());
-	app->render->DrawTexture(LifeBars, x - 29, y - 24, &currentLifeAnimation->GetCurrentFrame());
+	app->render->DrawTexture(LifeBars, x-30 , y-25 , &recHealthBG);
+
+	oldHP = health;
+
+	//do damage
+	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+	{
+		changingHP = health;
+		health -= 20;
+	}
+
+	if (changingHP > health)
+	{
+		changingHP -= changingSpeed;
+	}
+	else
+	{
+		changingHP = health;
+	}
+
+	if (changingHP <= 0)
+	{
+		app->entityHandler->DestroyEnemy(Hitbox->body);
+	}
+
+	float rec_curr_h = (float)changingHP / (float)totalHealth * (float)recHealth.w;
+	int to_draw = (int)rec_curr_h;
+
+	SDL_Rect rec_temp_h = recHealth;
+	rec_temp_h.w = rec_curr_h;
+
+	app->render->DrawTexture(LifeBars, x - 29, y - 24, &rec_temp_h);
+
+	LOG("hp = %i", health);
+	LOG("total hp = %i", totalHealth);
+	LOG("changing hp = %i", changingHP);
+	LOG("draw hp = %i", to_draw);
+	LOG("------------------------------");
 
 	return true;
 }

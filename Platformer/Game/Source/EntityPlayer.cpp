@@ -147,14 +147,15 @@ bool EntityPlayer::Update(float dt)
 	{
 		app->render->Interpolate(0, 0, 0.02);
 	}
-	if (app->render->cameraFollow == true)
+
+	/*if (app->render->cameraFollow == true)
 	{
 		LOG("True");
 	}
 	else
 	{
 		LOG("False");
-	}
+	}*/
 
 
 

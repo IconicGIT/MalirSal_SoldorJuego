@@ -486,6 +486,29 @@ void EntityHandler::DestroyEnemy(b2Body* body)
 			it = it->next;
 	}
 
+	cont = false;
+	p2List_item<EntityDummy*>* dummy = dummies.getFirst();
+	for (int i = 0; i < dummies.count(); i++)
+	{
+		if (cont) break;
+
+		EntityDummy* prop;
+		dummies.at(i, prop);
+
+
+		if (prop->GetPhysBody()->body == body)
+		{
+			dummies.del(dummy);
+			p2List_item<Entity*>* eToDelete = allEntities.findNode(prop);
+			allEntities.del(eToDelete);
+
+			app->physics->GetWorld()->DestroyBody(body);
+			cont = true;
+		}
+		else
+			dummy = dummy->next;
+	}
+
 	if (cont) 
 		LOG("Enemy destroyed");
 }

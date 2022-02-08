@@ -120,7 +120,7 @@ private:
 
 	b2Vec2 spawnPosition;
 	PhysBody* Hitbox;
-	int health;
+	int health, totalHealth;
 	float x, y;
 
 	float speed;
@@ -156,12 +156,19 @@ private:
 
 	// Heath bar members
 	SDL_Texture* LifeBars;
+	SDL_Rect recHealth;
+	SDL_Rect recHealthBG;
+
+
 	Animation healthVariation;
 	Animation backBar;
 	Animation* currentLifeAnimation;
-
-	int newHP, oldHP;
+	float changingSpeed;
+	int newHP, oldHP, changingHP;
 	Animation oldHPAnim, newHPAnim;
+
+
+
 	
 };
 
