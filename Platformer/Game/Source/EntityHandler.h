@@ -66,7 +66,7 @@ public:
 
 	}
 
-	
+	bool checkForEnemies();
 	
 	p2List<Entity*> allEntities;
 	

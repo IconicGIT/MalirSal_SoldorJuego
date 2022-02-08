@@ -14,6 +14,17 @@
 #include "EntityHandler.h"
 
 
+struct Stats
+{
+	int hp;
+	int armour;
+	int damage;
+	int speed;
+	int momevent;
+	int crit;
+	int dodge;
+};
+
 enum TileType
 {
 	TILE_WIN = 1,
@@ -161,6 +172,7 @@ private:
 
 	MovementDirection lastDirection;
 	
+	Stats player_stats;
 
 	bool canMove;
 

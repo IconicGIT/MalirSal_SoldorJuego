@@ -23,6 +23,7 @@ EntityDummy::EntityDummy(b2Vec2 startPosition, int health) : Entity()
 	Hitbox->body->SetFixedRotation(true);
 	Hitbox->body->ResetMassData();
 	inter_speed = 0.05;
+	isEnemy = true;
 }
 
 

@@ -379,8 +379,19 @@ bool Scene::Update(float dt)
 			}
 		}
 	}
-	
 
+	if (!app->entityHandler->checkForEnemies())
+	{
+		// end of combat
+		app->render->cameraFollow = false;
+		app->entityHandler->players.getFirst()->data->moveType = STEP_FREE;
+		//Give chicken exp and check for lvl up;
+	}
+	else
+	{
+		app->render->cameraFollow = true;
+		app->entityHandler->players.getFirst()->data->moveType = STEP_TILES;
+	}
 	switch (state)
 	{
 	case INTRO:

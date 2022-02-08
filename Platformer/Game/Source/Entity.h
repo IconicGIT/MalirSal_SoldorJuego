@@ -22,12 +22,15 @@ public:
 		return id;
 	}
 
+	bool isEnemy = false;
+
 private:
 
 protected:
 
 	int id;
 
+	;
 };
 
 
