@@ -1,4 +1,7 @@
 #include "Enemies.h"
+#include <stdlib.h>     
+#include <time.h>      
+
 
 EntityEnemy::EntityEnemy(b2Vec2 startPosition, int health)
 {
@@ -27,6 +30,20 @@ bool EntityEnemy::Start()
 
 bool EntityEnemy::Update(float dt)
 {
+	behaviour = rand() % 50;
+
+	if (behaviour < 10)
+	{
+
+	}
+	else if (behaviour < 25)
+	{
+
+	}
+	else if (behaviour < 45)
+	{
+
+	}
 	return true;
 }
 

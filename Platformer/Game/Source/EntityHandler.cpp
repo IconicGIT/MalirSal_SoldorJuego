@@ -10,6 +10,10 @@
 #include "Audio.h";
 #include "EntityHandler.h"
 
+#include <stdlib.h>     
+#include <time.h>       
+
+
 EntityHandler::EntityHandler() : Module()
 {
 	name.Create("EntityHandler");
@@ -56,6 +60,7 @@ bool EntityHandler::CleanUp()
 
 bool EntityHandler::Update(float dt)
 {
+	srand(time(0));
 
 	for (int i = 0; i < allEntities.count(); i++)
 	{
