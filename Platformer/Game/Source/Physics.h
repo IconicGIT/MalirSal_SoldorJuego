@@ -38,6 +38,7 @@ public:
 	b2Body* body;
 	BodyType type;
 	// TODO 6: add a pointer to a module that might want to listen to a collision from this body
+
 };
 
 // Module --------------------------------------

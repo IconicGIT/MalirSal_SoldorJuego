@@ -128,10 +128,11 @@ PhysBody* Physics::CreateSensorCircle(int x, int y, int radius)
 	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
 
 	b2Body* b = world->CreateBody(&body);
-
+	
 	b2CircleShape shape;
 	shape.m_radius = PIXEL_TO_METERS(radius);
 	b2FixtureDef fixture;
+	
 	fixture.shape = &shape;
 	fixture.density = 5.0f;
 	fixture.isSensor = true;
@@ -140,6 +141,7 @@ PhysBody* Physics::CreateSensorCircle(int x, int y, int radius)
 
 	// TODO 4: add a pointer to PhysBody as UserData to the body
 	PhysBody* pbody = new PhysBody();
+	
 	pbody->body = b;
 	pbody->width = pbody->height = radius;
 

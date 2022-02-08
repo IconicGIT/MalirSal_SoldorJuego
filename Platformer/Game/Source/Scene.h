@@ -71,6 +71,7 @@ public:
 	int font1_black_3;
 	int font1_white_3;
 
+	PhysBody* sensor_01;
 	////start
 	//UI_Panel* UI_panel_title;
 

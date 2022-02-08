@@ -132,6 +132,9 @@ public:
 		
 	void LvlUp(int exp_used);
 
+
+	PlayerMovementType moveType;
+
 private:
 
 	float iSpeed;
@@ -157,7 +160,7 @@ private:
 	b2Vec2 Vspeed;
 
 	MovementDirection lastDirection;
-	PlayerMovementType moveType;
+	
 
 	bool canMove;
 

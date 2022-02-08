@@ -48,6 +48,7 @@ public:
 
 	void Interpolate(int x, int y, float speed)
 	{
+		cameraFollow = false;
 		newX = (float)x;
 		newY = (float)y;
 		if (!interpolating)
