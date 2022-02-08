@@ -159,6 +159,9 @@ private:
 	Animation healthVariation;
 	Animation backBar;
 	Animation* currentLifeAnimation;
+
+	int newHP, oldHP;
+	Animation oldHPAnim, newHPAnim;
 	
 };
 

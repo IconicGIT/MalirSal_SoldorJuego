@@ -64,6 +64,8 @@ bool EntityDummy::Start()
 	chicken_idle.PushBack({ 102, 359, 30, 24 });
 	chicken_idle.speed = 0.5f;
 
+	// Life
+	// 
 	// Grey healthbar
 	// 17 133   61 8
 	//  18 121  59 6
@@ -79,7 +81,9 @@ bool EntityDummy::Start()
 
 	healthVariation.PushBack({ 18, 121,  59, 6 });
 
-	currentLifeAnimation = &backBar;
+	currentLifeAnimation = &healthVariation;
+
+	// 
 
 	return true;
 }
@@ -130,7 +134,43 @@ bool EntityDummy::Update(float dt)
 	chicken_->Update();
 
 	app->render->DrawTexture(sprite, x - 16, y - 16, NULL);
-	app->render->DrawTexture(LifeBars, x-30 , y-20 , &currentLifeAnimation->GetCurrentFrame());
+
+	// Life Logic
+
+	//health;
+	//currentLifeAnimation->GetCurrentFrame().w;// start
+
+	//Helathnew;
+	//newanim; // End
+	//
+	//steps;
+	//
+	//
+	//
+	//oldHP = health;
+	//oldHPAnim= *currentLifeAnimation;
+	//
+	//// Apply damage
+	//
+	//newHP = health;
+	//
+	//Interpolatefunction(oldHP, newHP, oldHPAnim, int steps);
+	//{
+	//
+	//	newHPAnim.w = newHP* oldHPAnim.w / oldHP;
+	//
+	//	
+	//	for (int i = 0; i < steps; i++)
+	//	{
+	//
+	//	}
+	//
+	//}
+
+
+	//Life
+	app->render->DrawTexture(LifeBars, x-30 , y-25 , &backBar.GetCurrentFrame());
+	app->render->DrawTexture(LifeBars, x - 29, y - 24, &currentLifeAnimation->GetCurrentFrame());
 
 	return true;
 }
