@@ -37,7 +37,7 @@ bool EntityPlayer::Awake()
 
 bool EntityPlayer::Start()
 {
-	sprite = app->tex->Load("Assets/textures/chickens/idle.png");
+	sprite = app->tex->Load("Assets/textures/chickens/chicken_idle.png");
 
 	moveType = STEP_FREE;
 	AdminMode = false;

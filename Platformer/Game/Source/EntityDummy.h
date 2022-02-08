@@ -130,7 +130,7 @@ private:
 	b2Vec2 Vspeed;
 
 	bool canMove;
-
+	int behaviour;
 	bool goUp;
 	bool goDown;
 	bool goLeft;

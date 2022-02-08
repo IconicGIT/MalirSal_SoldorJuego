@@ -112,6 +112,7 @@ private:
 	float newY;
 	float h = 0;
 
+	int behaviour;
 
 	b2Vec2 spawnPosition;
 	PhysBody* Hitbox;

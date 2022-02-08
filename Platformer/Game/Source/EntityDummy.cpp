@@ -118,7 +118,20 @@ bool EntityDummy::Update(float dt)
 	x = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().x);
 	y = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().y);
 
-	
+	//behaviour = rand() % 50;
+	//
+	//if (behaviour < 10)
+	//{
+	//	LOG("YES");
+	//}
+	//else if (behaviour < 25)
+	//{
+	//	LOG("MAYBE");
+	//}
+	//else if (behaviour < 45)
+	//{
+	//	LOG("NO");
+	//}
 
 
 	mapPos = app->map->WorldToMap(METERS_TO_PIXELS(Hitbox->body->GetPosition().x), METERS_TO_PIXELS(Hitbox->body->GetPosition().y));
