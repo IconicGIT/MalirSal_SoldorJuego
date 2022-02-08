@@ -80,13 +80,17 @@ bool Render::Update(float dt)
 		//LOG("%i", camera.x);
 		app->win->GetWindowSize(windowX, windowY);
 		//LOG("%i", windowX);
-		camera.x = camera.x +windowX * 0.5;
-		camera.y = camera.y + windowY * 0.5;
+		//.x = camera.x +windowX * 0.5;
+		//camera.y = camera.y + windowY * 0.5;
 		//LOG("%i UWU", camera.x);
+		camera.x *= -1;
+		camera.y *= -1;
+		camera.x += windowX / 2;
+		camera.y += windowY / 2;
 	}
-	else // Implement other ways of camera movement
-	{
-
+	else if (interpolating)
+	{	
+		Interpolate(newX, newY, 0.01f);
 	}
 	
 

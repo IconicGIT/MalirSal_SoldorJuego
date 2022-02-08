@@ -142,7 +142,10 @@ bool EntityPlayer::Update(float dt)
 			app->render->cameraFollow = true;
 		}
 	}
-
+	if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+	{
+		app->render->Interpolate(0, 0, 0.02);
+	}
 	if (app->render->cameraFollow == true)
 	{
 		LOG("True");
