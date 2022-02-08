@@ -369,10 +369,13 @@ bool Scene::Update(float dt)
 			if (playerB == app->entityHandler->players.getFirst()->data->GetPhysBody()->body)
 			{
 				app->entityHandler->players.getFirst()->data->moveType = STEP_TILES;
+
 				app->entityHandler->players.getFirst()->data->Interpolate(0, 0, 0.02);
 				app->render->Interpolate(0, 0, 0.02);
 				app->physics->GetWorld()->DestroyBody(sensor_01->body);
 				sensor_01->type = TYPE_NULL;
+
+				// Spawn enemies!!!!
 			}
 		}
 	}
