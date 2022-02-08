@@ -5,7 +5,7 @@
 #include "Render.h"
 #include "Window.h"
 #include "Scene.h"
-
+#include "Render.h"
 #include "Map.h"
 #include "Pathfinding.h"
 #include "Physics.h"
@@ -44,6 +44,8 @@ bool Scene::Start()
 
 	player = app->entityHandler->GetMainPlayer();
 
+	sensor_01 = app->physics->CreateSensorCircle(500, 900, 24);
+	sensor_01->type = TYPE_ENEMY;
 	switch (state)
 	{
 	case INTRO:
@@ -359,10 +361,37 @@ bool Scene::Update(float dt)
 {
 	currentTime += 16;
 
-	
-	
-	
+	if (sensor_01->type != TYPE_NULL)
+	{
+		if (sensor_01->body->GetContactList() != NULL)
+		{
+			b2Body* playerB = sensor_01->body->GetContactList()->contact->GetFixtureA()->GetBody();
+			if (playerB == app->entityHandler->players.getFirst()->data->GetPhysBody()->body)
+			{
+				app->entityHandler->players.getFirst()->data->moveType = STEP_TILES;
 
+				app->entityHandler->players.getFirst()->data->Interpolate(0, 0, 0.02);
+				app->render->Interpolate(0, 0, 0.02);
+				app->physics->GetWorld()->DestroyBody(sensor_01->body);
+				sensor_01->type = TYPE_NULL;
+
+				// Spawn enemies!!!!
+			}
+		}
+	}
+
+	if (!app->entityHandler->checkForEnemies())
+	{
+		// end of combat
+		app->render->cameraFollow = false;
+		app->entityHandler->players.getFirst()->data->moveType = STEP_FREE;
+		//Give chicken exp and check for lvl up;
+	}
+	else
+	{
+		app->render->cameraFollow = true;
+		app->entityHandler->players.getFirst()->data->moveType = STEP_TILES;
+	}
 	switch (state)
 	{
 	case INTRO:

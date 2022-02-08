@@ -69,6 +69,23 @@ bool EntityHandler::Update(float dt)
 	return true;
 }
 
+bool EntityHandler::checkForEnemies()
+{
+	Entity* entitiy;
+
+	for (int i = 0; i < allEntities.count(); i++)
+	{
+		allEntities.at(i, entitiy);
+
+		if (entitiy->isEnemy)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 PhysBody* EntityHandler::GetNearestEnemy(PhysBody* Character)
 {
 	PhysBody* NearEnemy = nullptr;

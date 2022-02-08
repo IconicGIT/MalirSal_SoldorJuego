@@ -23,6 +23,7 @@ EntityDummy::EntityDummy(b2Vec2 startPosition, int health) : Entity()
 	Hitbox->body->SetFixedRotation(true);
 	Hitbox->body->ResetMassData();
 	inter_speed = 0.05;
+	isEnemy = true;
 }
 
 
@@ -37,6 +38,7 @@ bool EntityDummy::Awake()
 bool EntityDummy::Start()
 {
 	sprite = app->tex->Load("Assets/textures/nuget.png");
+	LifeBars = app->tex->Load("Assets/textures/UI/HealthBar DARK.png");
 
 	canMove = true;
 
@@ -62,8 +64,26 @@ bool EntityDummy::Start()
 	chicken_idle.PushBack({ 102, 359, 30, 24 });
 	chicken_idle.speed = 0.5f;
 
+	// Grey healthbar
+	// 17 133   61 8
+	//  18 121  59 6
+
+	// Red Healthbar
+	// 17 164 61 8
+	// 18 152 59 6
+
+	backBar.PushBack({ 17, 133,   61, 8 });
+	backBar.speed = 0.1f;
+	backBar.loop = false;
+
+
+	healthVariation.PushBack({ 18, 121,  59, 6 });
+
+	currentLifeAnimation = &backBar;
+
 	return true;
 }
+
 bool EntityDummy::CleanUp()
 {
 	LOG("Unloading player");
@@ -108,7 +128,9 @@ bool EntityDummy::Update(float dt)
 	LOG("------------------------");*/
 
 	chicken_->Update();
+
 	app->render->DrawTexture(sprite, x - 16, y - 16, NULL);
+	app->render->DrawTexture(LifeBars, x-30 , y-20 , &currentLifeAnimation->GetCurrentFrame());
 
 	return true;
 }

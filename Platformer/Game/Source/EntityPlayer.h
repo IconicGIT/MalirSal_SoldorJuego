@@ -14,6 +14,17 @@
 #include "EntityHandler.h"
 
 
+struct Stats
+{
+	int hp;
+	int armour;
+	int damage;
+	int speed;
+	int momevent;
+	int crit;
+	int dodge;
+};
+
 enum TileType
 {
 	TILE_WIN = 1,
@@ -132,6 +143,9 @@ public:
 		
 	void LvlUp(int exp_used);
 
+
+	PlayerMovementType moveType;
+
 private:
 
 	float iSpeed;
@@ -157,7 +171,8 @@ private:
 	b2Vec2 Vspeed;
 
 	MovementDirection lastDirection;
-	PlayerMovementType moveType;
+	
+	Stats player_stats;
 
 	bool canMove;
 

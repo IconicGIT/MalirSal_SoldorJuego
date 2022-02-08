@@ -108,7 +108,7 @@ public:
 private:
 
 	float iSpeed;
-	bool interpolating = false;;
+	bool interpolating = false;
 	float oldX;
 	float oldY;
 	float newX;
@@ -153,6 +153,13 @@ private:
 	SDL_Texture* sprite;
 	Animation chicken_idle;
 	Animation* chicken_;
+
+	// Heath bar members
+	SDL_Texture* LifeBars;
+	Animation healthVariation;
+	Animation backBar;
+	Animation* currentLifeAnimation;
+	
 };
 
 #endif // __ENEMY_SNAKE_H__
