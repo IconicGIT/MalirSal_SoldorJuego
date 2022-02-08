@@ -26,6 +26,7 @@ EntityPlayer::EntityPlayer(b2Vec2 startPosition, int health) : Entity()
 }
 
 
+
 EntityPlayer::~EntityPlayer()
 {}
 
@@ -36,7 +37,7 @@ bool EntityPlayer::Awake()
 
 bool EntityPlayer::Start()
 {
-	sprite = app->tex->Load("Assets/textures/chickens/chicken_idle.png");
+	sprite = app->tex->Load("Assets/textures/chickens/idle.png");
 
 	moveType = STEP_FREE;
 	AdminMode = false;
@@ -64,7 +65,7 @@ bool EntityPlayer::Start()
 	idle_left.PushBack({ 71, 91, 63, 64 });
 	idle_left.PushBack({ 132, 91, 63, 64 });
 	idle_left.PushBack({ 191, 91, 63, 64 });
-	idle_left.speed = 0.1f;
+	idle_left.speed = 0.25f;
 
 
 	idle_right.PushBack({ 266, 4, 63, 64 });
@@ -75,7 +76,7 @@ bool EntityPlayer::Start()
 	idle_right.PushBack({ 325, 91, 63, 64 });
 	idle_right.PushBack({ 386, 91, 63, 64 });
 	idle_right.PushBack({ 452, 91, 63, 64 });
-	idle_right.speed = 0.1f;
+	idle_right.speed = 0.25f;
 
 	return true;
 }
@@ -151,8 +152,6 @@ bool EntityPlayer::Update(float dt)
 	{
 		LOG("False");
 	}
-	
-	//////////////////
 
 
 
