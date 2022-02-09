@@ -102,23 +102,21 @@ bool EntityPlayer::Update(float dt)
 	// DEBUG KEYS
 	// 
 	//////////////
-	if (goLeft = (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)) // Step Free
+	if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
+	{
+		app->entityHandler->CreateEntity(ENTITY_DUMMY, 12 * 48, 22 * 48);
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) // Step Free
 	{
 		moveType = STEP_FREE;
 
 	}
-	if (goLeft = (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)) // Step Tiles
+	if (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) // Step Tiles
 	{
 		moveType = STEP_TILES;
-		
-		
-		//while ((int)x % 48 - 28  != 0) x--;
-		//while ((int)y % 48 - 28 != 0) y++;
-
-		//b2Vec2 pos = { x, y };
-
-		//Hitbox->body->SetTransform(pos, 0);
 	}
+
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 	{
 		if (app->physics->GetDebug() == true)
@@ -144,6 +142,8 @@ bool EntityPlayer::Update(float dt)
 		app->render->cameraFollow = !app->render->cameraFollow;
 
 	}
+
+
 	if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
 	{
 		app->render->Interpolate(0, 0, 0.02);
@@ -242,6 +242,9 @@ bool EntityPlayer::Update(float dt)
 	gidRight = app->map->data.layers.start->data->Get(mapPos.x + 1, mapPos.y);
 	gidUp = app->map->data.layers.start->data->Get(mapPos.x, mapPos.y - 1);
 	gidDown = app->map->data.layers.start->data->Get(mapPos.x, mapPos.y + 1);
+
+
+
 
 	/*LOG("gidNow %i", gidNow);
 	LOG("gidUp %i", gidUp);

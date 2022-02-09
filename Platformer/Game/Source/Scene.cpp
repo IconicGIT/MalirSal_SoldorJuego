@@ -434,37 +434,38 @@ bool Scene::Update(float dt)
 
 		if (freeCam)
 		{
+			app->render->cameraFollow = false;
 			//move cam sith arrows
 			if ((app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT))
-				if (app->render->camera.y < (-5))
-				{
+				
 					app->render->camera.y += cameraSpeed;
-				}
+				
 
 
 			if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-				if (app->render->camera.y > (-48 * 15 + 16))
-				{
+				
 					app->render->camera.y -= cameraSpeed;
-				}
+				
 
 
 
 			if ((app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT))
-				if (app->render->camera.x < (0))
-				{
+				
 					app->render->camera.x += cameraSpeed;
-				}
+				
 
 
 
 			if ((app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT))
-				if (app->render->camera.x > (-48 * 78 + 24))
-				{
-					app->render->camera.x -= cameraSpeed;
-				}
+				app->render->camera.x -= cameraSpeed;
+				
 
 		}
+		else
+		{
+			app->render->cameraFollow = true;
+		}
+
 
 		
 

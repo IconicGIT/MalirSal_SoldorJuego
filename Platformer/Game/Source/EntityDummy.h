@@ -163,8 +163,8 @@ private:
 	Animation healthVariation;
 	Animation backBar;
 	Animation* currentLifeAnimation;
-	float changingSpeed;
-	int newHP, oldHP, changingHP;
+	float changingSpeed, changingHP;
+	int newHP, oldHP;
 	Animation oldHPAnim, newHPAnim;
 
 

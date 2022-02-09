@@ -265,7 +265,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="4"/>
+   <tile/>
    <tile gid="13"/>
    <tile gid="13"/>
    <tile gid="13"/>
@@ -315,7 +315,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="4"/>
+   <tile/>
    <tile gid="13"/>
    <tile gid="13"/>
    <tile gid="13"/>
@@ -365,7 +365,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="4"/>
+   <tile/>
    <tile gid="13"/>
    <tile gid="13"/>
    <tile gid="13"/>
@@ -415,7 +415,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="4"/>
+   <tile/>
    <tile gid="13"/>
    <tile gid="13"/>
    <tile gid="13"/>
@@ -465,7 +465,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="4"/>
+   <tile/>
    <tile gid="13"/>
    <tile gid="13"/>
    <tile gid="13"/>
@@ -515,7 +515,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="4"/>
+   <tile/>
    <tile gid="13"/>
    <tile gid="13"/>
    <tile gid="13"/>
@@ -565,7 +565,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="4"/>
+   <tile/>
    <tile gid="13"/>
    <tile gid="13"/>
    <tile gid="13"/>
@@ -615,7 +615,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="4"/>
+   <tile/>
    <tile gid="13"/>
    <tile gid="13"/>
    <tile gid="13"/>
@@ -665,7 +665,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="4"/>
+   <tile/>
    <tile gid="13"/>
    <tile gid="13"/>
    <tile gid="13"/>
@@ -715,7 +715,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="4"/>
+   <tile/>
    <tile gid="13"/>
    <tile gid="13"/>
    <tile gid="13"/>
@@ -765,7 +765,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="4"/>
+   <tile/>
    <tile gid="13"/>
    <tile gid="13"/>
    <tile gid="13"/>
@@ -5014,7 +5014,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="5" name="Copiar desde Collisions" width="50" height="100">
+ <layer id="5" name="Copiar desde Collisions" width="50" height="100" visible="0">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>

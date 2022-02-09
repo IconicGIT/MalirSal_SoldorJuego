@@ -85,11 +85,12 @@ bool EntityDummy::Start()
 
 	currentLifeAnimation = &healthVariation;
 
-	changingSpeed = 0.05f;
+	changingSpeed = 2.f;
 	totalHealth = 100;
 	health = totalHealth;
 	changingHP = 0;
 
+	
 
 	return true;
 }
@@ -204,17 +205,18 @@ bool EntityDummy::Update(float dt)
 	//do damage
 	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 	{
-		changingHP = health;
-		health -= 20;
+		changingHP = (float)health;
+		health -= 25;
 	}
 
-	if (changingHP > health)
+	if (changingHP > (float)health)
 	{
+		
 		changingHP -= changingSpeed;
 	}
 	else
 	{
-		changingHP = health;
+		changingHP = (float)health;
 	}
 
 	if (changingHP <= 0)
@@ -222,7 +224,7 @@ bool EntityDummy::Update(float dt)
 		app->entityHandler->DestroyEnemy(Hitbox->body);
 	}
 
-	float rec_curr_h = (float)changingHP / (float)totalHealth * (float)recHealth.w;
+	float rec_curr_h = changingHP / (float)totalHealth * (float)recHealth.w;
 	int to_draw = (int)rec_curr_h;
 
 	SDL_Rect rec_temp_h = recHealth;
@@ -232,7 +234,7 @@ bool EntityDummy::Update(float dt)
 
 	LOG("hp = %i", health);
 	LOG("total hp = %i", totalHealth);
-	LOG("changing hp = %i", changingHP);
+	LOG("changing hp = %f", changingHP);
 	LOG("draw hp = %i", to_draw);
 	LOG("------------------------------");
 

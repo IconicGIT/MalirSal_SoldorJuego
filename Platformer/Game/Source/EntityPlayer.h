@@ -188,6 +188,11 @@ private:
 	int gidRight;
 	int gidNow;
 
+	bool tileFreeUp;
+	bool tileFreeDown;
+	bool tileFreeLeft;
+	bool tileFreeRight;
+
 	int playerId;
 
 	iPoint mapPos;
