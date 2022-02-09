@@ -37,12 +37,11 @@ bool EntityPlayer::Awake()
 
 bool EntityPlayer::Start()
 {
-	sprite = app->tex->Load("Assets/textures/chickens/chicken_idle.png");
+	sprite = app->tex->Load("Assets/textures/chickens/idle.png");
 
 	moveType = STEP_FREE;
 	AdminMode = false;
 	canMove = true;
-
 
 	tileSpeed = 48;
 	tileVspeed = { tileSpeed ,tileSpeed };
@@ -134,14 +133,16 @@ bool EntityPlayer::Update(float dt)
 	}
 	if (app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 	{
-		if (app->render->cameraFollow == true)
+		/*if (app->render->cameraFollow == true)
 		{
 			app->render->cameraFollow = false;
 		}
 		else
 		{
 			app->render->cameraFollow = true;
-		}
+		}*/
+		app->render->cameraFollow = !app->render->cameraFollow;
+
 	}
 	if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
 	{
@@ -199,131 +200,14 @@ bool EntityPlayer::Update(float dt)
 		{
 			Interpolate(newX, newY, 0.01f);
 		}
-		/*b2Vec2 movement = { (float)METERS_TO_PIXELS((goRight - goLeft)), (float)METERS_TO_PIXELS((goDown - goUp))};
-		Hitbox->body->SetLinearVelocity(movement);*/
-
-		/*
-	if (app->input->GetKey(SDL_SCANCODE_SPACE))
-	{
-		Interpolate(8 * 48, 28 * 48, 0.01f);
-	}
-
-	if (canMove)
-	{
-		if (app->input->GetKey(SDL_SCANCODE_W))
-		{
-			direction = MOV_UP;
-		}
-		else if (app->input->GetKey(SDL_SCANCODE_A))
-		{
-			direction = MOV_LEFT;
-		}
-		else if (app->input->GetKey(SDL_SCANCODE_S))
-		{
-			direction = MOV_DOWN;
-		}
-		else if (app->input->GetKey(SDL_SCANCODE_D))
-		{
-			direction = MOV_RIGHT;
-		}
-	}
-
-
-	b2Vec2 movement = { 0,0 };
-	switch (direction)
-	{
-	case MOV_NULL:
-		movement = { 0,0 };
-		break;
-	case MOV_UP:
-	{
-		if (gidUp != TILE_WALL)
-		{
-			canMove = false;
-			movement = { 0,-Vspeed.y };
-		}
-		else
-		{
-			Hitbox->body->SetTransform({ x,y - 0.1f }, 0);
-
-
-			canMove = true;
-			direction = MOV_NULL;
-		}
-
-	}
-		break;
-	case MOV_DOWN:
-	{
-
-		if (gidDown != TILE_WALL)
-		{
-			canMove = false;
-			movement = { 0,Vspeed.y };
-		}
-		else
-		{
-			Hitbox->body->SetTransform({ x,y + 0.1f }, 0);
-			canMove = true;
-			direction = MOV_NULL;
-		}
-	}
-		break;
-	case MOV_LEFT:
-	{
-		if (gidLeft != TILE_WALL)
-		{
-			canMove = false;
-			movement = { -Vspeed.x,0 };
-
-		}
-		else
-		{
-			Hitbox->body->SetTransform({ x - 0.1f,y }, 0);
-
-			canMove = true;
-			direction = MOV_NULL;
-		}
-	}
-		break;
-	case MOV_RIGHT:
-	{
-
-		if (gidRight != TILE_WALL)
-		{
-			canMove = false;
-			movement = { Vspeed.x,0 };
-
-		}
-		else
-		{
-			Hitbox->body->SetTransform({ x + 0.1f,y }, 0);
-
-			canMove = true;
-			direction = MOV_NULL;
-		}
 	}
 		break;
 	default:
 		break;
 	}
-
-	Hitbox->body->SetLinearVelocity(movement);
-	LOG("Pos x %f", Hitbox->body->GetPosition().x);
-	LOG("Pos  %f", Hitbox->body->GetPosition().y);*/
-
-	}
-		break;
-	default:
-		break;
-	}
-
-	
 
 	x = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().x);
 	y = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().y);
-
-	
 
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{

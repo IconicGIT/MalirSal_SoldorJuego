@@ -85,7 +85,7 @@ bool EntityDummy::Start()
 
 	currentLifeAnimation = &healthVariation;
 
-	changingSpeed = 0.1f;
+	changingSpeed = 0.05f;
 	totalHealth = 100;
 	health = totalHealth;
 	changingHP = 0;
@@ -197,7 +197,7 @@ bool EntityDummy::Update(float dt)
 		app->scene->UI_player_skill_bar_fill->rec_sprite = r;*/
 
 	//Life
-	app->render->DrawTexture(LifeBars, x-30 , y-25 , &recHealthBG);
+	app->render->DrawTexture(LifeBars, METERS_TO_PIXELS(Hitbox->body->GetPosition().x)-30 , METERS_TO_PIXELS(Hitbox->body->GetPosition().y) -25 , &recHealthBG);
 
 	oldHP = health;
 

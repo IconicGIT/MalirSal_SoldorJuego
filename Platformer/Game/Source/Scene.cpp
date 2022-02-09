@@ -80,7 +80,7 @@ bool Scene::Start()
 
 	// L03: DONE: Load map
 
-		if (app->map->Load("map.tmx") == true)
+		if (app->map->Load("mapConcept.tmx") == true)
 		{
 			int w, h;
 			uchar* data = NULL;
@@ -427,48 +427,12 @@ bool Scene::Update(float dt)
 			//LOG("current: %i", app->GetMaxFrames());
 			
 		}
+
+
 		playerX = player->GetPhysBody()->body->GetPosition().x;
 		playerY = player->GetPhysBody()->body->GetPosition().y;
 
-
-		//LOG("pos: %i, %i", playerX, playerY);
-
-		if (!freeCam)
-		{
-			uint w, h;
-			app->win->GetWindowSize(w, h);
-			
-			//make camera follow player
-			/*if (playerX > marginX)
-			{
-				app->render->camera.x = -(playerX - marginX);
-			}
-			
-
-			if (playerX >= 48 * 100 - w + marginX)
-			{
-				
-				app->render->camera.x = -1*(48 * 100 - (w));
-			}
-
-			if (playerY > marginY)
-			{
-				app->render->camera.y = -(playerY - marginY);
-			}
-
-
-			if (playerY >= 30 * 48 - h + marginY)
-			{
-
-				app->render->camera.y = -1*(30 * 48 - (h));
-			}*/
-
-
-			
-
-
-		}
-		else
+		if (freeCam)
 		{
 			//move cam sith arrows
 			if ((app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT))
@@ -503,7 +467,6 @@ bool Scene::Update(float dt)
 		}
 
 		
-		// Draw map
 
 		app->map->Draw();
 
