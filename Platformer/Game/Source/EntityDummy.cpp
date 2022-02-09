@@ -68,16 +68,16 @@ bool EntityDummy::Start()
 	// Life
 	// 
 	// Grey healthbar
-	// 17 133   61 8
-	//  18 121  59 6
+	// 17, 133,   61, 8
+	//  18, 121,  59, 6
 
 	// Red Healthbar
-	// 17 164 61 8
-	// 18 152 59 6
+	// 17, 164, 61, 8
+	// 18, 152, 59, 6
 
 
-	recHealth = { 18, 121,  59, 6 };
-	recHealthBG = { 17, 133,   61, 8 };
+	recHealth = { 18, 152, 59, 6 };
+	recHealthBG = { 17, 164, 61, 8 };
 
 	changingSpeed = 2.f;
 	totalHealth = 100;
@@ -99,6 +99,8 @@ bool EntityDummy::CleanUp()
 void EntityDummy::Draw()
 {
 	app->render->DrawTexture(sprite, x - 16, y - 16, NULL);
+	app->render->DrawTexture(LifeBars, METERS_TO_PIXELS(Hitbox->body->GetPosition().x) - 30, METERS_TO_PIXELS(Hitbox->body->GetPosition().y) - 25, &recHealthBG);
+	app->render->DrawTexture(LifeBars, x - 29, y - 24, &rec_temp_h);
 }
 
 void EntityDummy::LvlUp(int exp_used)
@@ -239,8 +241,7 @@ bool EntityDummy::Update(float dt)
 		app->scene->UI_player_skill_bar_fill->rec_sprite = r;*/
 
 	//Life
-	app->render->DrawTexture(LifeBars, METERS_TO_PIXELS(Hitbox->body->GetPosition().x)-30 , METERS_TO_PIXELS(Hitbox->body->GetPosition().y) -25 , &recHealthBG);
-
+	
 	oldHP = health;
 
 	//do damage
@@ -265,13 +266,13 @@ bool EntityDummy::Update(float dt)
 		app->entityHandler->DestroyEnemy(Hitbox->body);
 	}
 
-	float rec_curr_h = changingHP / (float)totalHealth * (float)recHealth.w;
-	int to_draw = (int)rec_curr_h;
+	rec_curr_h = changingHP / (float)totalHealth * (float)recHealth.w;
+	to_draw = (int)rec_curr_h;
 
-	SDL_Rect rec_temp_h = recHealth;
+	rec_temp_h = recHealth;
 	rec_temp_h.w = rec_curr_h;
 
-	app->render->DrawTexture(LifeBars, x - 29, y - 24, &rec_temp_h);
+	
 
 	/*LOG("hp = %i", health);
 	LOG("total hp = %i", totalHealth);
