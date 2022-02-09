@@ -99,17 +99,16 @@ bool Scene::Start()
 		//app->audio->PlayMusic("Assets/audio/music/videoplayback.ogg");    Destroy ears
 		//app->audio->PlayFx(jungleMusic, 0);
 
-		for (int x = 0; x < app->map->data.layers.start->data->width; x++)
+
+		//arcaic code
+		/*for (int x = 0; x < app->map->data.layers.start->data->width; x++)
 		{
 			for (int y = 0; y < app->map->data.layers.start->data->height; y++)
 			{
 
 				int gid = app->map->data.layers.start->data->Get(x, y);
 
-				SDL_Rect rect = app->map->data.tilesets.start->data->GetTileRect(gid);
 				iPoint screenPos = app->map->MapToWorld(x, y);
-
-				app->render->DrawTexture(app->map->data.tilesets.start->data->texture, screenPos.x, screenPos.y, &rect);
 				PhysBody* temp;
 
 
@@ -124,6 +123,55 @@ bool Scene::Start()
 			}
 
 
+		}*/
+
+		ListItem<MapLayer*>* item = app->map->data.layers.start;
+		MapLayer* layer = app->map->data.layers.start->data;
+
+		while (item != nullptr)
+		{
+			layer = item->data;
+
+			for (int y = 0; y < app->map->data.height; ++y)
+			{
+				for (int x = 0; x < app->map->data.width; ++x)
+				{
+					int gid = layer->Get(x, y);
+					if (gid > 0)
+					{
+
+						iPoint screenPos = app->map->MapToWorld(x, y);
+						PhysBody* temp;
+
+
+						if (gid == 4)
+						{
+							LOG("found tile");
+							temp = app->physics->CreateRectangle(screenPos.x + 24, screenPos.y + 24, 48, 48);
+							temp->body->SetType(b2_staticBody);
+						}
+
+
+						//ListItem<TileSet*>* currTileset = app->map->data.tilesets.start;
+						//TileSet* tileset = currTileset->data;
+
+						//while (currTileset->next != nullptr && tileId >= currTileset->next->data->firstgid)
+						//{
+						//	tileset = currTileset->next->data;
+						//	currTileset = currTileset->next;
+
+						//}
+
+
+
+						//SDL_Rect rec = tileset->GetTileRect(tileId);
+						//iPoint pos = app->map->MapToWorld(x, y);
+
+						//app->render->DrawTexture(tileset->texture, pos.x + tileset->offsetX, pos.y + tileset->offsetY, &rec);
+					}
+				}
+			}
+			item = item->next;
 		}
 
 		
