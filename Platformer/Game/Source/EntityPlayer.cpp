@@ -38,7 +38,7 @@ bool EntityPlayer::Awake()
 
 bool EntityPlayer::Start()
 {
-	sprite = app->tex->Load("Assets/textures/chickens/idle.png");
+	sprite = app->tex->Load("Assets/textures/chickens/black_idle.png");
 
 	moveType = STEP_FREE;
 	AdminMode = false;
@@ -57,26 +57,50 @@ bool EntityPlayer::Start()
 
 	LOG("player started");
 
-	idle_left.PushBack({ 5, 4, 63, 64 });
-	idle_left.PushBack({ 71, 4, 63, 64 });	
-	idle_left.PushBack({ 132, 4, 63, 64 });
-	idle_left.PushBack({ 191, 4, 63, 64 });
-	idle_left.PushBack({ 5, 91, 63, 64 });
-	idle_left.PushBack({ 71, 91, 63, 64 });
-	idle_left.PushBack({ 132, 91, 63, 64 });
-	idle_left.PushBack({ 191, 91, 63, 64 });
-	idle_left.speed = 0.25f;
+	//23
+	idle_left.PushBack({ 0 , 0, 60, 60 });
+	idle_left.PushBack({ 60 * 1, 0, 60, 60 }) ;
+	idle_left.PushBack({ 60 * 2, 0, 60, 60 }) ;
+	idle_left.PushBack({ 60 * 3, 0, 60, 60 }) ;
+	idle_left.PushBack({ 60 * 4, 0, 60, 60 }) ;
+	idle_left.PushBack({ 60 * 5, 0, 60, 60 }) ;
+	idle_left.PushBack({ 60 * 6, 0, 60, 60 }) ;
+	idle_left.PushBack({ 60 * 7, 0, 60, 60 }) ;
+	idle_left.PushBack({ 60 * 8, 0, 60, 60 }) ;
+	idle_left.PushBack({ 60 * 9,  0, 60, 60 }) ;
+	idle_left.PushBack({ 60 * 10, 0, 60, 60 });
+	idle_left.PushBack({ 60 * 11, 0, 60, 60 });
+	idle_left.PushBack({ 60 * 12, 0, 60, 60 });
+	idle_left.PushBack({ 60 * 13, 0, 60, 60 });
+	idle_left.PushBack({ 60 * 14, 0, 60, 60 });
+	idle_left.PushBack({ 60 * 15, 0, 60, 60 });
+	idle_left.PushBack({ 60 * 16, 0, 60, 60 });
+	idle_left.PushBack({ 60 * 17, 0, 60, 60 });
+	idle_left.PushBack({ 60 * 18, 0, 60, 60 });
+	idle_left.PushBack({ 60 * 19, 0, 60, 60 });
+	idle_left.PushBack({ 60 * 20, 0, 60, 60 });
+	idle_left.PushBack({ 60 * 21, 0, 60, 60 });
+	idle_left.PushBack({ 60 * 22, 0, 60, 60 });
 
+	idle_left.speed = 0.18f;
 
-	idle_right.PushBack({ 266, 4, 63, 64 });
-	idle_right.PushBack({ 325, 4, 63, 64 });
-	idle_right.PushBack({ 386, 4, 63, 64 });
-	idle_right.PushBack({ 452, 4, 63, 64 });
-	idle_right.PushBack({ 266, 91, 63, 64 });
-	idle_right.PushBack({ 325, 91, 63, 64 });
-	idle_right.PushBack({ 386, 91, 63, 64 });
-	idle_right.PushBack({ 452, 91, 63, 64 });
-	idle_right.speed = 0.25f;
+	jump.PushBack({ 0, 64 ,  0, 64 });
+	jump.PushBack({ 64 * 1,  0, 64, 64 });
+	jump.PushBack({ 64 * 2,  0, 64, 64 });
+	jump.PushBack({ 64 * 3,  0, 64, 64 });
+	jump.PushBack({ 64 * 4,  0, 64, 64 });
+	jump.PushBack({ 64 * 5,  0, 64, 64 });
+	jump.PushBack({ 64 * 6,  0, 64, 64 });
+	jump.PushBack({ 64 * 7,  0, 64, 64 });
+	jump.PushBack({ 64 * 8,  0, 64, 64 });
+	jump.PushBack({ 64 * 9,  0, 64, 64 });
+	jump.PushBack({ 64 * 10, 0, 64, 64 });
+	jump.PushBack({ 64 * 11, 0, 64, 64 });
+	jump.PushBack({ 64 * 12, 0, 64, 64 });
+	jump.PushBack({ 64 * 13, 0, 64, 64 });
+
+	jump.speed = 0.1f;
+
 
 	currentAnimation = &idle_left;
 
@@ -93,7 +117,14 @@ void EntityPlayer::Draw()
 {
 
 	currentAnimation->Update();
-	app->render->DrawTexture(sprite, x - 32, y - 32, &currentAnimation->GetCurrentFrame());
+	if (lastDirection == MOV_LEFT || lastHorizontalAxis == MOV_LEFT)
+	{
+		app->render->DrawTexture(sprite, x - 32, y - 32, &currentAnimation->GetCurrentFrame());
+	}
+	if (lastDirection == MOV_RIGHT || lastHorizontalAxis == MOV_RIGHT)
+	{
+		app->render->DrawTexture(sprite, x - 32, y - 32, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+	}
 }
 
 PhysBody* EntityPlayer::checkCloseEnemies()
@@ -167,7 +198,7 @@ bool EntityPlayer::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
 	{
-		app->render->Interpolate(0, 0, 0.02);
+		currentAnimation = &jump;
 	}
 
 	/*if (app->render->cameraFollow == true)
@@ -300,6 +331,11 @@ bool EntityPlayer::Update(float dt)
 	LOG("gidRight %i", gidRight);
 	LOG("------------------------");*/
 
+	LOG("Up %i", goUp);
+	LOG("Down %i", goDown);
+	LOG("Left %i", goLeft);
+	LOG("Right %i", goRight);
+
 	if (goUp)
 	{
 		lastDirection = MOV_UP;
@@ -310,24 +346,29 @@ bool EntityPlayer::Update(float dt)
 	}
 	else if (goLeft)
 	{
-		currentAnimation = &idle_left;
+		//currentAnimation = &idle_left;
 		lastDirection = MOV_LEFT;
+		lastHorizontalAxis = MOV_LEFT;
 	}
 	else if (goRight)
 	{
-		currentAnimation = &idle_right;
+		//currentAnimation = &idle_right;
 		lastDirection = MOV_RIGHT;
+		lastHorizontalAxis = MOV_RIGHT;
+
 	}
-	else
+	else if (goRight && goDown || goRight && goUp)
 	{
-		if (lastDirection == MOV_RIGHT)
-		{
-			currentAnimation = &idle_right;
-		}
-		else if (lastDirection == MOV_LEFT)
-		{
-			currentAnimation = &idle_left;
-		}
+		LOG("right------");
+		lastDirection = MOV_RIGHT;
+		lastHorizontalAxis = MOV_RIGHT;
+	}
+	else if (goLeft && goDown || goLeft && goUp)
+	{
+		LOG("left-----");
+
+		lastDirection = MOV_LEFT;
+		lastHorizontalAxis = MOV_LEFT;
 	}
 
 

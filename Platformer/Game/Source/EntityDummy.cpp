@@ -47,7 +47,7 @@ bool EntityDummy::Start()
 	tileSpeed = 48;
 	tileVspeed = { tileSpeed ,tileSpeed };
 
-	speed = 3;
+	speed = 1;
 	Vspeed = { speed,speed };
 
 	newX = 0;
@@ -75,16 +75,9 @@ bool EntityDummy::Start()
 	// 17 164 61 8
 	// 18 152 59 6
 
-	backBar.PushBack({ 17, 133,   61, 8 });
-	backBar.speed = 0.1f;
-	backBar.loop = false;
 
 	recHealth = { 18, 121,  59, 6 };
 	recHealthBG = { 17, 133,   61, 8 };
-
-	healthVariation.PushBack({ 18, 121,  59, 6 });
-
-	currentLifeAnimation = &healthVariation;
 
 	changingSpeed = 2.f;
 	totalHealth = 100;
@@ -124,7 +117,7 @@ bool EntityDummy::Update(float dt)
 	x = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().x);
 	y = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().y);
 
-	behaviour = rand() % 50;
+	behaviour = 50;//rand() % 50;
 	
 	if (behaviour < 50)
 	{
@@ -141,31 +134,41 @@ bool EntityDummy::Update(float dt)
 				app->render->DrawRectangle({ app->pathfinding->GetLastPath()->At(i)->x, app->pathfinding->GetLastPath()->At(i)->y, 48, 48}, 255, 255, 255, 255);
 			}
 
-			if (app->pathfinding->CreatePath(pos, chicken) != -1) // creating path bc creates errors
+			if (app->pathfinding->CreatePath(pos, chicken) > 0) // creating path bc creates errors
 			{
 				
 				const iPoint* going(app->pathfinding->GetLastPath()->At(1));
+				if (going != nullptr)
+				{
+					b2Vec2 movement = { 0,0 };
 
-				if (going->x < pos.x)
-				{
-					b2Vec2 movement = { -Vspeed.x, 0 };
-					Hitbox->body->SetLinearVelocity(movement);
+					if (going->x < pos.x)
+					{
+						movement = { -Vspeed.x, 0 };
+						Hitbox->body->SetLinearVelocity(movement);
+					}
+					else if (going->x > pos.x)
+					{
+						movement = { -Vspeed.x, 0 };
+						Hitbox->body->SetLinearVelocity(movement);
+					}
+					else if (going->y < pos.y)
+					{
+						movement = { 0, -Vspeed.y };
+						Hitbox->body->SetLinearVelocity(movement);
+					}
+					else if (going->y > pos.y)
+					{
+						movement = { 0, Vspeed.y };
+						Hitbox->body->SetLinearVelocity(movement);
+					}
+					else
+					{
+						Hitbox->body->SetLinearVelocity(movement);
+					}
 				}
-				else if (going->x > pos.x)
-				{
-					b2Vec2 movement = { -Vspeed.x, 0 };
-					Hitbox->body->SetLinearVelocity(movement);
-				}
-				else if (going->y < pos.y)
-				{
-					b2Vec2 movement = {0, -Vspeed.y };
-					Hitbox->body->SetLinearVelocity(movement);
-				}
-				else if (going->y > pos.y)
-				{
-					b2Vec2 movement = { 0, Vspeed.y };
-					Hitbox->body->SetLinearVelocity(movement);
-				}
+
+				
 
 			}
 		}
@@ -203,17 +206,10 @@ bool EntityDummy::Update(float dt)
 	// Life Logic
 
 
-	currentLifeAnimation->GetCurrentFrame().w;// start
-
 	//Helathnew;
 	//newanim; // End
 	//
 	//steps;
-	
-	
-	
-	oldHP = health;
-	oldHPAnim= *currentLifeAnimation;
 	
 	// Apply damage
 	
@@ -277,11 +273,11 @@ bool EntityDummy::Update(float dt)
 
 	app->render->DrawTexture(LifeBars, x - 29, y - 24, &rec_temp_h);
 
-	LOG("hp = %i", health);
+	/*LOG("hp = %i", health);
 	LOG("total hp = %i", totalHealth);
 	LOG("changing hp = %f", changingHP);
 	LOG("draw hp = %i", to_draw);
-	LOG("------------------------------");
+	LOG("------------------------------");*/
 
 	return true;
 }

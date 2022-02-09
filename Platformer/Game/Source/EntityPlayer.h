@@ -153,6 +153,7 @@ private:
 	b2Vec2 Vspeed;
 
 	MovementDirection lastDirection;
+	MovementDirection lastHorizontalAxis;
 	
 	Stats player_stats;
 
@@ -186,6 +187,8 @@ private:
 	SDL_Texture* sprite;
 	Animation idle_left;
 	Animation idle_right;
+	Animation jump;
+	Animation damage;
 	Animation* currentAnimation;
 };
 

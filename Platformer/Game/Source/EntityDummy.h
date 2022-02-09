@@ -161,12 +161,8 @@ private:
 	SDL_Rect recHealthBG;
 
 
-	Animation healthVariation;
-	Animation backBar;
-	Animation* currentLifeAnimation;
 	float changingSpeed, changingHP;
 	int newHP, oldHP;
-	Animation oldHPAnim, newHPAnim;
 
 
 
