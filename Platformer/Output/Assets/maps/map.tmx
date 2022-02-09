@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="50" height="100" tilewidth="48" tileheight="48" infinite="0" nextlayerid="6" nextobjectid="1">
+<map version="1.8" tiledversion="1.8.0" orientation="orthogonal" renderorder="right-down" width="50" height="100" tilewidth="48" tileheight="48" infinite="0" nextlayerid="6" nextobjectid="1">
  <tileset firstgid="1" name="meta" tilewidth="48" tileheight="48" tilecount="12" columns="6">
   <image source="meta.png" width="288" height="124"/>
  </tileset>
- <layer id="1" name="Graphics" width="50" height="100">
+ <layer id="1" name="Graphics" width="50" height="100" visible="0">
   <properties>
    <property name="Navegation" type="int" value="0"/>
    <property name="NoDraw" type="int" value="0"/>
@@ -5011,7 +5011,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="5" name="Copiar desde Collisions" width="50" height="100" visible="0">
+ <layer id="5" name="Copiar desde Collisions" width="50" height="100">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>
@@ -10019,7 +10019,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="4" name="Collisions" width="50" height="100" visible="0">
+ <layer id="4" name="Collisions" width="50" height="100">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="1"/>

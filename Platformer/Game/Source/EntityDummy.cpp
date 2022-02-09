@@ -1,4 +1,5 @@
 #include "Input.h"
+#include "App.h"
 #include "SDL/include/SDL.h"
 #include "p2List.h"
 #include "Scene.h"
@@ -119,7 +120,6 @@ bool EntityDummy::Update(float dt)
 {
 	chicken_ = &chicken_idle;
 	
-	app->pathfinding->CreatePath(iPoint(x, y), app->entityHandler->players.getFirst()->data->GetPosition());
 	
 	x = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().x);
 	y = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().y);
@@ -134,8 +134,16 @@ bool EntityDummy::Update(float dt)
 		{
 			iPoint pos(Hitbox->body->GetPosition().x, Hitbox->body->GetPosition().y);
 			iPoint chicken(goal->body->GetPosition().x, goal->body->GetPosition().y);
-			if (app->pathfinding->CreatePath(pos, chicken) > 1)
+			app->pathfinding->CreatePath(pos, chicken);
+		
+			for (int i = 0; i < app->pathfinding->GetLastPath()->Count(); i++) //DRAWING PATH
 			{
+				app->render->DrawRectangle({ app->pathfinding->GetLastPath()->At(i)->x, app->pathfinding->GetLastPath()->At(i)->y, 48, 48}, 255, 255, 255, 255);
+			}
+
+			if (app->pathfinding->GetLastPath() != NULL)
+			{
+				
 				const iPoint* going(app->pathfinding->GetLastPath()->At(1));
 
 				if (going->x < pos.x)
