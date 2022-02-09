@@ -202,23 +202,36 @@ void Map::Draw()
 	MapLayer* layer = data.layers.start->data;
 
 	// L04: DONE 5: Prepare the loop to draw all tilesets + DrawTexture()
-	for (int y = 0; y < data.height; ++y)
-	{
-		for (int x = 0; x < data.width; ++x)
+
+		for (int y = 0; y < data.height; ++y)
 		{
-			int tileId = layer->Get(x, y);
-			if (tileId > 0)
+			for (int x = 0; x < data.width; ++x)
 			{
-				// L04: DONE 9: Complete the draw function
-				TileSet* tileset = data.tilesets.start->data;
+				int tileId = layer->Get(x, y);
+				if (tileId > 0)
+				{
+					// L04: DONE 9: Complete the draw function
+					ListItem<TileSet*>* currTileset = data.tilesets.start;
+					TileSet* tileset = currTileset->data;
+					
+					while (currTileset->next != nullptr && tileId >= currTileset->next->data->firstgid)
+					{					
+						tileset = currTileset->next->data;
+						currTileset = currTileset->next;
 
-				SDL_Rect rec = tileset->GetTileRect(tileId);
-				iPoint pos = MapToWorld(x, y);
+					}
 
-				app->render->DrawTexture(tileset->texture, pos.x + tileset->offsetX, pos.y + tileset->offsetY, &rec);
+					
+
+					SDL_Rect rec = tileset->GetTileRect(tileId);
+					iPoint pos = MapToWorld(x, y);
+
+					app->render->DrawTexture(tileset->texture, pos.x + tileset->offsetX, pos.y + tileset->offsetY, &rec);
+				}
 			}
 		}
-	}
+
+
     
 	//DrawPath();
 }
