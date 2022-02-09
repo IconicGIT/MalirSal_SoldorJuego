@@ -30,24 +30,41 @@ bool SnakeEnemy::Awake()
 
 bool SnakeEnemy::Start()
 {
-	turn_ends = false;
+	turn = true;
 	speed = 1;
 	Vspeed = { speed,speed };
 
 	pac = app->tex->Load("Assets/textures/enemies/snake_idle.png");
+	LifeBars = app->tex->Load("Assets/textures/UI/HealthBar DARK.png");
+
+	recHealth = { 18, 152, 59, 6 };
+	recHealthBG = { 17, 164, 61, 8 };
+
 	a = { 0, 0, 48, 48 };
 	inter_speed = 0.02f;
 	return true;
+
+	entity_stats.hp = totalHealth = 10;
+	entity_stats.armour = 20;
+	entity_stats.damage = 10;
+	entity_stats.momevent = 5;
+	entity_stats.speed = 6;
 }
+
+void SnakeEnemy::Attck_01(Entity* player)
+{
+	player->entity_stats.hp -= this->entity_stats.damage * (1 / player->entity_stats.armour);
+}
+
 bool SnakeEnemy::Update(float dt)
 {
 
-	if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN) turn_ends = false;
+	if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN) turn = true;
 
 	x = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().x);
 	y = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().y);
 
-	if (!turn_ends)
+	if (turn)
 	{
 
 
@@ -114,18 +131,48 @@ bool SnakeEnemy::Update(float dt)
 						//ATACK
 						if (behaviour < 25)
 						{
-
+							Attck_01(goal->entity_ptr);
 						}
 						else
 						{
 
 						}
-						turn_ends = true;
+						turn = false;
 					}
 				}
 			}
 		}
 	}
+
+	oldHP = entity_stats.hp;
+
+	//do damage
+	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+	{
+		changingHP = (float)entity_stats.hp;
+		entity_stats.hp -= 25;
+	}
+
+	if (changingHP > (float)entity_stats.hp)
+	{
+		
+		changingHP -= changingSpeed;
+	}
+	else
+	{
+		changingHP = (float)entity_stats.hp;
+	}
+
+	if (changingHP <= 0)
+	{
+		app->entityHandler->DestroyEnemy(Hitbox->body);
+	}
+
+	rec_curr_h = changingHP / (float)totalHealth * (float)recHealth.w;
+	to_draw = (int)rec_curr_h;
+
+	rec_temp_h = recHealth;
+	rec_temp_h.w = rec_curr_h;
 	return false;
 }
 
@@ -144,6 +191,9 @@ bool SnakeEnemy::CleanUp()
 void SnakeEnemy::Draw()
 {
 	app->render->DrawTexture(pac, x - 24, y - 24, &a);
+
+	app->render->DrawTexture(LifeBars, METERS_TO_PIXELS(Hitbox->body->GetPosition().x) - 30, METERS_TO_PIXELS(Hitbox->body->GetPosition().y) - 25, &recHealthBG);
+    app->render->DrawTexture(LifeBars, x - 29, y - 24, &rec_temp_h);
 }
 
 int SnakeEnemy::Attack(int enemyType)

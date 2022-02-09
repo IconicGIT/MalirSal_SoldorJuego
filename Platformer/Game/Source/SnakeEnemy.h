@@ -89,6 +89,8 @@ public:
 
 	}
 
+	void Attck_01(Entity* player);
+
 	SDL_Rect a;
 	SDL_Texture* pac;
 	float x, y;
@@ -105,7 +107,20 @@ public:
 	float h = 0;
 	float inter_speed;
 
-	bool turn_ends;
+	bool turn;
+	// Heath bar members
+	SDL_Texture* LifeBars;
+	SDL_Rect recHealth;
+	SDL_Rect recHealthBG;
+
+
+	float changingSpeed, changingHP;
+	int newHP, oldHP;
+	float rec_curr_h;
+	int to_draw;
+	SDL_Rect rec_temp_h;
+	int totalHealth;
+
 private:
 
 	float speed;

@@ -435,11 +435,7 @@ bool Scene::Update(float dt)
 		app->entityHandler->players.getFirst()->data->moveType = STEP_FREE;
 		//Give chicken exp and check for lvl up;
 	}
-	else
-	{
-		app->render->cameraFollow = true;
-		app->entityHandler->players.getFirst()->data->moveType = STEP_TILES;
-	}
+	
 	switch (state)
 	{
 	case INTRO:

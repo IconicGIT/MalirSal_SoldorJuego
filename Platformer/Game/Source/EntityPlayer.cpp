@@ -24,6 +24,12 @@ EntityPlayer::EntityPlayer(b2Vec2 startPosition, int health) : Entity()
 	Hitbox->body->ResetMassData();
 	Hitbox->entity_ptr = this;
 	inter_speed = 0.05;
+
+	entity_stats.hp = 10;
+	entity_stats.armour = 20;
+	entity_stats.damage = 10;
+	entity_stats.momevent = 5;
+	entity_stats.speed = 6;
 }
 
 
@@ -40,7 +46,7 @@ bool EntityPlayer::Start()
 {
 	sprite = app->tex->Load("Assets/textures/chickens/black_idle.png");
 
-	moveType = STEP_FREE;
+	moveType = STEP_TILES;
 	AdminMode = false;
 	canMove = true;
 
