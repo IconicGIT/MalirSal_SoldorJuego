@@ -140,7 +140,14 @@ public:
 
 		
 	}
-		
+	
+	int CheckDistanceToPhysBody(PhysBody* PhysPos)
+	{
+		b2Vec2 dist = PhysPos->body->GetPosition() - Hitbox->body->GetPosition();
+
+		return (abs(dist.x) + abs(dist.y));
+	}
+
 	void LvlUp(int exp_used);
 
 

@@ -119,20 +119,52 @@ bool EntityDummy::Update(float dt)
 	x = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().x);
 	y = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().y);
 
-	//behaviour = rand() % 50;
-	//
-	//if (behaviour < 10)
-	//{
-	//	LOG("YES");
-	//}
-	//else if (behaviour < 25)
-	//{
-	//	LOG("MAYBE");
-	//}
-	//else if (behaviour < 45)
-	//{
-	//	LOG("NO");
-	//}
+	behaviour = rand() % 50;
+	
+	if (behaviour < 50)
+	{
+		// Move to player
+		PhysBody* goal = app->entityHandler->GetNearestChicken(Hitbox);
+		if (goal != NULL)
+		{
+			iPoint pos(Hitbox->body->GetPosition().x, Hitbox->body->GetPosition().y);
+			iPoint chicken(goal->body->GetPosition().x, goal->body->GetPosition().y);
+			if (app->pathfinding->CreatePath(pos, chicken) > 1)
+			{
+				const iPoint* going(app->pathfinding->GetLastPath()->At(1));
+
+				if (going->x < pos.x)
+				{
+					b2Vec2 movement = { -Vspeed.x, 0 };
+					Hitbox->body->SetLinearVelocity(movement);
+				}
+				else if (going->x > pos.x)
+				{
+					b2Vec2 movement = { -Vspeed.x, 0 };
+					Hitbox->body->SetLinearVelocity(movement);
+				}
+				else if (going->y < pos.y)
+				{
+					b2Vec2 movement = {0, -Vspeed.y };
+					Hitbox->body->SetLinearVelocity(movement);
+				}
+				else if (going->y > pos.y)
+				{
+					b2Vec2 movement = { 0, Vspeed.y };
+					Hitbox->body->SetLinearVelocity(movement);
+				}
+
+			}
+		}
+	}
+	else if (behaviour < 40)
+	{
+		
+	}
+	else 
+	{
+		
+	}
 
 
 	mapPos = app->map->WorldToMap(METERS_TO_PIXELS(Hitbox->body->GetPosition().x), METERS_TO_PIXELS(Hitbox->body->GetPosition().y));

@@ -77,6 +77,8 @@ bool EntityPlayer::Start()
 	idle_right.PushBack({ 452, 91, 63, 64 });
 	idle_right.speed = 0.25f;
 
+	currentAnimation = &idle_left;
+
 	return true;
 }
 bool EntityPlayer::CleanUp()
@@ -97,7 +99,7 @@ void EntityPlayer::LvlUp(int exp_used)
 bool EntityPlayer::Update(float dt)
 {
 
-	currentAnimation = &idle_left;
+	
 
 	// DEBUG KEYS
 	// 
@@ -252,20 +254,23 @@ bool EntityPlayer::Update(float dt)
 	LOG("gidLeft %i", gidLeft);
 	LOG("gidRight %i", gidRight);
 	LOG("------------------------");*/
+
 	if (goUp)
 	{
-		//lastDirection = MOV_UP;
+		lastDirection = MOV_UP;
 	}
 	else if (goDown)
 	{
-		//lastDirection = MOV_DOWN;
+		lastDirection = MOV_DOWN;
 	}
 	else if (goLeft)
 	{
+		currentAnimation = &idle_left;
 		lastDirection = MOV_LEFT;
 	}
 	else if (goRight)
 	{
+		currentAnimation = &idle_right;
 		lastDirection = MOV_RIGHT;
 	}
 	else
@@ -274,7 +279,7 @@ bool EntityPlayer::Update(float dt)
 		{
 			currentAnimation = &idle_right;
 		}
-		else
+		else if (lastDirection == MOV_LEFT)
 		{
 			currentAnimation = &idle_left;
 		}
