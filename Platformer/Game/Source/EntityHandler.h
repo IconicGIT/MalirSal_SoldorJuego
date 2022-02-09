@@ -31,7 +31,7 @@ enum EntityType
 	ENTITY_NULL = -1,
 	ENTITY_PLAYER,
 	ENTITY_DUMMY,
-	ITEM_BANANA
+	ENTITY_SNAKE
 };
 
 class Item;

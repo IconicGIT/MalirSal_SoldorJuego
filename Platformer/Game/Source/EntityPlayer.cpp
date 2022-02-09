@@ -331,10 +331,7 @@ bool EntityPlayer::Update(float dt)
 	LOG("gidRight %i", gidRight);
 	LOG("------------------------");*/
 
-	LOG("Up %i", goUp);
-	LOG("Down %i", goDown);
-	LOG("Left %i", goLeft);
-	LOG("Right %i", goRight);
+	
 
 	if (goUp)
 	{
@@ -359,13 +356,13 @@ bool EntityPlayer::Update(float dt)
 	}
 	else if (goRight && goDown || goRight && goUp)
 	{
-		LOG("right------");
+		
 		lastDirection = MOV_RIGHT;
 		lastHorizontalAxis = MOV_RIGHT;
 	}
 	else if (goLeft && goDown || goLeft && goUp)
 	{
-		LOG("left-----");
+		
 
 		lastDirection = MOV_LEFT;
 		lastHorizontalAxis = MOV_LEFT;

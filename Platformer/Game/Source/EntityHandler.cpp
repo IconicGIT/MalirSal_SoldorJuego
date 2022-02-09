@@ -9,6 +9,7 @@
 #include "Window.h"
 #include "Audio.h";
 #include "EntityHandler.h"
+#include "SnakeEnemy.h"
 
 #include <stdlib.h>     
 #include <time.h>       
@@ -36,7 +37,7 @@ bool EntityHandler::Start()
 
 	CreateEntity(ENTITY_PLAYER, 6 * 48, 23 * 48);
 	CreateEntity(ENTITY_DUMMY, 12 * 48, 22 * 48);
-	
+	CreateEntity(ENTITY_SNAKE, 11 * 48, 22 * 48);
 	
 
 	return true;
@@ -175,7 +176,7 @@ bool EntityHandler::LoadState(pugi::xml_node& data)
 		//	prop = prop.next_sibling("EnemyMushroom");
 		//}
 
-		for (prop = data.child("Item"); prop.type() == pugi::node_element; prop = prop.next_sibling("Item"))
+		/*for (prop = data.child("Item"); prop.type() == pugi::node_element; prop = prop.next_sibling("Item"))
 		{
 			CreateEntity(ITEM_BANANA, 0, 0);
 			Item* ent = nullptr;
@@ -184,7 +185,7 @@ bool EntityHandler::LoadState(pugi::xml_node& data)
 
 			i++;
 
-		}
+		}*/
 		i = 0;
 
 		for (prop = data.child("chicken_idle"); prop.type() == pugi::node_element; prop = prop.next_sibling("chicken_idle"))
@@ -319,18 +320,17 @@ void EntityHandler::CreateEntity(enum EntityType type, int x, int y)
 		all_ids++;
 	}
 	break;
-	/*case ENEMY_MUSHROOM:
+	case ENTITY_SNAKE:
 	{
-		b2Vec2 pos(x, y);
-		EnemyMushroom* newMushroom = new EnemyMushroom(pos, 2);
-		enemiesMushroom.add(newMushroom);
-		allEntities.add(newMushroom);
-		newMushroom->Start();
-		newMushroom->SetID(all_ids);
+		b2Vec2 pos(x + 24, y + 24);
+		SnakeEnemy* newSnake = new SnakeEnemy(pos, 2);
+		enemies.add(newSnake);
+		allEntities.add(newSnake);
+		newSnake->Start();
+		newSnake->SetID(all_ids);
 		all_ids++;
-	}
-		break;
-	case ENEMY_SNAKE:
+	} break;
+	/*case ENEMY_SNAKE:
 	{
 		b2Vec2 pos(x, y);
 		EnemySnake* newSnake = new EnemySnake(pos, 2);
@@ -354,7 +354,7 @@ void EntityHandler::CreateEntity(enum EntityType type, int x, int y)
 
 		break;
 	}*/
-	case ITEM_BANANA:
+	/*case ITEM_BANANA:
 	{
 		b2Vec2 pos(x, y);
 		Item* newItem = new Item(ItemType::BANANA, pos);
@@ -365,7 +365,7 @@ void EntityHandler::CreateEntity(enum EntityType type, int x, int y)
 		all_ids++;
 
 		break;
-	} 
+	} */
 	//case ROCKET_BANANA:
 	//{
 	//	b2Vec2 pos(x, y);
@@ -613,7 +613,7 @@ EntityType EntityHandler::GetEntityType(b2Body* body) const
 	//	else
 	//		rocket = rocket->next;
 	//}
-
+/*
 	p2List_item<Item*>* it = items.getFirst();
 	for (int i = 0; i < items.count(); i++)
 	{
@@ -634,7 +634,7 @@ EntityType EntityHandler::GetEntityType(b2Body* body) const
 
 	return ENTITY_NULL;
 }
-
+*/
 //void EntityHandler::DamageEnemy(b2Body* body, int damage)
 //{
 //
@@ -707,8 +707,8 @@ EntityType EntityHandler::GetEntityType(b2Body* body) const
 //	}
 //}
 
-void EntityHandler::HandleEnemyDespawn()
-{
+//void EntityHandler::HandleEnemyDespawn()
+//{
 
 	//for (int i = 0; i < enemiesMushroom.count(); i++)
 	//{
@@ -747,8 +747,10 @@ void EntityHandler::HandleEnemyDespawn()
 
 	//	if (PhysBodyIsInMap(iteratorRocket->GetPhysBody()))
 	//		DestroyEnemy(iteratorRocket->GetPhysBody()->body);
+return EntityType();
 	//}
 }
+
 
 void EntityHandler::DestroyAllEnemies()
 {

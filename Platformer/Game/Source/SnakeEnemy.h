@@ -32,7 +32,7 @@
 class SnakeEnemy : public EntityEnemy
 {
 public:
-	SnakeEnemy(b2Vec2 startPosition);
+	SnakeEnemy(b2Vec2 startPosition, int health);
 	virtual ~SnakeEnemy();
 
 	bool Awake();
@@ -42,11 +42,74 @@ public:
 	bool SaveState(pugi::xml_node&) const;
 	bool CleanUp();
 
+	void Draw() override;
 	int Attack(int enemyType) override;
 
+	PhysBody* Hitbox;
 
+	void Interpolate(int x, int y, float speed)
+	{
+		newX = (float)x;
+		newY = (float)y;
+		if (!interpolating)
+		{
+			h = 0;
+			iSpeed = speed;
+			if (speed > 1) iSpeed = 1;
+			if (speed < 0) iSpeed = 0;
+			oldX = this->x;
+			oldY = this->y;
+			interpolating = true;
+
+			pos_dif_x = newX - oldX;
+			pos_dif_y = newY - oldY;
+		}
+		else {
+			h += iSpeed;
+
+			if (1 - h < 0)
+				h = 1;
+
+
+			float x_ = oldX + pos_dif_x * h;
+			float y_ = oldY + pos_dif_y * h;
+
+			b2Vec2 pos = { PIXEL_TO_METERS(x_),PIXEL_TO_METERS(y_) };
+			Hitbox->body->SetTransform(pos, 0);
+
+			if (h == 1)
+			{
+				interpolating = false;
+				h = 0;
+			}
+
+		}
+
+
+
+	}
+
+	SDL_Rect a;
+	SDL_Texture* pac;
+	float x, y;
+	int behaviour;
+
+	float iSpeed;
+	bool interpolating = false;
+	float oldX;
+	float oldY;
+	float newX;
+	float newY;
+	float pos_dif_x;
+	float pos_dif_y;
+	float h = 0;
+	float inter_speed;
+
+	bool turn_ends;
 private:
 
+	float speed;
+	b2Vec2 Vspeed;
 	int attackPower;
 
 	//Stats snakeStats;
