@@ -34,8 +34,8 @@ bool EntityHandler::Start()
 
 	all_ids = 0;
 
-	CreateEntity(ENTITY_PLAYER, 6 * 48, 28 * 48);
-	//CreateEntity(ENTITY_DUMMY, 12 * 48, 22 * 48);
+	CreateEntity(ENTITY_PLAYER, 6 * 48, 23 * 48);
+	CreateEntity(ENTITY_DUMMY, 12 * 48, 22 * 48);
 	
 	
 
