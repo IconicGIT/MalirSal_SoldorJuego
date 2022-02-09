@@ -28,11 +28,14 @@
     <ClCompile Include="Source\EntityPlayer.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Enemies.cpp">
+    <ClCompile Include="Source\EntityEnemies.cpp">
       <Filter>Entities\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="Source\EntityDummy.cpp">
       <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SnakeEnemy.cpp">
+      <Filter>Entities\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -88,11 +91,14 @@
     <ClInclude Include="Source\EntityPlayer.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Enemies.h">
+    <ClInclude Include="Source\EntityEnemies.h">
       <Filter>Entities\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Source\EntityDummy.h">
       <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SnakeEnemy.h">
+      <Filter>Entities\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

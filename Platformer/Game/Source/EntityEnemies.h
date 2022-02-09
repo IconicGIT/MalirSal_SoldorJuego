@@ -19,6 +19,7 @@ class EntityEnemy : public Entity
 {
 public:
 	EntityEnemy(b2Vec2 startPosition, int health);
+	EntityEnemy();
 	virtual ~EntityEnemy();
 
 	bool Awake();
@@ -100,6 +101,14 @@ public:
 
 
 	}
+
+	/*
+	Enemy Types:
+	1- Snake
+	
+	*/
+
+	virtual int Attack(int enmeyType) { return -1; };
 
 
 private:

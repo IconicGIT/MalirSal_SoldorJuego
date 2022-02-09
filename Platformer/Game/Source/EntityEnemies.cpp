@@ -1,4 +1,4 @@
-#include "Enemies.h"
+#include "EntityEnemies.h"
 #include <stdlib.h>     
 #include <time.h>      
 
@@ -6,6 +6,17 @@
 EntityEnemy::EntityEnemy(b2Vec2 startPosition, int health)
 {
 	Hitbox = app->physics->CreateCircle(startPosition.x, startPosition.y, 16);
+	Hitbox->body->SetSleepingAllowed(false);
+	this->health = health;
+	Hitbox->body->SetGravityScale(0);
+	Hitbox->body->GetFixtureList()->SetRestitution(0);
+	Hitbox->body->SetFixedRotation(true);
+	Hitbox->body->ResetMassData();
+}
+
+EntityEnemy::EntityEnemy()
+{
+	Hitbox = app->physics->CreateCircle(10, 10, 16);
 	Hitbox->body->SetSleepingAllowed(false);
 	this->health = health;
 	Hitbox->body->SetGravityScale(0);

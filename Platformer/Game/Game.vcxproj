@@ -93,7 +93,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Enemies.cpp" />
+    <ClCompile Include="Source\EntityEnemies.cpp" />
     <ClCompile Include="Source\EntityDummy.cpp" />
     <ClCompile Include="Source\EntityHandler.cpp" />
     <ClCompile Include="Source\EntityPlayer.cpp" />
@@ -108,9 +108,10 @@
     <ClCompile Include="Source\Physics.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\Render.cpp" />
+    <ClCompile Include="Source\SnakeEnemy.cpp" />
     <ClCompile Include="Source\Textures.cpp" />
     <ClCompile Include="Source\Window.cpp" />
-    <ClInclude Include="Source\Enemies.h" />
+    <ClInclude Include="Source\EntityEnemies.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityDummy.h" />
     <ClInclude Include="Source\EntityHandler.h" />
@@ -131,6 +132,7 @@
     <ClInclude Include="Source\App.h" />
     <ClInclude Include="Source\Module.h" />
     <ClInclude Include="Source\Render.h" />
+    <ClInclude Include="Source\SnakeEnemy.h" />
     <ClInclude Include="Source\Textures.h" />
     <ClInclude Include="Source\Window.h" />
     <ClInclude Include="Source\Defs.h" />
