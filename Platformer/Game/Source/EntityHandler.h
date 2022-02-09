@@ -43,6 +43,8 @@ public:
 	// Called before the first frame
 	bool Start();
 	bool Update(float dt);
+	void DrawAllEntities();
+
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&) const;
 	bool CleanUp();

@@ -518,7 +518,7 @@ bool Scene::Update(float dt)
 		
 
 		app->map->Draw();
-
+		app->entityHandler->DrawAllEntities();
 			
 	}break;
 	case END:

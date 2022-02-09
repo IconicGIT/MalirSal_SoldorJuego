@@ -102,7 +102,8 @@ public:
 
 		
 	}
-		
+	
+	void Draw() override;
 	void LvlUp(int exp_used);
 
 private:

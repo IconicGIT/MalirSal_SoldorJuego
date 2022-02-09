@@ -74,6 +74,18 @@ bool EntityHandler::Update(float dt)
 	return true;
 }
 
+void EntityHandler::DrawAllEntities()
+{
+	Entity* entitiy;
+
+	for (int i = 0; i < allEntities.count(); i++)
+	{
+		allEntities.at(i, entitiy);
+
+		entitiy->Draw();
+	}
+}
+
 bool EntityHandler::checkForEnemies()
 {
 	Entity* entitiy;

@@ -88,6 +88,13 @@ bool EntityPlayer::CleanUp()
 	return true;
 }
 
+void EntityPlayer::Draw()
+{
+
+	currentAnimation->Update();
+	app->render->DrawTexture(sprite, x - 32, y - 32, &currentAnimation->GetCurrentFrame());
+}
+
 void EntityPlayer::LvlUp(int exp_used)
 {
 	level++;
@@ -285,8 +292,6 @@ bool EntityPlayer::Update(float dt)
 		}
 	}
 
-	currentAnimation->Update();
-	app->render->DrawTexture(sprite, x - 32, y - 32, &currentAnimation->GetCurrentFrame());
 
 	return true;
 }

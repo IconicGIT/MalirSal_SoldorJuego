@@ -74,6 +74,7 @@ public:
 
 	}
 	
+	void Draw() override;
 	PhysBody* GetPhysBody() const
 	{
 		return Hitbox;

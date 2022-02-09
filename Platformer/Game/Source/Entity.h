@@ -23,6 +23,11 @@ public:
 	}
 
 	bool isEnemy = false;
+	
+	virtual void Draw()
+	{
+
+	};
 
 private:
 

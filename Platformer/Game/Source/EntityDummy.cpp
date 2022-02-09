@@ -102,6 +102,11 @@ bool EntityDummy::CleanUp()
 	return true;
 }
 
+void EntityDummy::Draw()
+{
+	app->render->DrawTexture(sprite, x - 16, y - 16, NULL);
+}
+
 void EntityDummy::LvlUp(int exp_used)
 {
 	level++;
@@ -185,7 +190,7 @@ bool EntityDummy::Update(float dt)
 
 	chicken_->Update();
 
-	app->render->DrawTexture(sprite, x - 16, y - 16, NULL);
+	
 
 	// Life Logic
 
