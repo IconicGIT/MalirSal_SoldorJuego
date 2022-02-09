@@ -2,12 +2,16 @@
 #define __ENTITY_H__
 
 #include "Module.h"
+#include "Defs.h"
+
 
 class Entity : public Module
 {
 public:
 	Entity() 
-	{}
+	{
+		
+	}
 
 	~Entity()
 	{}
@@ -29,6 +33,7 @@ public:
 
 	};
 
+	Stats entity_stats;
 private:
 
 protected:

@@ -124,6 +124,31 @@ PhysBody* EntityHandler::GetNearestChicken(PhysBody* Character)
 	return NearPlayer;
 }
 
+PhysBody* EntityHandler::GetNearestEnemy(PhysBody* Character)
+{
+	p2List_item<EntityEnemy*>* enemy = app->entityHandler->enemies.getFirst();
+	if (enemy != NULL)
+	{
+		int temp = enemy->data->CheckDistanceToPhysBody(Character);
+
+		PhysBody* NearEnemy = enemy->data->GetPhysBody();
+		for (int i = 0; enemy; enemy = enemy->next)
+		{
+
+
+			int j = enemy->data->CheckDistanceToPhysBody(Character);
+			if (j < temp)
+			{
+				temp = j;
+				NearEnemy = enemy->data->GetPhysBody();
+			}
+		}
+		return NearEnemy;
+	}
+	else return NULL;
+	
+}
+
 
 bool EntityHandler::LoadState(pugi::xml_node& data)
 {

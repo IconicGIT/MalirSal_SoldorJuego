@@ -1,6 +1,6 @@
 #pragma once
-#ifndef __ENTITY_ENEMIES_H__
-#define __ENTITY_ENEMIES_H__
+#ifndef __ENTITY_ENEMY_H__
+#define __ENTITY_ENEMY_H__
 
 #include "Entity.h"
 #include "p2Point.h"
@@ -14,6 +14,7 @@
 #include "Log.h"
 #include "EntityHandler.h"
 
+#include "Defs.h"
 
 class EntityEnemy : public Entity
 {
@@ -108,8 +109,16 @@ public:
 	
 	*/
 
+	int CheckDistanceToPhysBody(PhysBody* PhysPos)
+	{
+		b2Vec2 dist = PhysPos->body->GetPosition() - Hitbox->body->GetPosition();
+
+		return (abs(dist.x) + abs(dist.y));
+	}
+
 	virtual int Attack(int enmeyType) { return -1; };
 
+	bool can_be_attacked_player_01 = false;
 
 private:
 

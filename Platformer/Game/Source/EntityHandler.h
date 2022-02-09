@@ -14,11 +14,16 @@
 #include "Map.h"
 #include "Pathfinding.h"
 
+#include "Defs.h"
+
 //entities
 #include "Entity.h"
 #include "EntityPlayer.h"
+#include "EntityEnemies.h"
 #include "EntityDummy.h"
 #include "Item.h"
+
+class EntityEnemy;
 class EntityPlayer;
 
 enum EntityType
@@ -74,12 +79,13 @@ public:
 	
 	p2List<Item*> items;
 	p2List<EntityDummy*> dummies;
-
+	p2List<EntityEnemy*> enemies;
 	p2List<EntityPlayer*> players;
 
 	SDL_Texture* texturePath;
 
 	PhysBody* GetNearestChicken(PhysBody* Character);
+	PhysBody* GetNearestEnemy(PhysBody* Character);
 
 	EntityPlayer* GetMainPlayer() const
 	{

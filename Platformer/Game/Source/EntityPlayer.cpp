@@ -22,6 +22,7 @@ EntityPlayer::EntityPlayer(b2Vec2 startPosition, int health) : Entity()
 	Hitbox->body->GetFixtureList()->SetRestitution(0);
 	Hitbox->body->SetFixedRotation(true);
 	Hitbox->body->ResetMassData();
+	Hitbox->entity_ptr = this;
 	inter_speed = 0.05;
 }
 
@@ -95,12 +96,23 @@ void EntityPlayer::Draw()
 	app->render->DrawTexture(sprite, x - 32, y - 32, &currentAnimation->GetCurrentFrame());
 }
 
+PhysBody* EntityPlayer::checkCloseEnemies()
+{
+	PhysBody* enemy = app->entityHandler->GetNearestEnemy(Hitbox);
+	return enemy;
+}
+
 void EntityPlayer::LvlUp(int exp_used)
 {
 	level++;
 	// Increase stats
 	exp -= exp_used;
 	//Increase exp needed
+}
+
+void EntityPlayer::Attck_01(Entity* enemy)
+{
+	enemy->entity_stats.hp -= this->entity_stats.damage * (1 / enemy->entity_stats.armour);
 }
 
 bool EntityPlayer::Update(float dt)
@@ -200,6 +212,18 @@ bool EntityPlayer::Update(float dt)
 			
 		}
 		
+		// implement attack !!
+		if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+		{
+			enemyFocused = NULL;
+			// change moveType!!!!
+			
+			enemyFocused = checkCloseEnemies();
+			if (enemyFocused)
+			{
+				moveType = FOCUSING;
+			}
+		}
 		if (goRight) Interpolate(x + 48, y, inter_speed);
 		else if (goLeft) Interpolate(x - 48, y, inter_speed);
 		else if (goUp) Interpolate(x, y - 48, inter_speed);
@@ -209,10 +233,24 @@ bool EntityPlayer::Update(float dt)
 		{
 			Interpolate(newX, newY, 0.01f);
 		}
-	}
-		break;
+	}break;
+	case FOCUSING:
+	{
+		if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
+		{
+			Attck_01(enemyFocused->entity_ptr);
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_BACKSLASH) == KEY_DOWN)
+		{
+			moveType = STEP_TILES;
+		}
+	} break;
+		
 	default:
-		break;
+	{
+
+	} break;
 	}
 
 	x = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().x);

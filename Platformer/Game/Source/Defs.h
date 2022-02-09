@@ -59,4 +59,38 @@ inline const char* const PATH(const char* folder, const char* file)
 	return path;
 }
 
+struct Stats
+{
+	int hp;
+	int armour;
+	int damage;
+	int speed;
+	int momevent;
+	int crit;
+	int dodge;
+};
+enum TileType
+{
+	TILE_WIN = 1,
+	TILE_DAMAGE = 2,
+	TILE_SPAWN = 3,
+	TILE_WALL = 4
+};
+
+enum MovementDirection
+{
+	MOV_NULL = 0,
+	MOV_UP,
+	MOV_DOWN,
+	MOV_LEFT,
+	MOV_RIGHT
+};
+
+enum PlayerMovementType
+{
+	STEP_FREE = 0,
+	STEP_TILES,
+	FOCUSING
+};
+
 #endif

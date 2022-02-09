@@ -1,6 +1,7 @@
 #pragma once
 #include "Module.h"
 #include "Box2D/Box2D/Box2D.h"
+#include "Entity.h"
 
 #define GRAVITY_X 0.0f
 #define GRAVITY_Y -24.0f
@@ -32,7 +33,7 @@ public:
 	float GetRotation() const;
 	bool Contains(int x, int y) const;
 	int RayCast(int x1, int y1, int x2, int y2, float& normal_x, float& normal_y) const;
-
+	Entity* entity_ptr;
 public:
 	bool playAnimation = false;
 	int width, height;

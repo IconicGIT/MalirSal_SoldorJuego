@@ -12,6 +12,7 @@ EntityEnemy::EntityEnemy(b2Vec2 startPosition, int health)
 	Hitbox->body->GetFixtureList()->SetRestitution(0);
 	Hitbox->body->SetFixedRotation(true);
 	Hitbox->body->ResetMassData();
+	Hitbox->entity_ptr = this;
 }
 
 EntityEnemy::EntityEnemy()
@@ -23,6 +24,7 @@ EntityEnemy::EntityEnemy()
 	Hitbox->body->GetFixtureList()->SetRestitution(0);
 	Hitbox->body->SetFixedRotation(true);
 	Hitbox->body->ResetMassData();
+	Hitbox->entity_ptr = this;
 }
 
 EntityEnemy::~EntityEnemy()
