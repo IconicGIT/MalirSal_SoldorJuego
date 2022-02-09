@@ -26,8 +26,9 @@ EntityPlayer::EntityPlayer(b2Vec2 startPosition, int health) : Entity()
 	inter_speed = 0.05;
 
 	entity_stats.hp = 10;
-	entity_stats.armour = 20;
-	entity_stats.damage = 10;
+	totalHealth = 10;
+	entity_stats.armour = 1;
+	entity_stats.damage = 4;
 	entity_stats.momevent = 5;
 	entity_stats.speed = 6;
 }
@@ -45,6 +46,10 @@ bool EntityPlayer::Awake()
 bool EntityPlayer::Start()
 {
 	sprite = app->tex->Load("Assets/textures/chickens/black_idle.png");
+	LifeBars = app->tex->Load("Assets/textures/UI/HealthBar DARK.png");
+
+	recHealth = { 18, 152, 59, 6 };
+	recHealthBG = { 17, 164, 61, 8 };
 
 	moveType = STEP_TILES;
 	AdminMode = false;
@@ -131,6 +136,9 @@ void EntityPlayer::Draw()
 	{
 		app->render->DrawTexture(sprite, x - 32, y - 32, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
 	}
+
+	app->render->DrawTexture(LifeBars, METERS_TO_PIXELS(Hitbox->body->GetPosition().x) - 30, METERS_TO_PIXELS(Hitbox->body->GetPosition().y) - 25, &recHealthBG);
+	app->render->DrawTexture(LifeBars, x - 29, y - 24, &rec_temp_h);
 }
 
 PhysBody* EntityPlayer::checkCloseEnemies()
@@ -149,7 +157,8 @@ void EntityPlayer::LvlUp(int exp_used)
 
 void EntityPlayer::Attck_01(Entity* enemy)
 {
-	enemy->entity_stats.hp -= this->entity_stats.damage * (1 / enemy->entity_stats.armour);
+	enemy->entity_stats.hp -= this->entity_stats.damage * enemy->entity_stats.armour;
+	int a;
 }
 
 bool EntityPlayer::Update(float dt)
@@ -278,7 +287,7 @@ bool EntityPlayer::Update(float dt)
 			Attck_01(enemyFocused->entity_ptr);
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_BACKSLASH) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
 		{
 			moveType = STEP_TILES;
 		}
@@ -373,6 +382,36 @@ bool EntityPlayer::Update(float dt)
 		lastDirection = MOV_LEFT;
 		lastHorizontalAxis = MOV_LEFT;
 	}
+
+	oldHP = entity_stats.hp;
+
+	//do damage
+	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+	{
+		changingHP = (float)entity_stats.hp;
+		entity_stats.hp -= 25;
+	}
+
+	if (changingHP > (float)entity_stats.hp)
+	{
+
+		changingHP -= changingSpeed;
+	}
+	else
+	{
+		changingHP = (float)entity_stats.hp;
+	}
+
+	if (changingHP <= 0)
+	{
+		app->entityHandler->DestroyEnemy(Hitbox->body);
+	}
+
+	rec_curr_h = changingHP / (float)totalHealth * (float)recHealth.w;
+	to_draw = (int)rec_curr_h;
+
+	rec_temp_h = recHealth;
+	rec_temp_h.w = rec_curr_h;
 
 
 	return true;

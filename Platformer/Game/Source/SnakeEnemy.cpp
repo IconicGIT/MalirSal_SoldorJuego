@@ -7,7 +7,10 @@ SnakeEnemy::SnakeEnemy(b2Vec2 startPosition, int health) : EntityEnemy()
 {
 	setPosition(startPosition.x,startPosition.y);
 	entity_stats.hp = health;
-
+	entity_stats.armour = 1;
+	entity_stats.damage = 10;
+	entity_stats.momevent = 5;
+	entity_stats.speed = 6;
 	name.Create("snake");
 	Hitbox = app->physics->CreateCircle(startPosition.x, startPosition.y, 16);
 	Hitbox->body->SetSleepingAllowed(false);
@@ -42,19 +45,21 @@ bool SnakeEnemy::Start()
 
 	a = { 0, 0, 48, 48 };
 	inter_speed = 0.02f;
-	return true;
+	
 
 	entity_stats.hp = 10;
 	//totalHealth = 10;
-	entity_stats.armour = 20;
+	entity_stats.armour = 1;
 	entity_stats.damage = 10;
 	entity_stats.momevent = 5;
 	entity_stats.speed = 6;
+	return true;
 }
 
 void SnakeEnemy::Attck_01(Entity* player)
 {
-	player->entity_stats.hp -= this->entity_stats.damage * (1 / player->entity_stats.armour);
+	player->entity_stats.hp -= entity_stats.damage * player->entity_stats.armour;
+	
 }
 
 bool SnakeEnemy::Update(float dt)
@@ -136,7 +141,7 @@ bool SnakeEnemy::Update(float dt)
 						}
 						else
 						{
-
+							Attck_01(goal->entity_ptr);
 						}
 						turn = false;
 					}

@@ -190,6 +190,19 @@ private:
 	Animation jump;
 	Animation damage;
 	Animation* currentAnimation;
+
+	// Heath bar members
+	SDL_Texture* LifeBars;
+	SDL_Rect recHealth;
+	SDL_Rect recHealthBG;
+
+
+	float changingSpeed, changingHP;
+	int newHP, oldHP;
+	float rec_curr_h;
+	int to_draw;
+	SDL_Rect rec_temp_h;
+	int totalHealth;
 };
 
 #endif // __ENEMY_SNAKE_H__
