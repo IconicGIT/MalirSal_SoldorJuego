@@ -141,7 +141,7 @@ bool EntityDummy::Update(float dt)
 				app->render->DrawRectangle({ app->pathfinding->GetLastPath()->At(i)->x, app->pathfinding->GetLastPath()->At(i)->y, 48, 48}, 255, 255, 255, 255);
 			}
 
-			if (app->pathfinding->GetLastPath() != NULL)
+			if (app->pathfinding->CreatePath(pos, chicken) != -1) // creating path bc creates errors
 			{
 				
 				const iPoint* going(app->pathfinding->GetLastPath()->At(1));
