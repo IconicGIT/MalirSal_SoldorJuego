@@ -91,49 +91,27 @@ bool EntityHandler::checkForEnemies()
 	return false;
 }
 
-PhysBody* EntityHandler::GetNearestEnemy(PhysBody* Character)
+PhysBody* EntityHandler::GetNearestChicken(PhysBody* Character)
 {
-	PhysBody* NearEnemy = nullptr;
-	int temp = 1000;
 	
-	/*for (int i = 0; i < enemiesSnake.count(); i++)
-	{
-		EnemySnake* iteratorSnake;
-		enemiesSnake.at(i, iteratorSnake);
+	p2List_item<EntityPlayer*>* chicken = app->entityHandler->players.getFirst();
+	int temp = chicken->data->CheckDistanceToPhysBody(Character);
 
-		int j = iteratorSnake->CheckDistanceToPhysBody(Character);
+	PhysBody* NearPlayer = chicken->data->GetPhysBody();
+	for (int i = 0; chicken; chicken = chicken->next)
+	{
+		
+
+		int j = chicken->data->CheckDistanceToPhysBody(Character);
 		if (j<temp)
 		{
 			temp = j;
-			NearEnemy = iteratorSnake->GetPhysBody();
+			NearPlayer = chicken->data->GetPhysBody();
 		}
 	}
-	for (int i = 0; i < enemiesBird.count(); i++)
-	{
-		EnemyBird* iteratorBird;
-		enemiesBird.at(i, iteratorBird);
-
-		int j = iteratorBird->CheckDistanceToPhysBody(Character);
-		if (j < temp)
-		{
-			temp = j;
-			NearEnemy = iteratorBird->GetPhysBody();
-		}
-	}
-	for (int i = 0; i < enemiesMushroom.count(); i++)
-	{
-		EnemyMushroom* iteratorMushroom;
-		enemiesMushroom.at(i, iteratorMushroom);
-
-		int j = iteratorMushroom->CheckDistanceToPhysBody(Character);
-		if (j < temp)
-		{
-			temp = j;
-			NearEnemy = iteratorMushroom->GetPhysBody();
-		}
-	}*/
-	return NearEnemy;
+	return NearPlayer;
 }
+
 
 bool EntityHandler::LoadState(pugi::xml_node& data)
 {

@@ -77,7 +77,7 @@ public:
 
 	SDL_Texture* texturePath;
 
-	PhysBody* GetNearestEnemy(PhysBody* Character);
+	PhysBody* GetNearestChicken(PhysBody* Character);
 
 	EntityPlayer* GetMainPlayer() const
 	{

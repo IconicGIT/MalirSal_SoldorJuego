@@ -581,6 +581,7 @@ void PhysBody::GetPosition(int& x, int &y) const
 	
 }
 
+
 float PhysBody::GetRotation() const
 {
 	return app->RADTODEG() * body->GetAngle();
