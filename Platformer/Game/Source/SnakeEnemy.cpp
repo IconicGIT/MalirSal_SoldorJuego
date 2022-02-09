@@ -48,7 +48,7 @@ bool SnakeEnemy::Start()
 	
 
 	entity_stats.hp = 10;
-	//totalHealth = 10;
+	totalHealth = 10;
 	entity_stats.armour = 1;
 	entity_stats.damage = 10;
 	entity_stats.momevent = 5;
@@ -174,7 +174,7 @@ bool SnakeEnemy::Update(float dt)
 		app->entityHandler->DestroyEnemy(Hitbox->body);
 	}
 
-	rec_curr_h = changingHP / (float)oldHP * (float)recHealth.w;
+	rec_curr_h = changingHP / (float)totalHealth * (float)recHealth.w;
 	to_draw = (int)rec_curr_h;
 
 	rec_temp_h = recHealth;
