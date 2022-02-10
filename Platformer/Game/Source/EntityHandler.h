@@ -55,6 +55,7 @@ public:
 	bool CleanUp();
 	void CreateEntity(enum EntityType type, int x, int y);
 	void DestroyEnemy(b2Body* body);
+	void DestroyPlayer(b2Body* body);
 	/*void DamageEnemy(b2Body* body, int damage);*/
 	void HandleEnemyDespawn();
 	void DestroyAllEnemies();

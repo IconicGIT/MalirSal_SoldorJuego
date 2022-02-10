@@ -87,6 +87,18 @@ public:
 
 			pos_dif_x = newX - oldX;
 			pos_dif_y = newY - oldY;
+			if (pos_dif_x < 0)
+			{
+				lastDirection = MOV_LEFT;
+				lastHorizontalAxis = MOV_LEFT;
+			}
+			else if (pos_dif_x > 0)
+			{
+				lastDirection = MOV_RIGHT;
+				lastHorizontalAxis = MOV_RIGHT;
+			}
+			currentAnimation = &jump;
+			currentAnimation->Reset();
 		}
 		else {
 			h += iSpeed;
@@ -189,6 +201,7 @@ private:
 	
 	Animation jump;
 	Animation damage;
+	Animation death;
 	Animation* currentAnimation;
 
 	// Heath bar members

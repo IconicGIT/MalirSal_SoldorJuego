@@ -389,148 +389,44 @@ void EntityHandler::CreateEntity(enum EntityType type, int x, int y)
 void EntityHandler::DestroyEnemy(b2Body* body)
 {
 
-	bool cont = false; 
-
-
-
-
-	/*p2List_item<EnemyMushroom*>* mushroom = enemiesMushroom.getFirst();
-	for (int i = 0; i < enemiesMushroom.count(); i++)
+	
+	for (p2List_item<EntityEnemy*>* dummy = enemies.getFirst(); dummy; dummy = dummy->next)
 	{
-		if (cont) break;
-		EnemyMushroom* iteratorMushroom;
-		enemiesMushroom.at(i, iteratorMushroom);
+
+
+		if (dummy->data->GetPhysBody()->body == body)
+		{
+			enemies.del(dummy);
+			p2List_item<Entity*>* eToDelete = allEntities.findNode(dummy->data);
+			allEntities.del(eToDelete);
+
+			app->physics->GetWorld()->DestroyBody(body);
+
+		}
 		
-
-
-		if (iteratorMushroom->GetPhysBody()->body == body)
-		{
-			enemiesMushroom.del(mushroom);
-			p2List_item<Entity*>* eToDelete = allEntities.findNode(iteratorMushroom);
-			allEntities.del(eToDelete);
-
-			app->physics->GetWorld()->DestroyBody(body);
-			
-			cont = true;
-		}
-		else
-			mushroom = mushroom->next;
 	}
+}
 
-	p2List_item<EnemyBird*>* bird = enemiesBird.getFirst();
-
-	for (int i = 0; i < enemiesBird.count(); i++)
+void EntityHandler::DestroyPlayer(b2Body* body)
+{
+	for (p2List_item<EntityPlayer*>* dummy = players.getFirst(); dummy; dummy = dummy->next)
 	{
-		if (cont) break;
-
-		EnemyBird* iteratorBird;
-		enemiesBird.at(i, iteratorBird);
 
 
-		if (iteratorBird->GetPhysBody()->body == body)
+		if (dummy->data->GetPhysBody()->body == body)
 		{
-   			enemiesBird.del(bird);
-			p2List_item<Entity*>* eToDelete = allEntities.findNode(iteratorBird);
+			players.del(dummy);
+			p2List_item<Entity*>* eToDelete = allEntities.findNode(dummy->data);
 			allEntities.del(eToDelete);
 
 			app->physics->GetWorld()->DestroyBody(body);
-			cont = true;
+
 		}
 		else
-			bird = bird->next;
-	}
-
-
-	p2List_item<EnemySnake*>* snake = enemiesSnake.getFirst();
-	for (int i = 0; i < enemiesSnake.count(); i++)
-	{
-		if (cont) break;
-
-		EnemySnake* iteratorSnake;
-		enemiesSnake.at(i, iteratorSnake);
-
-		if (iteratorSnake->GetPhysBody()->body == body)
 		{
-			enemiesSnake.del(snake);
-			p2List_item<Entity*>* eToDelete = allEntities.findNode(iteratorSnake);
-			allEntities.del(eToDelete);
-
-			app->physics->GetWorld()->DestroyBody(body);
-			cont = true;
-		}
-		else
-			snake = snake->next;
-	}
-
-	p2List_item<RocketBanana*>* rocket = rockets.getFirst();
-	for (int i = 0; i < rockets.count(); i++)
-	{
-		if (cont) break;
-
-		RocketBanana* iteratorRocket;
-		rockets.at(i, iteratorRocket);
-
-
-		if (iteratorRocket->GetPhysBody()->body == body)
-		{
-			rockets.del(rocket);
-			p2List_item<Entity*>* eToDelete = allEntities.findNode(iteratorRocket);
-			allEntities.del(eToDelete);
-
-			app->physics->GetWorld()->DestroyBody(body);
-			cont = true;
-		}
-		else
-			rocket = rocket->next;
-	}*/
-
-	p2List_item<Item*>* it = items.getFirst();
-	for (int i = 0; i < items.count(); i++)
-	{
-		if (cont) break;
-
-		Item* item;
-		items.at(i, item);
-
-
-		if (item->GetPhysBody()->body == body)
-		{
-			items.del(it);
-			p2List_item<Entity*>* eToDelete = allEntities.findNode(item);
-			allEntities.del(eToDelete);
-
-			app->physics->GetWorld()->DestroyBody(body);
-			cont = true;
-		}
-		else
-			it = it->next;
-	}
-
-	cont = false;
-	p2List_item<EntityDummy*>* dummy = dummies.getFirst();
-	for (int i = 0; i < dummies.count(); i++)
-	{
-		if (cont) break;
-
-		EntityDummy* prop;
-		dummies.at(i, prop);
-
-
-		if (prop->GetPhysBody()->body == body)
-		{
-			dummies.del(dummy);
-			p2List_item<Entity*>* eToDelete = allEntities.findNode(prop);
-			allEntities.del(eToDelete);
-
-			app->physics->GetWorld()->DestroyBody(body);
-			cont = true;
-		}
-		else
 			dummy = dummy->next;
+		}
 	}
-
-	if (cont) 
-		LOG("Enemy destroyed");
 }
 
 EntityType EntityHandler::GetEntityType(b2Body* body) const

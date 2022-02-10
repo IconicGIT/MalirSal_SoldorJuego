@@ -23,7 +23,7 @@ EntityPlayer::EntityPlayer(b2Vec2 startPosition, int health) : Entity()
 	Hitbox->body->SetFixedRotation(true);
 	Hitbox->body->ResetMassData();
 	Hitbox->entity_ptr = this;
-	inter_speed = 0.05;
+	inter_speed = 0.025f;
 
 	entity_stats.hp = 10;
 	totalHealth = 10;
@@ -95,32 +95,61 @@ bool EntityPlayer::Start()
 
 	idle.speed = 0.18f;
 
-	jump.PushBack({ 0 , 64 * 1, 64, 64 });
-	jump.PushBack({ 64 * 1, 64 * 1, 64, 64 });
-	jump.PushBack({ 64 * 2, 64 * 1, 64, 64 });
-	jump.PushBack({ 64 * 3, 64 * 1, 64, 64 });
-	jump.PushBack({ 64 * 4, 64 * 1, 64, 64 });
+	//jump.PushBack({ 0 , 64 * 1, 64, 64 });
+	//jump.PushBack({ 64 * 1, 64 * 1, 64, 64 });
+	//jump.PushBack({ 64 * 2, 64 * 1, 64, 64 });
+	//jump.PushBack({ 64 * 3, 64 * 1, 64, 64 });
+	//jump.PushBack({ 64 * 4, 64 * 1, 64, 64 });
 	jump.PushBack({ 64 * 5, 64 * 1, 64, 64 });
-	jump.PushBack({ 64 * 6, 64 * 1, 64, 64 });
+	//jump.PushBack({ 64 * 6, 64 * 1, 64, 64 });
 	jump.PushBack({ 64 * 7, 64 * 1, 64, 64 });
 	jump.PushBack({ 64 * 8, 64 * 1, 64, 64 });
 	jump.PushBack({ 64 * 9,  64 * 1, 64, 64 });
 	jump.PushBack({ 64 * 10, 64 * 1, 64, 64 });
 	jump.PushBack({ 64 * 11, 64 * 1, 64, 64 });
+	
+	//jump.PushBack({ 64 * 11, 64 * 1, 64, 64 });
+	
 	jump.PushBack({ 64 * 12, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 12, 64 * 1, 64, 64 });
+
+
 	jump.PushBack({ 64 * 13, 64 * 1, 64, 64 });
 	jump.PushBack({ 64 * 14, 64 * 1, 64, 64 });
-	jump.PushBack({ 64 * 15, 64 * 1, 64, 64 });
-	jump.PushBack({ 64 * 16, 64 * 1, 64, 64 });
-	jump.PushBack({ 64 * 17, 64 * 1, 64, 64 });
-	jump.PushBack({ 64 * 18, 64 * 1, 64, 64 });
-	jump.PushBack({ 64 * 19, 64 * 1, 64, 64 });
-	jump.PushBack({ 64 * 20, 64 * 1, 64, 64 });
-	jump.PushBack({ 64 * 21, 64 * 1, 64, 64 });
-	jump.PushBack({ 64 * 22, 64 * 1, 64, 64 });
+	
+	
 
-	jump.speed = 0.1f;
+	jump.speed = 0.25f;
+	jump.loop = false;
 
+
+
+
+	death.PushBack({ 0 , 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 1, 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 2, 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 3, 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 4, 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 5, 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 6, 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 7, 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 8, 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 9,  64 * 12, 64, 64 });
+	death.PushBack({ 64 * 10, 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 11, 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 12, 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 13, 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 14, 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 15, 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 16, 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 17, 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 18, 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 19, 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 20, 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 21, 64 * 12, 64, 64 });
+
+	death.loop = false;
+	death.speed = 0.12f;
 
 	currentAnimation = &idle;
 	changingSpeed = 0.1f;
@@ -131,7 +160,8 @@ bool EntityPlayer::Start()
 bool EntityPlayer::CleanUp()
 {
 	LOG("Unloading player");
-
+	app->entityHandler->DestroyPlayer(Hitbox->body);
+	
 	return true;
 }
 
@@ -139,6 +169,14 @@ void EntityPlayer::Draw()
 {
 
 	currentAnimation->Update();
+	if (currentAnimation->HasFinished())
+	{
+		if (currentAnimation == &jump)
+		{
+			currentAnimation = &idle;
+			jump.Reset();
+		}
+	}
 	if (lastDirection == MOV_LEFT || lastHorizontalAxis == MOV_LEFT)
 	{
 		app->render->DrawTexture(sprite, x - 32, y - 32, &currentAnimation->GetCurrentFrame());
@@ -173,6 +211,9 @@ void EntityPlayer::Attack_01(Entity* enemy)
 
 bool EntityPlayer::Update(float dt)
 {
+
+	x = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().x);
+	y = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().y);
 
 	if (state == STATE_TURN)
 	{
@@ -263,10 +304,7 @@ bool EntityPlayer::Update(float dt)
 					moveType = FOCUSING;
 				}
 			}
-			if (goRight) Interpolate(x + 48, y, inter_speed);
-			else if (goLeft) Interpolate(x - 48, y, inter_speed);
-			else if (goUp) Interpolate(x, y - 48, inter_speed);
-			else if (goDown) Interpolate(x, y + 48, inter_speed);
+
 
 			if (interpolating)
 			{
@@ -275,40 +313,12 @@ bool EntityPlayer::Update(float dt)
 			}
 			else
 			{
-				if (goUp)
-				{
-					lastDirection = MOV_UP;
-				}
-				else if (goDown)
-				{
-					lastDirection = MOV_DOWN;
-				}
-				else if (goLeft)
-				{
-					//currentAnimation = &idle_left;
-					lastDirection = MOV_LEFT;
-					lastHorizontalAxis = MOV_LEFT;
-				}
-				else if (goRight)
-				{
-					//currentAnimation = &idle_right;
-					lastDirection = MOV_RIGHT;
-					lastHorizontalAxis = MOV_RIGHT;
-
-				}
-				else if (goRight && goDown || goRight && goUp)
-				{
-
-					lastDirection = MOV_RIGHT;
-					lastHorizontalAxis = MOV_RIGHT;
-				}
-				else if (goLeft && goDown || goLeft && goUp)
-				{
+				if (goRight) Interpolate(x + 48, y, inter_speed);
+				else if (goLeft) Interpolate(x - 48, y, inter_speed);
+				else if (goUp) Interpolate(x, y - 48, inter_speed);
+				else if (goDown) Interpolate(x, y + 48, inter_speed);
 
 
-					lastDirection = MOV_LEFT;
-					lastHorizontalAxis = MOV_LEFT;
-				}
 			}
 		} break;
 		case FOCUSING:
@@ -325,9 +335,35 @@ bool EntityPlayer::Update(float dt)
 				state = STATE_DYING;
 			}
 		} break;
+		default:
+		{
+
+		} break;
+		}
+		
+
+		if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+		{
+			AdminMode = !AdminMode;
 		}
 
-		
+		if (!AdminMode)
+		{
+
+			if (Hitbox->body->GetFixtureList()->IsSensor())
+			{
+				Hitbox->body->GetFixtureList()->SetSensor(false);
+			}
+		}
+		else
+		{
+
+			if (!Hitbox->body->GetFixtureList()->IsSensor())
+			{
+				Hitbox->body->GetFixtureList()->SetSensor(true);
+			}
+
+		}
 
 	}
 	else if (state == STATE_WAIT)
@@ -346,36 +382,21 @@ bool EntityPlayer::Update(float dt)
 		b2Vec2 movement = { (goRight - goLeft) * Vspeed.x, (goDown - goUp) * Vspeed.y };
 		Hitbox->body->SetLinearVelocity(movement);
 	}
-
-	
-
-	
-	
-	x = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().x);
-	y = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().y);
-
-	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	else if (state == STATE_DYING)
 	{
-		AdminMode = !AdminMode;
-	}
-
-	if (!AdminMode)
-	{
-
-		if (Hitbox ->body->GetFixtureList()->IsSensor())
+		if (currentAnimation->HasFinished())
 		{
-			Hitbox ->body->GetFixtureList()->SetSensor(false);
+			CleanUp();
+			delete(this);
 		}
 	}
-	else
-	{
 
-		if (!Hitbox ->body->GetFixtureList()->IsSensor())
-		{
-			Hitbox ->body->GetFixtureList()->SetSensor(true);
-		}
-		
-	}
+	
+
+	
+	
+	
+
 
 	
 
@@ -432,6 +453,11 @@ bool EntityPlayer::Update(float dt)
 	rec_temp_h = recHealth;
 	rec_temp_h.w = to_draw;
 
+	if (entity_stats.hp <= 0)
+	{
+		state = STATE_DYING;
+		currentAnimation = &death;
+	}
 
 	return true;
 }
