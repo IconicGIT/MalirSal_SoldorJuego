@@ -114,6 +114,8 @@ bool EntityPlayer::Start()
 
 
 	currentAnimation = &idle_left;
+	changingSpeed = 0.1f;
+	// La changing speed tiene que ser siempre inferior al daño que se le aplica a la entidad
 
 	return true;
 }
@@ -389,7 +391,7 @@ bool EntityPlayer::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 	{
 		changingHP = (float)entity_stats.hp;
-		entity_stats.hp -= 25;
+		entity_stats.hp -= 1; // Baja un monton por el daño del enemigo, huyue de el y spamea r para ver que funciona
 	}
 
 	if (changingHP > (float)entity_stats.hp)
@@ -411,7 +413,7 @@ bool EntityPlayer::Update(float dt)
 	to_draw = (int)rec_curr_h;
 
 	rec_temp_h = recHealth;
-	rec_temp_h.w = rec_curr_h;
+	rec_temp_h.w = to_draw;
 
 
 	return true;

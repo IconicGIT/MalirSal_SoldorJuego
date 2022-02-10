@@ -53,6 +53,8 @@ bool SnakeEnemy::Start()
 	entity_stats.damage = 10;
 	entity_stats.momevent = 5;
 	entity_stats.speed = 6;
+	changingSpeed = 0.1f;
+
 	return true;
 }
 
@@ -151,12 +153,13 @@ bool SnakeEnemy::Update(float dt)
 	}
 
 	oldHP = entity_stats.hp;
+	//totalHealth = 10;
 
 	//do damage
 	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 	{
 		changingHP = (float)entity_stats.hp;
-		entity_stats.hp -= 25;
+		entity_stats.hp -= 1; // Bro, resulta que tiene 10 de vida y le quitabas 25 ;-( XD
 	}
 
 	if (changingHP > (float)entity_stats.hp)
@@ -178,7 +181,7 @@ bool SnakeEnemy::Update(float dt)
 	to_draw = (int)rec_curr_h;
 
 	rec_temp_h = recHealth;
-	rec_temp_h.w = rec_curr_h;
+	rec_temp_h.w = to_draw;
 
 	return false;
 }
