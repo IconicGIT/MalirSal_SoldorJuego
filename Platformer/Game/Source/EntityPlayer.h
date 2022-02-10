@@ -124,7 +124,7 @@ public:
 
 	void LvlUp(int exp_used);
 
-	void Attck_01(Entity* enemy);
+	void Attack_01(Entity* enemy);
 
 	PlayerMovementType moveType;
 	PhysBody* enemyFocused;
@@ -185,8 +185,8 @@ private:
 	int exp_lvlUp;
 
 	SDL_Texture* sprite;
-	Animation idle_left;
-	Animation idle_right;
+	Animation idle;
+	
 	Animation jump;
 	Animation damage;
 	Animation* currentAnimation;

@@ -34,6 +34,8 @@ public:
 	};
 
 	Stats entity_stats;
+	EntityState state;
+
 private:
 
 protected:

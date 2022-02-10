@@ -45,7 +45,7 @@ bool EntityPlayer::Awake()
 
 bool EntityPlayer::Start()
 {
-	sprite = app->tex->Load("Assets/textures/chickens/black_idle.png");
+	sprite = app->tex->Load("Assets/textures/chickens/chickens_spritesheet.png");
 	LifeBars = app->tex->Load("Assets/textures/UI/HealthBar DARK.png");
 
 	recHealth = { 18, 152, 59, 6 };
@@ -69,51 +69,60 @@ bool EntityPlayer::Start()
 	LOG("player started");
 
 	//23
-	idle_left.PushBack({ 0 , 0, 60, 60 });
-	idle_left.PushBack({ 60 * 1, 0, 60, 60 }) ;
-	idle_left.PushBack({ 60 * 2, 0, 60, 60 }) ;
-	idle_left.PushBack({ 60 * 3, 0, 60, 60 }) ;
-	idle_left.PushBack({ 60 * 4, 0, 60, 60 }) ;
-	idle_left.PushBack({ 60 * 5, 0, 60, 60 }) ;
-	idle_left.PushBack({ 60 * 6, 0, 60, 60 }) ;
-	idle_left.PushBack({ 60 * 7, 0, 60, 60 }) ;
-	idle_left.PushBack({ 60 * 8, 0, 60, 60 }) ;
-	idle_left.PushBack({ 60 * 9,  0, 60, 60 }) ;
-	idle_left.PushBack({ 60 * 10, 0, 60, 60 });
-	idle_left.PushBack({ 60 * 11, 0, 60, 60 });
-	idle_left.PushBack({ 60 * 12, 0, 60, 60 });
-	idle_left.PushBack({ 60 * 13, 0, 60, 60 });
-	idle_left.PushBack({ 60 * 14, 0, 60, 60 });
-	idle_left.PushBack({ 60 * 15, 0, 60, 60 });
-	idle_left.PushBack({ 60 * 16, 0, 60, 60 });
-	idle_left.PushBack({ 60 * 17, 0, 60, 60 });
-	idle_left.PushBack({ 60 * 18, 0, 60, 60 });
-	idle_left.PushBack({ 60 * 19, 0, 60, 60 });
-	idle_left.PushBack({ 60 * 20, 0, 60, 60 });
-	idle_left.PushBack({ 60 * 21, 0, 60, 60 });
-	idle_left.PushBack({ 60 * 22, 0, 60, 60 });
+	idle.PushBack({ 0 , 0, 64, 64});
+	idle.PushBack({ 64 * 1, 0, 64, 64 }) ;
+	idle.PushBack({ 64 * 2, 0, 64, 64 }) ;
+	idle.PushBack({ 64 * 3, 0, 64, 64 }) ;
+	idle.PushBack({ 64 * 4, 0, 64, 64 }) ;
+	idle.PushBack({ 64 * 5, 0, 64, 64 }) ;
+	idle.PushBack({ 64 * 6, 0, 64, 64 }) ;
+	idle.PushBack({ 64 * 7, 0, 64, 64 }) ;
+	idle.PushBack({ 64 * 8, 0, 64, 64 }) ;
+	idle.PushBack({ 64 * 9,  0, 64, 64 }) ;
+	idle.PushBack({ 64 * 10, 0, 64, 64 });
+	idle.PushBack({ 64 * 11, 0, 64, 64 });
+	idle.PushBack({ 64 * 12, 0, 64, 64 });
+	idle.PushBack({ 64 * 13, 0, 64, 64 });
+	idle.PushBack({ 64 * 14, 0, 64, 64 });
+	idle.PushBack({ 64 * 15, 0, 64, 64 });
+	idle.PushBack({ 64 * 16, 0, 64, 64 });
+	idle.PushBack({ 64 * 17, 0, 64, 64 });
+	idle.PushBack({ 64 * 18, 0, 64, 64 });
+	idle.PushBack({ 64 * 19, 0, 64, 64 });
+	idle.PushBack({ 64 * 20, 0, 64, 64 });
+	idle.PushBack({ 64 * 21, 0, 64, 64 });
+	idle.PushBack({ 64 * 22, 0, 64, 64 });
 
-	idle_left.speed = 0.18f;
+	idle.speed = 0.18f;
 
-	jump.PushBack({ 0, 64 ,  0, 64 });
-	jump.PushBack({ 64 * 1,  0, 64, 64 });
-	jump.PushBack({ 64 * 2,  0, 64, 64 });
-	jump.PushBack({ 64 * 3,  0, 64, 64 });
-	jump.PushBack({ 64 * 4,  0, 64, 64 });
-	jump.PushBack({ 64 * 5,  0, 64, 64 });
-	jump.PushBack({ 64 * 6,  0, 64, 64 });
-	jump.PushBack({ 64 * 7,  0, 64, 64 });
-	jump.PushBack({ 64 * 8,  0, 64, 64 });
-	jump.PushBack({ 64 * 9,  0, 64, 64 });
-	jump.PushBack({ 64 * 10, 0, 64, 64 });
-	jump.PushBack({ 64 * 11, 0, 64, 64 });
-	jump.PushBack({ 64 * 12, 0, 64, 64 });
-	jump.PushBack({ 64 * 13, 0, 64, 64 });
+	jump.PushBack({ 0 , 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 1, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 2, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 3, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 4, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 5, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 6, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 7, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 8, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 9,  64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 10, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 11, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 12, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 13, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 14, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 15, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 16, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 17, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 18, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 19, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 20, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 21, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 22, 64 * 1, 64, 64 });
 
 	jump.speed = 0.1f;
 
 
-	currentAnimation = &idle_left;
+	currentAnimation = &idle;
 	changingSpeed = 0.1f;
 	// La changing speed tiene que ser siempre inferior al daño que se le aplica a la entidad
 
@@ -157,86 +166,177 @@ void EntityPlayer::LvlUp(int exp_used)
 	//Increase exp needed
 }
 
-void EntityPlayer::Attck_01(Entity* enemy)
+void EntityPlayer::Attack_01(Entity* enemy)
 {
 	enemy->entity_stats.hp -= this->entity_stats.damage * enemy->entity_stats.armour;
-	int a;
 }
 
 bool EntityPlayer::Update(float dt)
 {
 
-	
-
-	// DEBUG KEYS
+	if (state == STATE_TURN)
+	{
+		// DEBUG KEYS
 	// 
 	//////////////
-	if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
-	{
-		app->entityHandler->CreateEntity(ENTITY_DUMMY, 12 * 48, 22 * 48);
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) // Step Free
-	{
-		moveType = STEP_FREE;
-
-	}
-	if (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) // Step Tiles
-	{
-		moveType = STEP_TILES;
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-	{
-		if (app->physics->GetDebug() == true)
+		if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
 		{
-			app->physics->SetDebug(false);
+			app->entityHandler->CreateEntity(ENTITY_DUMMY, 12 * 48, 22 * 48);
 		}
-		else
+
+		if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) // Step Free
 		{
-			app->physics->SetDebug(true);
+			moveType = STEP_FREE;
+
 		}
-		
-	}
-	if (app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-	{
+		if (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) // Step Tiles
+		{
+			moveType = STEP_TILES;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+		{
+			if (app->physics->GetDebug() == true)
+			{
+				app->physics->SetDebug(false);
+			}
+			else
+			{
+				app->physics->SetDebug(true);
+			}
+
+		}
+		if (app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+		{
+			/*if (app->render->cameraFollow == true)
+			{
+				app->render->cameraFollow = false;
+			}
+			else
+			{
+				app->render->cameraFollow = true;
+			}*/
+			app->render->cameraFollow = !app->render->cameraFollow;
+
+		}
+
+
+		if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+		{
+			currentAnimation = &jump;
+		}
+
 		/*if (app->render->cameraFollow == true)
 		{
-			app->render->cameraFollow = false;
+			LOG("True");
 		}
 		else
 		{
-			app->render->cameraFollow = true;
+			LOG("False");
 		}*/
-		app->render->cameraFollow = !app->render->cameraFollow;
+
+
+		switch (moveType)
+		{
+		case STEP_TILES:
+		{
+			goLeft = (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN);
+			goRight = (app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN);
+
+			goUp = (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN);
+			goDown = (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN);
+
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+			{
+
+			}
+
+			// implement attack !!
+			if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+			{
+				enemyFocused = NULL;
+				// change moveType!!!!
+
+				enemyFocused = checkCloseEnemies();
+				if (enemyFocused)
+				{
+					moveType = FOCUSING;
+				}
+			}
+			if (goRight) Interpolate(x + 48, y, inter_speed);
+			else if (goLeft) Interpolate(x - 48, y, inter_speed);
+			else if (goUp) Interpolate(x, y - 48, inter_speed);
+			else if (goDown) Interpolate(x, y + 48, inter_speed);
+
+			if (interpolating)
+			{
+
+				Interpolate(newX, newY, 0.01f);
+			}
+			else
+			{
+				if (goUp)
+				{
+					lastDirection = MOV_UP;
+				}
+				else if (goDown)
+				{
+					lastDirection = MOV_DOWN;
+				}
+				else if (goLeft)
+				{
+					//currentAnimation = &idle_left;
+					lastDirection = MOV_LEFT;
+					lastHorizontalAxis = MOV_LEFT;
+				}
+				else if (goRight)
+				{
+					//currentAnimation = &idle_right;
+					lastDirection = MOV_RIGHT;
+					lastHorizontalAxis = MOV_RIGHT;
+
+				}
+				else if (goRight && goDown || goRight && goUp)
+				{
+
+					lastDirection = MOV_RIGHT;
+					lastHorizontalAxis = MOV_RIGHT;
+				}
+				else if (goLeft && goDown || goLeft && goUp)
+				{
+
+
+					lastDirection = MOV_LEFT;
+					lastHorizontalAxis = MOV_LEFT;
+				}
+			}
+		} break;
+		case FOCUSING:
+		{
+			if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
+			{
+				Attack_01(enemyFocused->entity_ptr);
+				state = STATE_DYING;
+			}
+
+			if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
+			{
+				moveType = STEP_TILES;
+				state = STATE_DYING;
+			}
+		} break;
+		}
+
+		
 
 	}
-
-
-	if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+	else if (state == STATE_WAIT)
 	{
-		currentAnimation = &jump;
+
 	}
-
-	/*if (app->render->cameraFollow == true)
+	else if (state == STATE_FREE)
 	{
-		LOG("True");
-	}
-	else
-	{
-		LOG("False");
-	}*/
 
-
-
-	
-
-
-
-	switch (moveType)
-	{
-	case STEP_FREE:
-	{
 		goLeft = (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT);
 		goRight = (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT);
 
@@ -246,61 +346,11 @@ bool EntityPlayer::Update(float dt)
 		b2Vec2 movement = { (goRight - goLeft) * Vspeed.x, (goDown - goUp) * Vspeed.y };
 		Hitbox->body->SetLinearVelocity(movement);
 	}
-		break;
-	case STEP_TILES:
-	{
-		goLeft = (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN);
-		goRight = (app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN);
 
-		goUp = (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN);
-		goDown = (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN);
+	
 
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		{
-			
-		}
-		
-		// implement attack !!
-		if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-		{
-			enemyFocused = NULL;
-			// change moveType!!!!
-			
-			enemyFocused = checkCloseEnemies();
-			if (enemyFocused)
-			{
-				moveType = FOCUSING;
-			}
-		}
-		if (goRight) Interpolate(x + 48, y, inter_speed);
-		else if (goLeft) Interpolate(x - 48, y, inter_speed);
-		else if (goUp) Interpolate(x, y - 48, inter_speed);
-		else if (goDown) Interpolate(x, y + 48, inter_speed);
-
-		if (interpolating)
-		{
-			Interpolate(newX, newY, 0.01f);
-		}
-	}break;
-	case FOCUSING:
-	{
-		if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
-		{
-			Attck_01(enemyFocused->entity_ptr);
-		}
-
-		if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
-		{
-			moveType = STEP_TILES;
-		}
-	} break;
-		
-	default:
-	{
-
-	} break;
-	}
-
+	
+	
 	x = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().x);
 	y = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().y);
 
@@ -350,40 +400,7 @@ bool EntityPlayer::Update(float dt)
 
 	
 
-	if (goUp)
-	{
-		lastDirection = MOV_UP;
-	}
-	else if (goDown)
-	{
-		lastDirection = MOV_DOWN;
-	}
-	else if (goLeft)
-	{
-		//currentAnimation = &idle_left;
-		lastDirection = MOV_LEFT;
-		lastHorizontalAxis = MOV_LEFT;
-	}
-	else if (goRight)
-	{
-		//currentAnimation = &idle_right;
-		lastDirection = MOV_RIGHT;
-		lastHorizontalAxis = MOV_RIGHT;
-
-	}
-	else if (goRight && goDown || goRight && goUp)
-	{
-		
-		lastDirection = MOV_RIGHT;
-		lastHorizontalAxis = MOV_RIGHT;
-	}
-	else if (goLeft && goDown || goLeft && goUp)
-	{
-		
-
-		lastDirection = MOV_LEFT;
-		lastHorizontalAxis = MOV_LEFT;
-	}
+	
 
 	oldHP = entity_stats.hp;
 

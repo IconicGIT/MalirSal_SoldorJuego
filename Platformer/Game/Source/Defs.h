@@ -93,4 +93,11 @@ enum PlayerMovementType
 	FOCUSING
 };
 
+enum EntityState
+{
+	STATE_TURN = 0,
+	STATE_WAIT,
+	STATE_DYING,
+	STATE_FREE
+};
 #endif

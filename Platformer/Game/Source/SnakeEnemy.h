@@ -107,7 +107,7 @@ public:
 	float h = 0;
 	float inter_speed;
 
-	bool turn;
+	
 	// Heath bar members
 	SDL_Texture* LifeBars;
 	SDL_Rect recHealth;

@@ -33,7 +33,7 @@ bool SnakeEnemy::Awake()
 
 bool SnakeEnemy::Start()
 {
-	turn = true;
+	state = STATE_WAIT;
 	speed = 1;
 	Vspeed = { speed,speed };
 
@@ -50,7 +50,7 @@ bool SnakeEnemy::Start()
 	entity_stats.hp = 10;
 	totalHealth = 10;
 	entity_stats.armour = 1;
-	entity_stats.damage = 10;
+	entity_stats.damage = 4;
 	entity_stats.momevent = 5;
 	entity_stats.speed = 6;
 	changingSpeed = 0.1f;
@@ -67,12 +67,12 @@ void SnakeEnemy::Attck_01(Entity* player)
 bool SnakeEnemy::Update(float dt)
 {
 
-	if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN) turn = true;
+	if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN) state = STATE_TURN;
 
 	x = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().x);
 	y = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().y);
 
-	if (turn)
+	if (state == STATE_TURN)
 	{
 
 
@@ -145,7 +145,7 @@ bool SnakeEnemy::Update(float dt)
 						{
 							Attck_01(goal->entity_ptr);
 						}
-						turn = false;
+						state = STATE_WAIT;
 					}
 				}
 			}
