@@ -126,12 +126,12 @@ bool EntityPlayer::Start()
 
 
 	death.PushBack({ 64 * 0, 64 * 12, 64, 64 });
-	death.PushBack({ 64 * 1, 64 * 12, 64, 64 });
-	death.PushBack({ 64 * 2, 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 1+1, 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 2-1, 64 * 12, 64, 64 });
 	death.PushBack({ 64 * 3, 64 * 12, 64, 64 });
 	death.PushBack({ 64 * 4, 64 * 12, 64, 64 });
-	death.PushBack({ 64 * 5, 64 * 12, 64, 64 });
-	death.PushBack({ 64 * 6, 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 5+1, 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 6 , 64 * 12, 64, 64 });
 	death.PushBack({ 64 * 7, 64 * 12, 64, 64 });
 	death.PushBack({ 64 * 8, 64 * 12, 64, 64 });
 	death.PushBack({ 64 * 9,  64 * 12, 64, 64 });
@@ -179,15 +179,15 @@ void EntityPlayer::Draw()
 	}
 	if (lastDirection == MOV_LEFT || lastHorizontalAxis == MOV_LEFT)
 	{
-		app->render->DrawTexture(sprite, x - 32, y - 32, &currentAnimation->GetCurrentFrame());
+		app->render->DrawTexture(sprite, x - 32, y - 47, &currentAnimation->GetCurrentFrame());
 	}
 	if (lastDirection == MOV_RIGHT || lastHorizontalAxis == MOV_RIGHT)
 	{
-		app->render->DrawTexture(sprite, x - 32, y - 32, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+		app->render->DrawTexture(sprite, x - 32, y - 47, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
 	}
 
-	app->render->DrawTexture(LifeBars, METERS_TO_PIXELS(Hitbox->body->GetPosition().x) - 30, METERS_TO_PIXELS(Hitbox->body->GetPosition().y) - 25, &recHealthBG);
-	app->render->DrawTexture(LifeBars, x - 29, y - 24, &rec_temp_h);
+	app->render->DrawTexture(LifeBars, METERS_TO_PIXELS(Hitbox->body->GetPosition().x) - 30, METERS_TO_PIXELS(Hitbox->body->GetPosition().y) - 54, &recHealthBG);
+	app->render->DrawTexture(LifeBars, x - 29, y - 53, &rec_temp_h);
 }
 
 PhysBody* EntityPlayer::checkCloseEnemies()
