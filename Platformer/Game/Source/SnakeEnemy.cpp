@@ -155,7 +155,8 @@ bool SnakeEnemy::Update(float dt)
 						{
 							Attck_01(goal->entity_ptr);
 						}
-						state = STATE_WAIT;
+						
+						out_of_attacks = true;
 					}
 				}
 			}
@@ -193,9 +194,10 @@ bool SnakeEnemy::Update(float dt)
 	rec_temp_h = recHealth;
 	rec_temp_h.w = to_draw;
 
-	if ((out_of_steps && out_of_attacks) || (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN))
+	if ( out_of_attacks || (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN))
 	{
 		app->entityHandler->NextTurn(Hitbox);
+		out_of_attacks = false;
 	}
 
 	return false;

@@ -154,6 +154,7 @@ bool EntityPlayer::Start()
 
 	currentAnimation = &idle;
 	changingSpeed = 0.1f;
+
 	// La changing speed tiene que ser siempre inferior al daño que se le aplica a la entidad
 
 	return true;
@@ -180,11 +181,11 @@ void EntityPlayer::Draw()
 	}
 	if (lastDirection == MOV_LEFT || lastHorizontalAxis == MOV_LEFT)
 	{
-		app->render->DrawTexture(sprite, x - 32, y - 47, &currentAnimation->GetCurrentFrame());
+		app->render->DrawTexture(sprite, x - 32, y - 40, &currentAnimation->GetCurrentFrame());
 	}
 	if (lastDirection == MOV_RIGHT || lastHorizontalAxis == MOV_RIGHT)
 	{
-		app->render->DrawTexture(sprite, x - 32, y - 47, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+		app->render->DrawTexture(sprite, x - 32, y - 40, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
 	}
 
 	app->render->DrawTexture(LifeBars, METERS_TO_PIXELS(Hitbox->body->GetPosition().x) - 30, METERS_TO_PIXELS(Hitbox->body->GetPosition().y) - 54, &recHealthBG);
@@ -322,10 +323,11 @@ bool EntityPlayer::Update(float dt)
 		} break;
 		case FOCUSING:
 		{
-			if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
+			if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) 
 			{
 				Attack_01(enemyFocused->entity_ptr);
-				
+				out_of_attacks = true;
+				moveType = STEP_TILES;
 			}
 
 			if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
@@ -458,9 +460,10 @@ bool EntityPlayer::Update(float dt)
 		currentAnimation = &death;
 	}
 
-	if ((out_of_steps && out_of_attacks) || (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN))
+	if ( out_of_attacks || (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN))
 	{
 		app->entityHandler->NextTurn(Hitbox);
+		out_of_attacks = false;
 	}
 	return true;
 }

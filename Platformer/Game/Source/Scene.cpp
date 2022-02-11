@@ -395,7 +395,7 @@ bool Scene::Start()
 	}break;
 	}
 
-	app->entityHandler->StartCombat();
+	
 	
 	return true;
 }
@@ -425,6 +425,11 @@ bool Scene::Update(float dt)
 				app->physics->GetWorld()->DestroyBody(sensor_01->body);
 				sensor_01->type = TYPE_NULL;
 
+				app->entityHandler->CreateEntity(ENTITY_SNAKE, 11 * 48, 24 * 48);
+				app->entityHandler->CreateEntity(ENTITY_SNAKE, 11 * 48, 22 * 48);
+				app->entityHandler->CreateEntity(ENTITY_SNAKE, 15 * 48, 20 * 48);
+
+				app->entityHandler->StartCombat();
 				// Spawn enemies!!!!
 			}
 		}
@@ -475,8 +480,7 @@ bool Scene::Update(float dt)
 		}
 
 
-		playerX = player->GetPhysBody()->body->GetPosition().x;
-		playerY = player->GetPhysBody()->body->GetPosition().y;
+		
 
 		if (freeCam)
 		{
