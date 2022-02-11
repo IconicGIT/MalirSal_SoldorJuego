@@ -3,7 +3,9 @@
 
 #include "Module.h"
 #include "Defs.h"
+#include "Physics.h"
 
+class PhysBody;
 
 class Entity : public Module
 {
@@ -33,6 +35,7 @@ public:
 
 	};
 
+	PhysBody* Hitbox;
 	Stats entity_stats;
 	EntityState state;
 

@@ -395,6 +395,8 @@ bool Scene::Start()
 	}break;
 	}
 
+	app->entityHandler->StartCombat();
+	
 	return true;
 }
 
@@ -432,7 +434,7 @@ bool Scene::Update(float dt)
 	{
 		// end of combat
 		app->render->cameraFollow = false;
-		app->entityHandler->players.getFirst()->data->moveType = STEP_FREE;
+		//app->entityHandler->players.getFirst()->data->moveType = STEP_FREE;
 		//Give chicken exp and check for lvl up;
 	}
 	

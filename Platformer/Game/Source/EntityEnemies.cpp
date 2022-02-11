@@ -1,7 +1,8 @@
 #include "EntityEnemies.h"
 #include <stdlib.h>     
 #include <time.h>      
-
+#include "Physics.h"
+#include "Entity.h"
 
 EntityEnemy::EntityEnemy(b2Vec2 startPosition, int health)
 {

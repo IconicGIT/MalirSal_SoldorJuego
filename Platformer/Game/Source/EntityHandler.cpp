@@ -36,7 +36,7 @@ bool EntityHandler::Start()
 	all_ids = 0;
 
 	CreateEntity(ENTITY_PLAYER, 6 * 48, 23 * 48);
-	CreateEntity(ENTITY_DUMMY, 12 * 48, 22 * 48);
+	//CreateEntity(ENTITY_DUMMY, 12 * 48, 22 * 48);
 	CreateEntity(ENTITY_SNAKE, 11 * 48, 22 * 48);
 	
 
@@ -701,5 +701,51 @@ void EntityHandler::DestroyAllEnemies()
 		DestroyEnemy(it->GetPhysBody()->body);
 	}
 
+}
+
+void EntityHandler::OrderBySpeed()
+{
+	MergeSort(allEntities.getFirst());
+
+}
+
+void EntityHandler::StartCombat()
+{
+	OrderBySpeed();
+
+	int turn = false;
+	for (p2List_item<Entity*>* node = allEntities.getFirst(); node; node = node->next)
+	{
+		if (turn)
+		{
+			node->data->state = STATE_WAIT;
+
+		}
+		else
+		{
+			node->data->state = STATE_TURN;
+			turn = true;
+		}
+	}
+}
+
+void EntityHandler::NextTurn(PhysBody* finished)
+{
+	
+	for (p2List_item<Entity*>* node = allEntities.getFirst(); node; node = node->next)
+	{
+		if (node->data->Hitbox == finished)
+		{
+			node->data->state = STATE_WAIT;
+			if (node->next != NULL)
+			{
+				node->next->data->state = STATE_TURN;
+			}
+			else
+			{
+				allEntities.getFirst()->data->state = STATE_TURN;
+			}
+		}
+	}
 }
 

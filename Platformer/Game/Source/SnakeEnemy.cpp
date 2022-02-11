@@ -52,7 +52,7 @@ bool SnakeEnemy::Start()
 	entity_stats.armour = 1;
 	entity_stats.damage = 4;
 	entity_stats.momevent = 5;
-	entity_stats.speed = 6;
+	entity_stats.speed = 2;
 	changingSpeed = 0.1f;
 
 	return true;
@@ -182,6 +182,11 @@ bool SnakeEnemy::Update(float dt)
 
 	rec_temp_h = recHealth;
 	rec_temp_h.w = to_draw;
+
+	if ((out_of_steps && out_of_attacks) || (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN))
+	{
+		app->entityHandler->NextTurn(Hitbox);
+	}
 
 	return false;
 }

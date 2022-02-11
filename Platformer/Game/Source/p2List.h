@@ -12,12 +12,16 @@ struct p2List_item
 	tdata                 data;
 	p2List_item<tdata>*   next;
 	p2List_item<tdata>*   prev;
+	p2List_item<tdata>*  start;
 
 	inline p2List_item(const tdata& _data)
 	{
 		data = _data;
-		next = prev = NULL;
+		next = prev = start = NULL;
+
 	}
+
+
 
 	~p2List_item()
 	{}
@@ -32,12 +36,12 @@ class p2List
 
 private:
 
-	p2List_item<tdata>*   start;
+	p2List_item<tdata>* start;
 	p2List_item<tdata>*   end;
 	unsigned int  size;
 
 public:
-
+	
 	/**
 	* Constructor
 	*/

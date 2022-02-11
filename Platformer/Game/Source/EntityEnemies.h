@@ -133,7 +133,7 @@ private:
 	int behaviour;
 
 	b2Vec2 spawnPosition;
-	PhysBody* Hitbox;
+	
 	int health;
 	float x, y;
 	float speed;

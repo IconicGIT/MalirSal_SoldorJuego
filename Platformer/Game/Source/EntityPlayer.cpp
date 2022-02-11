@@ -30,7 +30,7 @@ EntityPlayer::EntityPlayer(b2Vec2 startPosition, int health) : Entity()
 	entity_stats.armour = 1;
 	entity_stats.damage = 4;
 	entity_stats.momevent = 5;
-	entity_stats.speed = 6;
+	entity_stats.speed = 3;
 }
 
 
@@ -65,7 +65,7 @@ bool EntityPlayer::Start()
 	newY = 0;
 	oldX = 0;
 	oldY = 0;
-
+	state = STATE_WAIT;
 	LOG("player started");
 
 	//23
@@ -125,7 +125,7 @@ bool EntityPlayer::Start()
 
 
 
-	death.PushBack({ 0 , 64 * 12, 64, 64 });
+	death.PushBack({ 64 * 0, 64 * 12, 64, 64 });
 	death.PushBack({ 64 * 1, 64 * 12, 64, 64 });
 	death.PushBack({ 64 * 2, 64 * 12, 64, 64 });
 	death.PushBack({ 64 * 3, 64 * 12, 64, 64 });
@@ -149,7 +149,7 @@ bool EntityPlayer::Start()
 	death.PushBack({ 64 * 21, 64 * 12, 64, 64 });
 
 	death.loop = false;
-	death.speed = 0.12f;
+	death.speed = 0.01f;
 
 	currentAnimation = &idle;
 	changingSpeed = 0.1f;
@@ -217,10 +217,8 @@ bool EntityPlayer::Update(float dt)
 
 	if (state == STATE_TURN)
 	{
-		// DEBUG KEYS
-	// 
-	//////////////
-		if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
+	
+		if (app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
 		{
 			app->entityHandler->CreateEntity(ENTITY_DUMMY, 12 * 48, 22 * 48);
 		}
@@ -314,7 +312,7 @@ bool EntityPlayer::Update(float dt)
 			else
 			{
 				if (goRight) Interpolate(x + 48, y, inter_speed);
-				else if (goLeft) Interpolate(x - 48, y, inter_speed);
+  				else if (goLeft) Interpolate(x - 48, y, inter_speed);
 				else if (goUp) Interpolate(x, y - 48, inter_speed);
 				else if (goDown) Interpolate(x, y + 48, inter_speed);
 
@@ -326,13 +324,13 @@ bool EntityPlayer::Update(float dt)
 			if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
 			{
 				Attack_01(enemyFocused->entity_ptr);
-				state = STATE_DYING;
+				
 			}
 
 			if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
 			{
 				moveType = STEP_TILES;
-				state = STATE_DYING;
+				
 			}
 		} break;
 		default:
@@ -459,6 +457,10 @@ bool EntityPlayer::Update(float dt)
 		currentAnimation = &death;
 	}
 
+	if ((out_of_steps && out_of_attacks) || (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN))
+	{
+		app->entityHandler->NextTurn(Hitbox);
+	}
 	return true;
 }
 

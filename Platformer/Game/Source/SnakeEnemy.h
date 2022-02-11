@@ -45,7 +45,7 @@ public:
 	void Draw() override;
 	int Attack(int enemyType) override;
 
-	PhysBody* Hitbox;
+	
 
 	void Interpolate(int x, int y, float speed)
 	{
@@ -127,6 +127,8 @@ private:
 	b2Vec2 Vspeed;
 	int attackPower;
 
+	bool out_of_steps = false;
+	bool out_of_attacks = false;
 	//Stats snakeStats;
 };
 

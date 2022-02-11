@@ -154,7 +154,7 @@ private:
 	float inter_speed;
 
 	b2Vec2 spawnPosition;
-	PhysBody* Hitbox;
+	
 	int health;
 	float x, y;
 
@@ -216,6 +216,10 @@ private:
 	int to_draw;
 	SDL_Rect rec_temp_h;
 	int totalHealth;
+
+	bool out_of_steps = false;
+	bool out_of_attacks = false;
+
 };
 
 #endif // __ENEMY_SNAKE_H__

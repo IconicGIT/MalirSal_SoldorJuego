@@ -3,6 +3,8 @@
 #include "Box2D/Box2D/Box2D.h"
 #include "Entity.h"
 
+class Entity;
+
 #define GRAVITY_X 0.0f
 #define GRAVITY_Y -24.0f
 
