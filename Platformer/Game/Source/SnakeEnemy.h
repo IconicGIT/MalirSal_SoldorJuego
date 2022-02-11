@@ -91,7 +91,8 @@ public:
 
 	void Attck_01(Entity* player);
 
-	SDL_Rect a;
+	Animation* currentAnimation;
+	Animation idle;
 	SDL_Texture* pac;
 	float x, y;
 	int behaviour;

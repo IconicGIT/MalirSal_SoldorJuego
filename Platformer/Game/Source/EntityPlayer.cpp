@@ -147,9 +147,10 @@ bool EntityPlayer::Start()
 	death.PushBack({ 64 * 19, 64 * 12, 64, 64 });
 	death.PushBack({ 64 * 20, 64 * 12, 64, 64 });
 	death.PushBack({ 64 * 21, 64 * 12, 64, 64 });
+	
 
 	death.loop = false;
-	death.speed = 0.01f;
+	death.speed = 0.1f;
 
 	currentAnimation = &idle;
 	changingSpeed = 0.1f;

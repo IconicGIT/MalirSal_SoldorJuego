@@ -37,15 +37,25 @@ bool SnakeEnemy::Start()
 	speed = 1;
 	Vspeed = { speed,speed };
 
-	pac = app->tex->Load("Assets/textures/enemies/snake_idle.png");
+	pac = app->tex->Load("Assets/textures/enemies/Enemigos.png");
 	LifeBars = app->tex->Load("Assets/textures/UI/HealthBar DARK.png");
 
 	recHealth = { 18, 152, 59, 6 };
 	recHealthBG = { 17, 164, 61, 8 };
 
-	a = { 0, 0, 48, 48 };
+	idle.PushBack({ 0, 48 * 2, 48, 48 });
+	idle.PushBack({ 48 * 1, 48 * 2, 48, 48 });
+	idle.PushBack({ 48 * 2, 48 * 2, 48, 48 });
+	idle.PushBack({ 48 * 3, 48 * 2, 48, 48 });
+	idle.PushBack({ 48 * 4, 48 * 2, 48, 48 });
+	idle.PushBack({ 48 * 5, 48 * 2, 48, 48 });
+	idle.PushBack({ 48 * 6, 48 * 2, 48, 48 });
+	idle.PushBack({ 48 * 7, 48 * 2, 48, 48 });
+	idle.speed = 0.15f;
+
 	inter_speed = 0.02f;
 	
+	currentAnimation = &idle;
 
 	entity_stats.hp = 10;
 	totalHealth = 10;
@@ -205,7 +215,9 @@ bool SnakeEnemy::CleanUp()
 }
 void SnakeEnemy::Draw()
 {
-	app->render->DrawTexture(pac, x - 24, y - 24, &a);
+	currentAnimation->Update();
+
+	app->render->DrawTexture(pac, x - 24, y - 24, &idle.GetCurrentFrame());
 
 	app->render->DrawTexture(LifeBars, METERS_TO_PIXELS(Hitbox->body->GetPosition().x) - 30, METERS_TO_PIXELS(Hitbox->body->GetPosition().y) - 25, &recHealthBG);
     app->render->DrawTexture(LifeBars, x - 29, y - 24, &rec_temp_h);
