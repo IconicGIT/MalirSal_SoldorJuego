@@ -35,6 +35,11 @@ public:
 
 	};
 
+	virtual void DrawUI()
+	{
+
+	};
+	PhysBody* last_damaged;
 	PhysBody* Hitbox;
 	Stats entity_stats;
 	EntityState state;

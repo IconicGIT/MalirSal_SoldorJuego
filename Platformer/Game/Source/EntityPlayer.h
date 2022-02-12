@@ -35,10 +35,13 @@ public:
 	}
 	
 	void Draw() override;
+	void DrawUI() override;
 	PhysBody* GetPhysBody() const
 	{
 		return Hitbox;
 	}
+
+
 	iPoint GetPosition()
 	{
 		return iPoint(x, y);	
@@ -71,6 +74,7 @@ public:
 			interpolating = true;
 			pos_dif_x = newX - oldX;
 			pos_dif_y = newY - oldY;
+			actual_mov--;
 		}
 		else {
 			h += iSpeed;
@@ -85,12 +89,13 @@ public:
 			{
 				interpolating = false;
 				h = 0;
+				Hitbox->body->SetLinearVelocity(b2Vec2(0, 0));
 			}
 		}
 		
 		
 	}
-
+	
 	PhysBody* checkCloseEnemies();
 	int CheckDistanceToPhysBody(PhysBody* PhysPos)
 	{
@@ -98,7 +103,7 @@ public:
 		return (abs(dist.x) + abs(dist.y));
 	}
 	void LvlUp(int exp_used);
-	void Attck_01(Entity* enemy);
+	void Attack_01(Entity* enemy);
 	PlayerMovementType moveType;
 	PhysBody* enemyFocused;
 private:
@@ -113,7 +118,7 @@ private:
 	float h = 0;
 	float inter_speed;
 	b2Vec2 spawnPosition;
-	PhysBody* Hitbox;
+	
 	int health;
 	float x, y;
 	float speed;
@@ -151,7 +156,8 @@ private:
 	Animation damage;
 	Animation* currentAnimation;
 
-	void Attack_01(Entity* enemy);
+	bool out_of_attacks = false;
+	
 
 	// Heath bar members
 	SDL_Texture* LifeBars;

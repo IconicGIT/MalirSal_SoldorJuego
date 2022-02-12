@@ -198,17 +198,38 @@ void EntityPlayer::Draw()
 			jump.Reset();
 		}
 	}
-	if (lastDirection == MOV_LEFT || lastHorizontalAxis == MOV_LEFT)
+	if (lastDirection == MOV_LEFT)
 	{
 		app->render->DrawTexture(sprite, x - 32, y - 40, &currentAnimation->GetCurrentFrame());
 	}
-	if (lastDirection == MOV_RIGHT || lastHorizontalAxis == MOV_RIGHT)
+	else if (lastDirection == MOV_RIGHT)
 	{
 		app->render->DrawTexture(sprite, x - 32, y - 40, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
 	}
 
+
+
 	app->render->DrawTexture(LifeBars, METERS_TO_PIXELS(Hitbox->body->GetPosition().x) - 30, METERS_TO_PIXELS(Hitbox->body->GetPosition().y) - 54, &recHealthBG);
 	app->render->DrawTexture(LifeBars, x - 29, y - 53, &rec_temp_h);
+
+}
+
+void EntityPlayer::DrawUI()
+{
+	if (doing_scar)
+	{
+
+		if (!scar.HasFinished())
+		{
+			scar.Update();
+			app->render->DrawTexture(attack, pos_anim.x, pos_anim.y, &scar.GetCurrentFrame());
+		}
+		else
+		{
+			finish_animation = true;
+			scar.Reset();
+		}
+	}
 }
 
 PhysBody* EntityPlayer::checkCloseEnemies()
@@ -234,6 +255,7 @@ void EntityPlayer::Attack_01(Entity* enemy)
 	pos_anim.y = y_;
 	doing_scar = true;
 	state = STATE_WAIT;
+	enemy->last_damaged = Hitbox;
 
 }
 
@@ -345,10 +367,32 @@ bool EntityPlayer::Update(float dt)
 				}
 				else
 				{
-					if (goRight) Interpolate(x + 48, y, inter_speed);
-					else if (goLeft) Interpolate(x - 48, y, inter_speed);
-					else if (goUp) Interpolate(x, y - 48, inter_speed);
-					else if (goDown) Interpolate(x, y + 48, inter_speed);
+					if (goRight)
+					{
+						lastDirection = MOV_RIGHT;
+						lastHorizontalAxis = MOV_RIGHT;
+						Interpolate(x + 48, y, inter_speed);
+						currentAnimation = &jump;
+					}
+					else if (goLeft)
+					{
+						Interpolate(x - 48, y, inter_speed);
+						lastDirection = MOV_LEFT;
+						currentAnimation = &jump;
+					}
+					else if (goUp)
+					{
+						Interpolate(x, y - 48, inter_speed);
+						currentAnimation = &jump;
+					}
+					else if (goDown)
+					{
+						Interpolate(x, y + 48, inter_speed);
+						currentAnimation = &jump;
+					}
+
+					
+					
 				}
 
 			}
@@ -362,6 +406,7 @@ bool EntityPlayer::Update(float dt)
 				Attack_01(enemyFocused->entity_ptr);
 				
 				moveType = STEP_TILES;
+				out_of_attacks = true;
 			}
 
 			if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
@@ -404,20 +449,7 @@ bool EntityPlayer::Update(float dt)
 	else if (state == STATE_WAIT)
 	{
 
-		if (doing_scar)
-		{
-
-			if (!scar.HasFinished())
-			{
-				scar.Update();
-				app->render->DrawTexture(attack, pos_anim.x, pos_anim.y, &scar.GetCurrentFrame());
-			}
-			else
-			{
-				finish_animation = true;
-				scar.Reset();
-			}
-		}
+		
 		
 	}
 	else if (state == STATE_FREE)
@@ -438,6 +470,7 @@ bool EntityPlayer::Update(float dt)
 		{
 			CleanUp();
 			delete(this);
+			app->entityHandler->NextTurn(last_damaged);
 		}
 	}
 
@@ -470,7 +503,6 @@ bool EntityPlayer::Update(float dt)
 	LOG("------------------------");*/
 
 	
-
 	
 
 	oldHP = entity_stats.hp;
@@ -509,11 +541,13 @@ bool EntityPlayer::Update(float dt)
 		currentAnimation = &death;
 	}
 
-	if ( out_of_steps || finish_animation || (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN))
+	if ( out_of_steps || (finish_animation && out_of_attacks)|| (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN))
 	{
 		app->entityHandler->NextTurn(Hitbox);
 		finish_animation = false;
+		doing_scar = false;
 		out_of_steps = false;
+		out_of_attacks = false;
 		actual_mov = entity_stats.momevent;
 	}
 	return true;

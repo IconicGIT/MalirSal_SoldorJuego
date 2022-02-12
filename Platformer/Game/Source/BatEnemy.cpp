@@ -72,7 +72,7 @@ bool BatEnemy::Start()
 void BatEnemy::Attck_01(Entity* player)
 {
 	player->entity_stats.hp -= entity_stats.damage * player->entity_stats.armour;
-
+	player->last_damaged = Hitbox;
 }
 
 bool BatEnemy::Update(float dt)
@@ -85,8 +85,6 @@ bool BatEnemy::Update(float dt)
 
 	if (state == STATE_TURN)
 	{
-
-
 		if (interpolating)
 		{
 			Interpolate(newX, newY, 0.02f);
@@ -125,7 +123,6 @@ bool BatEnemy::Update(float dt)
 							}
 							else
 							{
-
 								if (going->x < pos.x) // LEFT
 								{
 									Interpolate(x - 48, y, inter_speed);

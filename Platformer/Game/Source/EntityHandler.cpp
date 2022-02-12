@@ -187,12 +187,16 @@ void EntityHandler::DrawAllEntities()
 {
 	Entity* entitiy;
 
-	for (int i = 0; i < allEntities.count(); i++)
+	for (p2List_item<Entity*>* node = allEntities.getFirst(); node; node = node->next)
 	{
-		allEntities.at(i, entitiy);
-
-		entitiy->Draw();
+		node->data->Draw();
 	}
+
+	for (p2List_item<Entity*>* node = allEntities.getFirst(); node; node = node->next)
+	{
+		node->data->DrawUI();
+	}
+
 }
 
 bool EntityHandler::checkForEnemies()
@@ -738,7 +742,7 @@ void EntityHandler::StartCombat()
 		else
 		{
 			node->data->state = STATE_TURN;
-			app->render->follow = node->next->data;
+			app->render->follow = node->data;
 			turn = true;
 		}
 	}
