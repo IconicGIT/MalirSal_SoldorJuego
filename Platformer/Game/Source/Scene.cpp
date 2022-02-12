@@ -431,6 +431,7 @@ bool Scene::Update(float dt)
 				app->entityHandler->CreateEntity(ENTITY_GHOST, 11 * 48, 22 * 48);
 				app->entityHandler->CreateEntity(ENTITY_PLAYER, 15 * 48, 20 * 48);
 				app->entityHandler->CreateEntity(ENTITY_BAT, 11 * 48, 23 * 48);
+				app->entityHandler->CreateEntity(ENTITY_MUMMY, 13 * 48, 23 * 48);
 
 				app->entityHandler->CreateEntity(ENTITY_SOLDOR, 10 * 48, 16 * 48);
 

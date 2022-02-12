@@ -13,6 +13,7 @@
 #include "SoldorEnemy.h"
 #include "GhostEnemy.h"
 #include "BatEnemy.h"
+#include "MummyEnemy.h"
 
 
 #include <stdlib.h>     
@@ -361,6 +362,16 @@ void EntityHandler::CreateEntity(enum EntityType type, int x, int y)
 		allEntities.add(newBat);
 		newBat->Start();
 		newBat->SetID(all_ids);
+		all_ids++;
+	} break;
+	case ENTITY_MUMMY:
+	{
+		b2Vec2 pos(x + 24, y + 24);
+		MummyEnemy* newMummy = new MummyEnemy(pos, 50);
+		enemies.add(newMummy);
+		allEntities.add(newMummy);
+		newMummy->Start();
+		newMummy->SetID(all_ids);
 		all_ids++;
 	} break;
 

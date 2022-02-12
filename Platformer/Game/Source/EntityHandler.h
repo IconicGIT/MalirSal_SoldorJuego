@@ -34,7 +34,8 @@ enum EntityType
 	ENTITY_SNAKE,
 	ENTITY_SOLDOR,
 	ENTITY_GHOST,
-	ENTITY_BAT
+	ENTITY_BAT,
+	ENTITY_MUMMY
 };
 
 class Item;

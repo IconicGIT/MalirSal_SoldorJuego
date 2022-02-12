@@ -238,8 +238,8 @@ void SnakeEnemy::Draw()
 
 	app->render->DrawTexture(pac, x - 24, y - 24, &idle.GetCurrentFrame());
 
-	app->render->DrawTexture(LifeBars, METERS_TO_PIXELS(Hitbox->body->GetPosition().x) - 30, METERS_TO_PIXELS(Hitbox->body->GetPosition().y) - 25, &recHealthBG);
-    app->render->DrawTexture(LifeBars, x - 29, y - 24, &rec_temp_h);
+	app->render->DrawTexture(LifeBars, METERS_TO_PIXELS(Hitbox->body->GetPosition().x) - 30, METERS_TO_PIXELS(Hitbox->body->GetPosition().y) - 27, &recHealthBG);
+    app->render->DrawTexture(LifeBars, x - 29, y - 26, &rec_temp_h);
 }
 
 int SnakeEnemy::Attack(int enemyType)

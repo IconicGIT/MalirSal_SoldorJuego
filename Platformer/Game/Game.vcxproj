@@ -106,6 +106,7 @@
     <ClCompile Include="Source\Input.cpp" />
     <ClCompile Include="Source\Map.cpp" />
     <ClCompile Include="Source\ModuleFonts.cpp" />
+    <ClCompile Include="Source\MummyEnemy.cpp" />
     <ClCompile Include="Source\Pathfinding.cpp" />
     <ClCompile Include="Source\Physics.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
@@ -124,6 +125,7 @@
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\ModuleFonts.h" />
+    <ClInclude Include="Source\MummyEnemy.h" />
     <ClInclude Include="Source\Pathfinding.h" />
     <ClInclude Include="Source\Physics.h" />
     <ClInclude Include="Source\p2DynArray.h" />

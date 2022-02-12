@@ -1,9 +1,9 @@
-#include "GhostEnemy.h"
+#include "MummyEnemy.h"
 #include "Textures.h"
 #include "Render.h"
 #include "input.h"
 
-GhostEnemy::GhostEnemy(b2Vec2 startPosition, int health) : EntityEnemy()
+MummyEnemy::MummyEnemy(b2Vec2 startPosition, int health) : EntityEnemy()
 {
 	setPosition(startPosition.x, startPosition.y);
 	entity_stats.hp = health;
@@ -11,7 +11,7 @@ GhostEnemy::GhostEnemy(b2Vec2 startPosition, int health) : EntityEnemy()
 	entity_stats.damage = 10;
 	entity_stats.momevent = 6;
 	entity_stats.speed = 6;
-	name.Create("ghost");
+	name.Create("mummy");
 	Hitbox = app->physics->CreateCircle(startPosition.x, startPosition.y, 16);
 	Hitbox->body->SetSleepingAllowed(false);
 
@@ -23,15 +23,15 @@ GhostEnemy::GhostEnemy(b2Vec2 startPosition, int health) : EntityEnemy()
 
 }
 
-GhostEnemy::~GhostEnemy() {}
+MummyEnemy::~MummyEnemy() {}
 
-bool GhostEnemy::Awake()
+bool MummyEnemy::Awake()
 {
 	return false;
 }
 
 
-bool GhostEnemy::Start()
+bool MummyEnemy::Start()
 {
 	state = STATE_WAIT;
 	speed = 1;
@@ -43,29 +43,14 @@ bool GhostEnemy::Start()
 	recHealth = { 18, 152, 59, 6 };
 	recHealthBG = { 17, 164, 61, 8 };
 
-	idle.PushBack({ 0, 0, 48, 48 });
-	idle.PushBack({ 48 * 1, 0, 48, 48 });
-	idle.PushBack({ 48 * 2, 0, 48, 48 });
-	idle.PushBack({ 48 * 3, 0, 48, 48 });
-	idle.PushBack({ 48 * 4, 0, 48, 48 });
-	idle.PushBack({ 48 * 5, 0, 48, 48 });
-	idle.PushBack({ 48 * 6, 0, 48, 48 });
-	idle.PushBack({ 48 * 7, 0, 48, 48 });
-	idle.PushBack({ 48 * 8, 0, 48, 48 });
-	idle.PushBack({ 48 * 9, 0, 48, 48 });
-	idle.PushBack({ 48 * 10, 0, 48, 48 });
-	idle.PushBack({ 48 * 11, 0, 48, 48 });
-	idle.PushBack({ 48 * 12, 0, 48, 48 });
-	idle.PushBack({ 48 * 13, 0, 48, 48 });
-	idle.PushBack({ 48 * 14, 0, 48, 48 });
-	idle.PushBack({ 48 * 15, 0, 48, 48 });
-	idle.PushBack({ 48 * 16, 0, 48, 48 });
-	idle.PushBack({ 48 * 17, 0, 48, 48 });
-	idle.PushBack({ 48 * 18, 0, 48, 48 });
-	idle.PushBack({ 48 * 19, 0, 48, 48 });
-	idle.PushBack({ 48 * 20, 0, 48, 48 });
-	
-
+	idle.PushBack({ 0, 48 * 3, 48, 48 });
+	idle.PushBack({ 48 * 1, 48 * 3, 48, 48 });
+	idle.PushBack({ 48 * 2, 48 * 3, 48, 48 });
+	idle.PushBack({ 48 * 3, 48 * 3, 48, 48 });
+	idle.PushBack({ 48 * 4, 48 * 3, 48, 48 });
+	idle.PushBack({ 48 * 5, 48 * 3, 48, 48 });
+	idle.PushBack({ 48 * 6, 48 * 3, 48, 48 });
+	idle.PushBack({ 48 * 7, 48 * 3, 48, 48 });
 	idle.speed = 0.15f;
 
 	inter_speed = 0.02f;
@@ -84,13 +69,13 @@ bool GhostEnemy::Start()
 	return true;
 }
 
-void GhostEnemy::Attck_01(Entity* player)
+void MummyEnemy::Attck_01(Entity* player)
 {
 	player->entity_stats.hp -= entity_stats.damage * player->entity_stats.armour;
 
 }
 
-bool GhostEnemy::Update(float dt)
+bool MummyEnemy::Update(float dt)
 {
 
 	if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN) state = STATE_TURN;
@@ -235,29 +220,29 @@ bool GhostEnemy::Update(float dt)
 	return false;
 }
 
-bool GhostEnemy::LoadState(pugi::xml_node&)
+bool MummyEnemy::LoadState(pugi::xml_node&)
 {
 	return false;
 }
-bool GhostEnemy::SaveState(pugi::xml_node&) const
+bool MummyEnemy::SaveState(pugi::xml_node&) const
 {
 	return false;
 }
-bool GhostEnemy::CleanUp()
+bool MummyEnemy::CleanUp()
 {
 	return false;
 }
-void GhostEnemy::Draw()
+void MummyEnemy::Draw()
 {
 	currentAnimation->Update();
 
 	app->render->DrawTexture(pac, x - 24, y - 24, &idle.GetCurrentFrame());
 
-	app->render->DrawTexture(LifeBars, METERS_TO_PIXELS(Hitbox->body->GetPosition().x) - 30, METERS_TO_PIXELS(Hitbox->body->GetPosition().y) - 24, &recHealthBG);
-	app->render->DrawTexture(LifeBars, x - 29, y - 23, &rec_temp_h);
+	app->render->DrawTexture(LifeBars, METERS_TO_PIXELS(Hitbox->body->GetPosition().x) - 30, METERS_TO_PIXELS(Hitbox->body->GetPosition().y) - 27, &recHealthBG);
+	app->render->DrawTexture(LifeBars, x - 29, y - 26, &rec_temp_h);
 }
 
-int GhostEnemy::Attack(int enemyType)
+int MummyEnemy::Attack(int enemyType)
 {
 	return 0;
 }
