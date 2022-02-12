@@ -99,6 +99,7 @@ public:
 			}
 			currentAnimation = &jump;
 			currentAnimation->Reset();
+			actual_mov--;
 		}
 		else {
 			h += iSpeed;
@@ -116,6 +117,7 @@ public:
 			if (h == 1)
 			{
 				interpolating = false;
+				Hitbox->body->SetLinearVelocity(b2Vec2(0.0f, 0.0f));
 				h = 0;
 			}
 
@@ -219,6 +221,7 @@ private:
 
 	bool out_of_steps = false;
 	bool out_of_attacks = false;
+	int actual_mov;
 
 };
 

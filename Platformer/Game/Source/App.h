@@ -138,7 +138,7 @@ public:
 	}
 
 
-private:
+//private:
 
 	
 	bool gamePaused;

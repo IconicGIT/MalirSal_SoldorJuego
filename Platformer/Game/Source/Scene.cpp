@@ -409,6 +409,8 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
+	app->init = SDL_GetTicks();
+	float end;
 	currentTime += 16;
 
 	if (sensor_01->type != TYPE_NULL)
@@ -420,8 +422,8 @@ bool Scene::Update(float dt)
 			{
 				app->entityHandler->players.getFirst()->data->moveType = STEP_TILES;
 
-				app->entityHandler->players.getFirst()->data->Interpolate(0, 0, 0.02);
-				app->render->Interpolate(0, 0, 0.02);
+				app->entityHandler->players.getFirst()->data->Interpolate((5*48) + 24, (20*48) + 24, 0.02);
+				app->render->Interpolate((20 * 48) + 24, (20 * 48)+ 24, 0.02);
 				app->physics->GetWorld()->DestroyBody(sensor_01->body);
 				sensor_01->type = TYPE_NULL;
 
@@ -518,7 +520,7 @@ bool Scene::Update(float dt)
 
 
 		
-
+		
 		app->map->Draw();
 		app->entityHandler->DrawAllEntities();
 			

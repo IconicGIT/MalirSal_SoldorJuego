@@ -31,6 +31,7 @@ EntityPlayer::EntityPlayer(b2Vec2 startPosition, int health) : Entity()
 	entity_stats.damage = 4;
 	entity_stats.momevent = 5;
 	entity_stats.speed = 3;
+	actual_mov = entity_stats.momevent = 5;
 }
 
 
@@ -65,7 +66,7 @@ bool EntityPlayer::Start()
 	newY = 0;
 	oldX = 0;
 	oldY = 0;
-	state = STATE_WAIT;
+	state = STATE_FREE;
 	LOG("player started");
 
 	//23
@@ -122,7 +123,7 @@ bool EntityPlayer::Start()
 	jump.speed = 0.25f;
 	jump.loop = false;
 
-
+	out_of_steps = false;
 
 
 	death.PushBack({ 64 * 0, 64 * 12, 64, 64 });
@@ -305,7 +306,7 @@ bool EntityPlayer::Update(float dt)
 				}
 			}
 
-
+			
 			if (interpolating)
 			{
 
@@ -313,13 +314,21 @@ bool EntityPlayer::Update(float dt)
 			}
 			else
 			{
-				if (goRight) Interpolate(x + 48, y, inter_speed);
-  				else if (goLeft) Interpolate(x - 48, y, inter_speed);
-				else if (goUp) Interpolate(x, y - 48, inter_speed);
-				else if (goDown) Interpolate(x, y + 48, inter_speed);
-
+				if (actual_mov == 0)
+				{
+					out_of_steps = true;
+				}
+				else
+				{
+					if (goRight) Interpolate(x + 48, y, inter_speed);
+					else if (goLeft) Interpolate(x - 48, y, inter_speed);
+					else if (goUp) Interpolate(x, y - 48, inter_speed);
+					else if (goDown) Interpolate(x, y + 48, inter_speed);
+				}
 
 			}
+			
+			
 		} break;
 		case FOCUSING:
 		{
@@ -460,10 +469,12 @@ bool EntityPlayer::Update(float dt)
 		currentAnimation = &death;
 	}
 
-	if ( out_of_attacks || (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN))
+	if ( out_of_steps || out_of_attacks || (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN))
 	{
 		app->entityHandler->NextTurn(Hitbox);
 		out_of_attacks = false;
+		out_of_steps = false;
+		actual_mov = entity_stats.momevent;
 	}
 	return true;
 }

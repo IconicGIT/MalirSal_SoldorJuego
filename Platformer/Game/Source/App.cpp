@@ -158,13 +158,15 @@ bool App::Update()
 
 	if(ret == true)
 		ret = PreUpdate();
-
+	
 	if(ret == true)
 		ret = DoUpdate();
-
+	
 	if(ret == true)
 		ret = PostUpdate();
 	end = SDL_GetTicks();
+	
+	LOG("%f", (float)(end - init));
 
 
 	long elapsedTime = (float)(end - init);
@@ -301,8 +303,10 @@ bool App::DoUpdate()
 		if(pModule->active == false) {
 			continue;
 		}
-
+		init = SDL_GetTicks();
 		ret = item->data->Update(dt);
+		
+		int yes = 0;
 	}
 
 	return ret;

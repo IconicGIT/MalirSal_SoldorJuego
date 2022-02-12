@@ -63,6 +63,7 @@ public:
 
 			pos_dif_x = newX - oldX;
 			pos_dif_y = newY - oldY;
+			actual_mov--;
 		}
 		else {
 			h += iSpeed;
@@ -130,6 +131,7 @@ private:
 
 	bool out_of_steps = false;
 	bool out_of_attacks = false;
+	int actual_mov;
 	//Stats snakeStats;
 };
 

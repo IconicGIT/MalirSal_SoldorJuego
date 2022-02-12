@@ -9,7 +9,7 @@ SnakeEnemy::SnakeEnemy(b2Vec2 startPosition, int health) : EntityEnemy()
 	entity_stats.hp = health;
 	entity_stats.armour = 1;
 	entity_stats.damage = 10;
-	entity_stats.momevent = 5;
+	entity_stats.momevent = 6;
 	entity_stats.speed = 6;
 	name.Create("snake");
 	Hitbox = app->physics->CreateCircle(startPosition.x, startPosition.y, 16);
@@ -61,10 +61,11 @@ bool SnakeEnemy::Start()
 	totalHealth = 10;
 	entity_stats.armour = 1;
 	entity_stats.damage = 4;
-	entity_stats.momevent = 5;
+	entity_stats.momevent = 2;
 	entity_stats.speed = 2;
 	changingSpeed = 0.1f;
-
+	actual_mov = entity_stats.momevent;
+	out_of_steps = false;
 	return true;
 }
 
@@ -118,26 +119,33 @@ bool SnakeEnemy::Update(float dt)
 						if (going != nullptr)
 						{
 							b2Vec2 movement = { 0,0 };
-
-							if (going->x < pos.x) // LEFT
+							if (actual_mov == 0)
 							{
-								Interpolate(x - 48, y, inter_speed);
-							}
-							else if (going->x > pos.x) // RIGHT
-							{
-								Interpolate(x + 48, y, inter_speed);
-							}
-							else if (going->y < pos.y) // UP
-							{
-								Interpolate(x, y - 48, inter_speed);
-							}
-							else if (going->y > pos.y) // DOWN
-							{
-								Interpolate(x, y + 48, inter_speed);
+								out_of_steps = true;
 							}
 							else
 							{
 
+								if (going->x < pos.x) // LEFT
+								{
+									Interpolate(x - 48, y, inter_speed);
+								}
+								else if (going->x > pos.x) // RIGHT
+								{
+									Interpolate(x + 48, y, inter_speed);
+								}
+								else if (going->y < pos.y) // UP
+								{
+									Interpolate(x, y - 48, inter_speed);
+								}
+								else if (going->y > pos.y) // DOWN
+								{
+									Interpolate(x, y + 48, inter_speed);
+								}
+								else
+								{
+
+								}
 							}
 						}
 
@@ -194,10 +202,12 @@ bool SnakeEnemy::Update(float dt)
 	rec_temp_h = recHealth;
 	rec_temp_h.w = to_draw;
 
-	if ( out_of_attacks || (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN))
+	if ( out_of_steps || out_of_attacks || (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN))
 	{
 		app->entityHandler->NextTurn(Hitbox);
 		out_of_attacks = false;
+		out_of_steps = false;
+		actual_mov = entity_stats.momevent;
 	}
 
 	return false;
