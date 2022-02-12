@@ -11,6 +11,9 @@
 #include "EntityHandler.h"
 #include "SnakeEnemy.h"
 #include "SoldorEnemy.h"
+#include "GhostEnemy.h"
+#include "BatEnemy.h"
+
 
 #include <stdlib.h>     
 #include <time.h>       
@@ -340,6 +343,27 @@ void EntityHandler::CreateEntity(enum EntityType type, int x, int y)
 		newSoldor->SetID(all_ids);
 		all_ids++;
 	} break;
+	case ENTITY_GHOST:
+	{
+		b2Vec2 pos(x + 24, y + 24);
+		GhostEnemy* newGhost = new GhostEnemy(pos, 50);
+		enemies.add(newGhost);
+		allEntities.add(newGhost);
+		newGhost->Start();
+		newGhost->SetID(all_ids);
+		all_ids++;
+	} break;
+	case ENTITY_BAT:
+	{
+		b2Vec2 pos(x + 24, y + 24);
+		BatEnemy* newBat = new BatEnemy(pos, 50);
+		enemies.add(newBat);
+		allEntities.add(newBat);
+		newBat->Start();
+		newBat->SetID(all_ids);
+		all_ids++;
+	} break;
+
 	/*case ENEMY_SNAKE:
 	{
 		b2Vec2 pos(x, y);

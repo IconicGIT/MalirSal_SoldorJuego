@@ -93,10 +93,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\BatEnemy.cpp" />
     <ClCompile Include="Source\EntityEnemies.cpp" />
     <ClCompile Include="Source\EntityDummy.cpp" />
     <ClCompile Include="Source\EntityHandler.cpp" />
     <ClCompile Include="Source\EntityPlayer.cpp" />
+    <ClCompile Include="Source\GhostEnemy.cpp" />
     <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\App.cpp" />
@@ -117,6 +119,8 @@
     <ClInclude Include="Source\EntityDummy.h" />
     <ClInclude Include="Source\EntityHandler.h" />
     <ClInclude Include="Source\EntityPlayer.h" />
+    <ClInclude Include="Source\GhostEnemy.h" />
+    <ClInclude Include="Source\BatEnemy.h" />
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\ModuleFonts.h" />

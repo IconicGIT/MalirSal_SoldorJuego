@@ -40,6 +40,12 @@
     <ClCompile Include="Source\SoldorEnemy.cpp">
       <Filter>Entities\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GhostEnemy.cpp">
+      <Filter>Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BatEnemy.cpp">
+      <Filter>Entities\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -104,6 +110,12 @@
       <Filter>Entities\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Source\SoldorEnemy.h">
+      <Filter>Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GhostEnemy.h">
+      <Filter>Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BatEnemy.h">
       <Filter>Entities\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
