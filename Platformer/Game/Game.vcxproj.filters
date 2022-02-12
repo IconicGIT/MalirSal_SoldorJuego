@@ -37,6 +37,9 @@
     <ClCompile Include="Source\SnakeEnemy.cpp">
       <Filter>Entities\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SoldorEnemy.cpp">
+      <Filter>Entities\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -98,6 +101,9 @@
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\SnakeEnemy.h">
+      <Filter>Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SoldorEnemy.h">
       <Filter>Entities\Enemies</Filter>
     </ClInclude>
   </ItemGroup>

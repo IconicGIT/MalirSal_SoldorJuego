@@ -10,6 +10,7 @@
 #include "Audio.h";
 #include "EntityHandler.h"
 #include "SnakeEnemy.h"
+#include "SoldorEnemy.h"
 
 #include <stdlib.h>     
 #include <time.h>       
@@ -327,6 +328,16 @@ void EntityHandler::CreateEntity(enum EntityType type, int x, int y)
 		allEntities.add(newSnake);
 		newSnake->Start();
 		newSnake->SetID(all_ids);
+		all_ids++;
+	} break;
+	case ENTITY_SOLDOR:
+	{
+		b2Vec2 pos(x + 24, y + 24);
+		SoldorEnemy* newSoldor = new SoldorEnemy(pos, 50);
+		enemies.add(newSoldor);
+		allEntities.add(newSoldor);
+		newSoldor->Start();
+		newSoldor->SetID(all_ids);
 		all_ids++;
 	} break;
 	/*case ENEMY_SNAKE:

@@ -49,8 +49,8 @@ bool EntityPlayer::Start()
 	sprite = app->tex->Load("Assets/textures/chickens/chickens_spritesheet.png");
 	LifeBars = app->tex->Load("Assets/textures/UI/HealthBar DARK.png");
 
-	recHealth = { 18, 152, 59, 6 };
-	recHealthBG = { 17, 164, 61, 8 };
+	recHealth = { 19, 30, 62, 4 };
+	recHealthBG = { 18, 40, 64, 6 };
 
 	moveType = STEP_TILES;
 	AdminMode = false;

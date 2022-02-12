@@ -428,8 +428,10 @@ bool Scene::Update(float dt)
 				sensor_01->type = TYPE_NULL;
 
 				app->entityHandler->CreateEntity(ENTITY_SNAKE, 11 * 48, 24 * 48);
-				app->entityHandler->CreateEntity(ENTITY_SNAKE, 11 * 48, 22 * 48);
-				app->entityHandler->CreateEntity(ENTITY_SNAKE, 15 * 48, 20 * 48);
+				//app->entityHandler->CreateEntity(ENTITY_SNAKE, 11 * 48, 22 * 48);
+				//app->entityHandler->CreateEntity(ENTITY_SNAKE, 15 * 48, 20 * 48);
+
+				app->entityHandler->CreateEntity(ENTITY_SOLDOR, 10 * 48, 16 * 48);
 
 				app->entityHandler->StartCombat();
 				// Spawn enemies!!!!
