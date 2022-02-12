@@ -9,6 +9,8 @@
 
 #define VSYNC true
 
+class Entity;
+
 Render::Render() : Module()
 {
 	name.Create("renderer");
@@ -76,7 +78,15 @@ bool Render::Update(float dt)
 	if (cameraFollow == true) // Camera follow at the center, for debug purposes
 	{
 		//LOG(" LOL ");
-		app->entityHandler->GetMainPlayer()->GetPhysBody()->GetPosition(camera.x, camera.y);
+		if (follow == NULL)
+		{
+			app->entityHandler->GetMainPlayer()->GetPhysBody()->GetPosition(camera.x, camera.y);
+		}
+		else
+		{
+			follow->Hitbox->GetPosition(camera.x, camera.y);
+		}
+		
 		//LOG("%i", camera.x);
 		app->win->GetWindowSize(windowX, windowY);
 		//LOG("%i", windowX);

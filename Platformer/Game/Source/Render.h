@@ -3,6 +3,7 @@
 
 #include "Module.h"
 
+class Entity;
 
 
 #include "SDL/include/SDL.h"
@@ -104,7 +105,7 @@ public:
 	float pos_dif_x;
 	float pos_dif_y;
 	float h = 0;
-
+	Entity* follow;
 	float inter_speed;	bool cameraFollow = false;
 };
 

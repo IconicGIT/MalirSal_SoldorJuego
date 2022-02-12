@@ -750,10 +750,12 @@ void EntityHandler::NextTurn(PhysBody* finished)
 			if (node->next != NULL)
 			{
 				node->next->data->state = STATE_TURN;
+				app->render->follow = node->next->data;
 			}
 			else
 			{
 				allEntities.getFirst()->data->state = STATE_TURN;
+				app->render->follow = allEntities.getFirst()->data;
 			}
 		}
 	}
