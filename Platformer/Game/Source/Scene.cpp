@@ -9,6 +9,7 @@
 #include "Map.h"
 #include "Pathfinding.h"
 #include "Physics.h"
+#include "Input.h"
 
 #include "SDL_mixer/include/SDL_mixer.h"
 #include <stdio.h>
@@ -44,6 +45,7 @@ bool Scene::Start()
 
 	player = app->entityHandler->GetMainPlayer();
 
+	
 	sensor_01 = app->physics->CreateSensorCircle(500, 900, 24);
 	sensor_01->type = TYPE_ENEMY;
 	switch (state)
@@ -65,7 +67,6 @@ bool Scene::Start()
 		font1_white_3 = app->fonts->Load("Assets/textures/UI/fonts/font1_white_3.png", lookupTable1, 6);
 
 		
-
 
 		
 
@@ -413,6 +414,7 @@ bool Scene::Update(float dt)
 	float end;
 	currentTime += 16;
 
+	
 	if (sensor_01->type != TYPE_NULL)
 	{
 		if (sensor_01->body->GetContactList() != NULL)
@@ -427,13 +429,12 @@ bool Scene::Update(float dt)
 				app->physics->GetWorld()->DestroyBody(sensor_01->body);
 				sensor_01->type = TYPE_NULL;
 
-				app->entityHandler->CreateEntity(ENTITY_SNAKE, 11 * 48, 24 * 48);
-				app->entityHandler->CreateEntity(ENTITY_GHOST, 11 * 48, 22 * 48);
-				app->entityHandler->CreateEntity(ENTITY_PLAYER, 15 * 48, 20 * 48);
-				app->entityHandler->CreateEntity(ENTITY_BAT, 11 * 48, 23 * 48);
-				app->entityHandler->CreateEntity(ENTITY_MUMMY, 13 * 48, 23 * 48);
+				app->entityHandler->CreateEntity(ENTITY_SNAKE, 11 * 48, 24 * 48, 0);
+				app->entityHandler->CreateEntity(ENTITY_MUMMY, 11 * 48, 22 * 48, 0);
+				app->entityHandler->CreateEntity(ENTITY_PLAYER, 15 * 48, 20 * 48, 1);
+				app->entityHandler->CreateEntity(ENTITY_BAT, 11 * 48, 23 * 48, 0);
 
-				app->entityHandler->CreateEntity(ENTITY_SOLDOR, 10 * 48, 16 * 48);
+				app->entityHandler->CreateEntity(ENTITY_SOLDOR, 10 * 48, 16 * 48, 0);
 
 				app->entityHandler->StartCombat();
 				// Spawn enemies!!!!
@@ -527,7 +528,7 @@ bool Scene::Update(float dt)
 		
 		app->map->Draw();
 		app->entityHandler->DrawAllEntities();
-			
+		
 	}break;
 	case END:
 	{

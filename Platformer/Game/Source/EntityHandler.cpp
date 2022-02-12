@@ -40,7 +40,7 @@ bool EntityHandler::Start()
 
 	all_ids = 0;
 
-	CreateEntity(ENTITY_PLAYER, 6 * 48, 23 * 48);
+	CreateEntity(ENTITY_PLAYER, 6 * 48, 23 * 48, 0);
 	//CreateEntity(ENTITY_DUMMY, 12 * 48, 22 * 48);
 	
 
@@ -61,6 +61,110 @@ bool EntityHandler::CleanUp()
 
 
 	return true;
+}
+
+void EntityHandler::CreateEntity(EntityType type, int x, int y, int id__)
+{
+
+	switch (type)
+	{
+	case ENTITY_PLAYER:
+	{
+		b2Vec2 pos(x + 24, y + 24);
+		EntityPlayer* newPlayer = new EntityPlayer(pos, id__);
+		player = newPlayer;
+		players.add(newPlayer);
+		allEntities.add(newPlayer);
+		newPlayer->Start();
+		newPlayer->SetID(all_ids);
+		all_ids++;
+	}
+	break;
+	case ENTITY_DUMMY:
+	{
+		b2Vec2 pos(x + 24, y + 24);
+		EntityDummy* newDummy = new EntityDummy(pos, 2);
+		dummies.add(newDummy);
+		allEntities.add(newDummy);
+		newDummy->Start();
+		newDummy->SetID(all_ids);
+		all_ids++;
+	}
+	break;
+	case ENTITY_SNAKE:
+	{
+		b2Vec2 pos(x + 24, y + 24);
+		SnakeEnemy* newSnake = new SnakeEnemy(pos, 2);
+		enemies.add(newSnake);
+		allEntities.add(newSnake);
+		newSnake->Start();
+		newSnake->SetID(all_ids);
+		all_ids++;
+	} break;
+	case ENTITY_SOLDOR:
+	{
+		b2Vec2 pos(x + 24, y + 24);
+		SoldorEnemy* newSoldor = new SoldorEnemy(pos);
+		enemies.add(newSoldor);
+		allEntities.add(newSoldor);
+		newSoldor->Start();
+		newSoldor->SetID(all_ids);
+		all_ids++;
+	} break;
+	/*case ENEMY_SNAKE:
+	{
+		b2Vec2 pos(x, y);
+		EnemySnake* newSnake = new EnemySnake(pos, 2);
+		enemiesSnake.add(newSnake);
+		allEntities.add(newSnake);
+		newSnake->Start();
+		newSnake->SetID(all_ids);
+		all_ids++;
+
+		break;
+	}*/
+	/*case ENEMY_BIRD:
+	{
+		b2Vec2 pos(x, y);
+		EnemyBird* newBird = new EnemyBird(pos, 1);
+		enemiesBird.add(newBird);
+		allEntities.add(newBird);
+		newBird->Start();
+		newBird->SetID(all_ids);
+		all_ids++;
+
+		break;
+	}*/
+	/*case ITEM_BANANA:
+	{
+		b2Vec2 pos(x, y);
+		Item* newItem = new Item(ItemType::BANANA, pos);
+		items.add(newItem);
+		allEntities.add(newItem);
+		newItem->Start();
+		newItem->SetID(all_ids);
+		all_ids++;
+
+		break;
+	} */
+	//case ROCKET_BANANA:
+	//{
+	//	b2Vec2 pos(x, y);
+	//	RocketBanana* newRocket = new RocketBanana(pos, 1);
+	//	
+	//	rockets.add(newRocket);
+	//	allEntities.add(newRocket);
+	//	newRocket->Start();
+	//	newRocket->SetID(all_ids);
+	//	all_ids++;
+	//	break;
+	//} 
+	//	
+	default:
+		break;
+	}
+
+	//LOG("Entity Created");
 }
 
 bool EntityHandler::Update(float dt)
@@ -194,7 +298,7 @@ bool EntityHandler::LoadState(pugi::xml_node& data)
 
 		for (prop = data.child("chicken_idle"); prop.type() == pugi::node_element; prop = prop.next_sibling("chicken_idle"))
 		{
-			CreateEntity(ENTITY_PLAYER, 0, 0);
+			CreateEntity(ENTITY_PLAYER, 0, 0, 1);
 			EntityPlayer* ent = nullptr;
 			players.at(i, ent);
 			ent->LoadState(prop);
@@ -296,140 +400,6 @@ bool EntityHandler::SaveState(pugi::xml_node& data) const
 	return true;
 }
 
-void EntityHandler::CreateEntity(enum EntityType type, int x, int y)
-{
-	
-	switch (type)
-	{
-	case ENTITY_PLAYER:
-	{
-		b2Vec2 pos(x + 24, y + 24);
-		EntityPlayer* newPlayer = new EntityPlayer(pos, 2);
-		player = newPlayer;
-		players.add(newPlayer);
-		allEntities.add(newPlayer);
-		newPlayer->Start();
-		newPlayer->SetID(all_ids);
-		all_ids++;
-	}
-	break;
-	case ENTITY_DUMMY:
-	{
-		b2Vec2 pos(x + 24, y + 24);
-		EntityDummy* newDummy = new EntityDummy(pos, 2);
-		dummies.add(newDummy);
-		allEntities.add(newDummy);
-		newDummy->Start();
-		newDummy->SetID(all_ids);
-		all_ids++;
-	}
-	break;
-	case ENTITY_SNAKE:
-	{
-		b2Vec2 pos(x + 24, y + 24);
-		SnakeEnemy* newSnake = new SnakeEnemy(pos, 2);
-		enemies.add(newSnake);
-		allEntities.add(newSnake);
-		newSnake->Start();
-		newSnake->SetID(all_ids);
-		all_ids++;
-	} break;
-	case ENTITY_SOLDOR:
-	{
-		b2Vec2 pos(x + 24, y + 24);
-		SoldorEnemy* newSoldor = new SoldorEnemy(pos);
-		enemies.add(newSoldor);
-		allEntities.add(newSoldor);
-		newSoldor->Start();
-		newSoldor->SetID(all_ids);
-		all_ids++;
-	} break;
-	case ENTITY_GHOST:
-	{
-		b2Vec2 pos(x + 24, y + 24);
-		GhostEnemy* newGhost = new GhostEnemy(pos, 50);
-		enemies.add(newGhost);
-		allEntities.add(newGhost);
-		newGhost->Start();
-		newGhost->SetID(all_ids);
-		all_ids++;
-	} break;
-	case ENTITY_BAT:
-	{
-		b2Vec2 pos(x + 24, y + 24);
-		BatEnemy* newBat = new BatEnemy(pos, 50);
-		enemies.add(newBat);
-		allEntities.add(newBat);
-		newBat->Start();
-		newBat->SetID(all_ids);
-		all_ids++;
-	} break;
-	case ENTITY_MUMMY:
-	{
-		b2Vec2 pos(x + 24, y + 24);
-		MummyEnemy* newMummy = new MummyEnemy(pos, 50);
-		enemies.add(newMummy);
-		allEntities.add(newMummy);
-		newMummy->Start();
-		newMummy->SetID(all_ids);
-		all_ids++;
-	} break;
-
-	/*case ENEMY_SNAKE:
-	{
-		b2Vec2 pos(x, y);
-		EnemySnake* newSnake = new EnemySnake(pos, 2);
-		enemiesSnake.add(newSnake);
-		allEntities.add(newSnake);
-		newSnake->Start();
-		newSnake->SetID(all_ids);
-		all_ids++;
-
-		break;
-	}
-	case ENEMY_BIRD:
-	{
-		b2Vec2 pos(x, y);
-		EnemyBird* newBird = new EnemyBird(pos, 1);
-		enemiesBird.add(newBird);
-		allEntities.add(newBird);
-		newBird->Start();
-		newBird->SetID(all_ids);
-		all_ids++;
-
-		break;
-	}*/
-	/*case ITEM_BANANA:
-	{
-		b2Vec2 pos(x, y);
-		Item* newItem = new Item(ItemType::BANANA, pos);
-		items.add(newItem);
-		allEntities.add(newItem);
-		newItem->Start();
-		newItem->SetID(all_ids);
-		all_ids++;
-
-		break;
-	} */
-	//case ROCKET_BANANA:
-	//{
-	//	b2Vec2 pos(x, y);
-	//	RocketBanana* newRocket = new RocketBanana(pos, 1);
-	//	
-	//	rockets.add(newRocket);
-	//	allEntities.add(newRocket);
-	//	newRocket->Start();
-	//	newRocket->SetID(all_ids);
-	//	all_ids++;
-	//	break;
-	//} 
-	//	
-	default:
-		break;
-	}
-
-	//LOG("Entity Created");
-}
 
 void EntityHandler::DestroyEnemy(b2Body* body)
 {
@@ -454,22 +424,21 @@ void EntityHandler::DestroyEnemy(b2Body* body)
 
 void EntityHandler::DestroyPlayer(b2Body* body)
 {
-	for (p2List_item<EntityPlayer*>* dummy = players.getFirst(); dummy; dummy = dummy->next)
+	if (players.getFirst() != NULL)
 	{
-
-
-		if (dummy->data->GetPhysBody()->body == body)
+		for (p2List_item<EntityPlayer*>* dummy = players.getFirst(); dummy; dummy = dummy->next)	
 		{
-			players.del(dummy);
-			p2List_item<Entity*>* eToDelete = allEntities.findNode(dummy->data);
-			allEntities.del(eToDelete);
 
-			app->physics->GetWorld()->DestroyBody(body);
 
-		}
-		else
-		{
-			dummy = dummy->next;
+			if (dummy->data->GetPhysBody()->body == body)
+			{
+				players.del(dummy);
+				p2List_item<Entity*>* eToDelete = allEntities.findNode(dummy->data);
+				allEntities.del(eToDelete);
+
+				app->physics->GetWorld()->DestroyBody(body);
+
+			}
 		}
 	}
 }
@@ -769,6 +738,7 @@ void EntityHandler::StartCombat()
 		else
 		{
 			node->data->state = STATE_TURN;
+			app->render->follow = node->next->data;
 			turn = true;
 		}
 	}

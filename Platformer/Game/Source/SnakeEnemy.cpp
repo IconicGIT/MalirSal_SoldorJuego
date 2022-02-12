@@ -57,7 +57,7 @@ bool SnakeEnemy::Start()
 	
 	currentAnimation = &idle;
 
-	entity_stats.hp = 8;
+	entity_stats.hp = 15;
 	totalHealth = entity_stats.hp;
 	entity_stats.armour = 1;
 	entity_stats.damage = 3;
@@ -174,6 +174,7 @@ bool SnakeEnemy::Update(float dt)
 	{
 
 	}
+
 	oldHP = entity_stats.hp;
 	//totalHealth = 10;
 
@@ -232,6 +233,7 @@ bool SnakeEnemy::CleanUp()
 {
 	return false;
 }
+
 void SnakeEnemy::Draw()
 {
 	currentAnimation->Update();
@@ -240,6 +242,8 @@ void SnakeEnemy::Draw()
 
 	app->render->DrawTexture(LifeBars, METERS_TO_PIXELS(Hitbox->body->GetPosition().x) - 30, METERS_TO_PIXELS(Hitbox->body->GetPosition().y) - 27, &recHealthBG);
     app->render->DrawTexture(LifeBars, x - 29, y - 26, &rec_temp_h);
+
+	
 }
 
 int SnakeEnemy::Attack(int enemyType)

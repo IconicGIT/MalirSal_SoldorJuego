@@ -8,7 +8,7 @@
 #include "ModuleFonts.h"
 #include "EntityHandler.h"
 #include "EntityPlayer.h"
-
+#include "SDL/include/SDL.h"
 
 struct SDL_Texture;
 
@@ -104,7 +104,7 @@ public:
 
 	int currentTime = 0;
 	int lastTime = 0;
-
+	
 
 private:
 	

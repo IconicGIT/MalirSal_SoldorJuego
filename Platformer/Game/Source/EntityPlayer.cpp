@@ -11,13 +11,15 @@
 #include "Animation.h"
 #include "Pathfinding.h"
 
-EntityPlayer::EntityPlayer(b2Vec2 startPosition, int health) : Entity()
+
+
+
+EntityPlayer::EntityPlayer(b2Vec2 startPosition, int id_) : Entity()
 {
 	spawnPosition = startPosition;
 	name.Create("chicken_idle");
 	Hitbox = app->physics->CreateCircle(spawnPosition.x, spawnPosition.y, 16);
 	Hitbox->body->SetSleepingAllowed(false);
-	this->health = health;
 	Hitbox->body->SetGravityScale(0);
 	Hitbox->body->GetFixtureList()->SetRestitution(0);
 	Hitbox->body->SetFixedRotation(true);
@@ -32,6 +34,7 @@ EntityPlayer::EntityPlayer(b2Vec2 startPosition, int health) : Entity()
 	entity_stats.momevent = 5;
 	entity_stats.speed = 3;
 	actual_mov = entity_stats.momevent;
+	id = id_;
 }
 
 
@@ -70,53 +73,54 @@ bool EntityPlayer::Start()
 	LOG("player started");
 
 	//23
-	idle.PushBack({ 0 , 0, 64, 64});
-	idle.PushBack({ 64 * 1, 0, 64, 64 }) ;
-	idle.PushBack({ 64 * 2, 0, 64, 64 }) ;
-	idle.PushBack({ 64 * 3, 0, 64, 64 }) ;
-	idle.PushBack({ 64 * 4, 0, 64, 64 }) ;
-	idle.PushBack({ 64 * 5, 0, 64, 64 }) ;
-	idle.PushBack({ 64 * 6, 0, 64, 64 }) ;
-	idle.PushBack({ 64 * 7, 0, 64, 64 }) ;
-	idle.PushBack({ 64 * 8, 0, 64, 64 }) ;
-	idle.PushBack({ 64 * 9,  0, 64, 64 }) ;
-	idle.PushBack({ 64 * 10, 0, 64, 64 });
-	idle.PushBack({ 64 * 11, 0, 64, 64 });
-	idle.PushBack({ 64 * 12, 0, 64, 64 });
-	idle.PushBack({ 64 * 13, 0, 64, 64 });
-	idle.PushBack({ 64 * 14, 0, 64, 64 });
-	idle.PushBack({ 64 * 15, 0, 64, 64 });
-	idle.PushBack({ 64 * 16, 0, 64, 64 });
-	idle.PushBack({ 64 * 17, 0, 64, 64 });
-	idle.PushBack({ 64 * 18, 0, 64, 64 });
-	idle.PushBack({ 64 * 19, 0, 64, 64 });
-	idle.PushBack({ 64 * 20, 0, 64, 64 });
-	idle.PushBack({ 64 * 21, 0, 64, 64 });
-	idle.PushBack({ 64 * 22, 0, 64, 64 });
+	idle.PushBack({ 0 , id * 64 * 4, 64, 64});
+	idle.PushBack({ 64 * 1, id * 64 * 4, 64, 64 }) ;
+	idle.PushBack({ 64 * 2, id * 64 * 4, 64, 64 }) ;
+	idle.PushBack({ 64 * 3, id * 64 * 4, 64, 64 }) ;
+	idle.PushBack({ 64 * 4, id * 64 * 4, 64, 64 }) ;
+	idle.PushBack({ 64 * 5, id * 64 * 4, 64, 64 }) ;
+	idle.PushBack({ 64 * 6, id * 64 * 4, 64, 64 }) ;
+	idle.PushBack({ 64 * 7, id * 64 * 4, 64, 64 }) ;
+	idle.PushBack({ 64 * 8, id * 64 * 4, 64, 64 }) ;
+	idle.PushBack({ 64 * 9,  id * 64 * 4, 64, 64 }) ;
+	idle.PushBack({ 64 * 10, id * 64 * 4, 64, 64 });
+	idle.PushBack({ 64 * 11, id * 64 * 4, 64, 64 });
+	idle.PushBack({ 64 * 12, id * 64 * 4, 64, 64 });
+	idle.PushBack({ 64 * 13, id * 64 * 4, 64, 64 });
+	idle.PushBack({ 64 * 14, id * 64 * 4, 64, 64 });
+	idle.PushBack({ 64 * 15, id * 64 * 4, 64, 64 });
+	idle.PushBack({ 64 * 16, id * 64 * 4, 64, 64 });
+	idle.PushBack({ 64 * 17, id * 64 * 4, 64, 64 });
+	idle.PushBack({ 64 * 18, id * 64 * 4, 64, 64 });
+	idle.PushBack({ 64 * 19, id * 64 * 4, 64, 64 });
+	idle.PushBack({ 64 * 20, id * 64 * 4, 64, 64 });
+	idle.PushBack({ 64 * 21, id * 64 * 4, 64, 64 });
+	idle.PushBack({ 64 * 22, id * 64 * 4, 64, 64 });
 
 	idle.speed = 0.18f;
+
 
 	//jump.PushBack({ 0 , 64 * 1, 64, 64 });
 	//jump.PushBack({ 64 * 1, 64 * 1, 64, 64 });
 	//jump.PushBack({ 64 * 2, 64 * 1, 64, 64 });
 	//jump.PushBack({ 64 * 3, 64 * 1, 64, 64 });
 	//jump.PushBack({ 64 * 4, 64 * 1, 64, 64 });
-	jump.PushBack({ 64 * 5, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 5, (id * 64 * 4) + 64 * 1, 64, 64 });
 	//jump.PushBack({ 64 * 6, 64 * 1, 64, 64 });
-	jump.PushBack({ 64 * 7, 64 * 1, 64, 64 });
-	jump.PushBack({ 64 * 8, 64 * 1, 64, 64 });
-	jump.PushBack({ 64 * 9,  64 * 1, 64, 64 });
-	jump.PushBack({ 64 * 10, 64 * 1, 64, 64 });
-	jump.PushBack({ 64 * 11, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 7, (id * 64 * 4) + 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 8, (id * 64 * 4) + 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 9,  (id * 64 * 4) + 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 10, (id * 64 * 4) + 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 11, (id * 64 * 4) + 64 * 1, 64, 64 });
 	
 	//jump.PushBack({ 64 * 11, 64 * 1, 64, 64 });
 	
-	jump.PushBack({ 64 * 12, 64 * 1, 64, 64 });
-	jump.PushBack({ 64 * 12, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 12, (id * 64 * 4) + 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 12, (id * 64 * 4) + 64 * 1, 64, 64 });
 
 
-	jump.PushBack({ 64 * 13, 64 * 1, 64, 64 });
-	jump.PushBack({ 64 * 14, 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 13, (id * 64 * 4) + 64 * 1, 64, 64 });
+	jump.PushBack({ 64 * 14, (id * 64 * 4) + 64 * 1, 64, 64 });
 	
 	
 
@@ -152,6 +156,20 @@ bool EntityPlayer::Start()
 
 	death.loop = false;
 	death.speed = 0.1f;
+
+	attack = app->tex->Load("Assets/textures/UI/attack_anim.png");
+
+	scar.PushBack({ 0 * 48, 1 * 48, 48, 48 });
+	scar.PushBack({ 1 * 48, 1 * 48, 48, 48 });
+	scar.PushBack({ 2 * 48, 1 * 48, 48, 48 });
+	scar.PushBack({ 3 * 48, 1 * 48, 48, 48 });
+	scar.PushBack({ 4 * 48, 1 * 48, 48, 48 });
+	scar.PushBack({ 5 * 48, 1 * 48, 48, 48 });
+	scar.PushBack({ 6 * 48, 1 * 48, 48, 48 });
+	scar.PushBack({ 7 * 48, 1 * 48, 48, 48 });
+	scar.PushBack({ 8 * 48, 1 * 48, 48, 48 });
+	scar.speed = 0.1f;
+	scar.loop = false;
 
 	currentAnimation = &idle;
 	changingSpeed = 0.1f;
@@ -210,6 +228,13 @@ void EntityPlayer::LvlUp(int exp_used)
 void EntityPlayer::Attack_01(Entity* enemy)
 {
 	enemy->entity_stats.hp -= this->entity_stats.damage * enemy->entity_stats.armour;
+	int x_, y_;
+	enemy->Hitbox->GetPosition(x_, y_);
+	pos_anim.x = x_;
+	pos_anim.y = y_;
+	doing_scar = true;
+	state = STATE_WAIT;
+
 }
 
 bool EntityPlayer::Update(float dt)
@@ -223,7 +248,7 @@ bool EntityPlayer::Update(float dt)
 	
 		if (app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
 		{
-			app->entityHandler->CreateEntity(ENTITY_DUMMY, 12 * 48, 22 * 48);
+			app->entityHandler->CreateEntity(ENTITY_DUMMY, 12 * 48, 22 * 48, 0);
 		}
 
 		if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) // Step Free
@@ -335,7 +360,7 @@ bool EntityPlayer::Update(float dt)
 			if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) 
 			{
 				Attack_01(enemyFocused->entity_ptr);
-				out_of_attacks = true;
+				
 				moveType = STEP_TILES;
 			}
 
@@ -379,6 +404,21 @@ bool EntityPlayer::Update(float dt)
 	else if (state == STATE_WAIT)
 	{
 
+		if (doing_scar)
+		{
+
+			if (!scar.HasFinished())
+			{
+				scar.Update();
+				app->render->DrawTexture(attack, pos_anim.x, pos_anim.y, &scar.GetCurrentFrame());
+			}
+			else
+			{
+				finish_animation = true;
+				scar.Reset();
+			}
+		}
+		
 	}
 	else if (state == STATE_FREE)
 	{
@@ -469,10 +509,10 @@ bool EntityPlayer::Update(float dt)
 		currentAnimation = &death;
 	}
 
-	if ( out_of_steps || out_of_attacks || (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN))
+	if ( out_of_steps || finish_animation || (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN))
 	{
 		app->entityHandler->NextTurn(Hitbox);
-		out_of_attacks = false;
+		finish_animation = false;
 		out_of_steps = false;
 		actual_mov = entity_stats.momevent;
 	}

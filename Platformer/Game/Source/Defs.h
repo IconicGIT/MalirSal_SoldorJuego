@@ -59,6 +59,12 @@ inline const char* const PATH(const char* folder, const char* file)
 	return path;
 }
 
+enum Condition
+{
+	COND_IDLE = 0,
+	COND_SCAR,
+	COND_POISON,
+};
 struct Stats
 {
 	int hp;

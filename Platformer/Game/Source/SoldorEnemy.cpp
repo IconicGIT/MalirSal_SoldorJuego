@@ -64,7 +64,7 @@ bool SoldorEnemy::Start()
 	totalHealth = entity_stats.hp;
 	entity_stats.armour = 1;
 	entity_stats.damage = 4;
-	entity_stats.momevent = 6;
+	entity_stats.momevent = 2;
 	entity_stats.speed = 2;
 	changingSpeed = 0.1f;
 	actual_mov = entity_stats.momevent;

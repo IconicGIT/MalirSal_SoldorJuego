@@ -3,6 +3,8 @@
 #include <time.h>      
 #include "Physics.h"
 #include "Entity.h"
+#include "App.h"
+#include "Textures.h"
 
 EntityEnemy::EntityEnemy(b2Vec2 startPosition, int health)
 {
@@ -14,6 +16,8 @@ EntityEnemy::EntityEnemy(b2Vec2 startPosition, int health)
 	Hitbox->body->SetFixedRotation(true);
 	Hitbox->body->ResetMassData();
 	Hitbox->entity_ptr = this;
+
+	Start();
 }
 
 EntityEnemy::EntityEnemy()
@@ -26,6 +30,8 @@ EntityEnemy::EntityEnemy()
 	Hitbox->body->SetFixedRotation(true);
 	Hitbox->body->ResetMassData();
 	Hitbox->entity_ptr = this;
+
+	Start();
 }
 
 EntityEnemy::~EntityEnemy()
@@ -39,6 +45,7 @@ bool EntityEnemy::Awake()
 
 bool EntityEnemy::Start()
 {
+	
 	return true;
 }
 

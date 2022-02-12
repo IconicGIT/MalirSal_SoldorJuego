@@ -131,6 +131,7 @@ private:
 
 	bool out_of_steps = false;
 	bool out_of_attacks = false;
+	bool finish_animation = false;
 	int actual_mov;
 	//Stats snakeStats;
 };
