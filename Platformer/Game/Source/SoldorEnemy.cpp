@@ -3,14 +3,10 @@
 #include "Render.h"
 #include "input.h"
 
-SoldorEnemy::SoldorEnemy(b2Vec2 startPosition, int health) : EntityEnemy()
+SoldorEnemy::SoldorEnemy(b2Vec2 startPosition) : EntityEnemy()
 {
 	setPosition(startPosition.x, startPosition.y);
-	entity_stats.hp = health;
-	entity_stats.armour = 1;
-	entity_stats.damage = 10;
-	entity_stats.momevent = 5;
-	entity_stats.speed = 6;
+	
 	name.Create("Soldor");
 	Hitbox = app->physics->CreateCircle(startPosition.x, startPosition.y, 16);
 	Hitbox->body->SetSleepingAllowed(false);
@@ -65,12 +61,13 @@ bool SoldorEnemy::Start()
 	currentAnimation = &idle;
 
 	entity_stats.hp = 10;
-	totalHealth = 10;
+	totalHealth = entity_stats.hp;
 	entity_stats.armour = 1;
 	entity_stats.damage = 4;
-	entity_stats.momevent = 5;
+	entity_stats.momevent = 6;
 	entity_stats.speed = 2;
 	changingSpeed = 0.1f;
+	actual_mov = entity_stats.momevent;
 
 	return true;
 }
@@ -83,6 +80,7 @@ void SoldorEnemy::Attck_01(Entity* player)
 
 bool SoldorEnemy::Update(float dt)
 {
+	
 
 	if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN) state = STATE_TURN;
 
@@ -91,7 +89,11 @@ bool SoldorEnemy::Update(float dt)
 
 	if (state == STATE_TURN)
 	{
-
+		if (chosing_)
+		{
+			behaviour = rand() % 50;
+			chosing_ = false;
+		}
 
 		if (interpolating)
 		{
@@ -99,71 +101,114 @@ bool SoldorEnemy::Update(float dt)
 		}
 		else
 		{
-			behaviour = rand() % 50;
-
-			if (behaviour < 50)
+			
+			// Move to player
+			PhysBody* goal = app->entityHandler->GetNearestChicken(Hitbox);
+			if (goal != NULL)
 			{
-				// Move to player
-				PhysBody* goal = app->entityHandler->GetNearestChicken(Hitbox);
-				if (goal != NULL)
+				iPoint pos(Hitbox->body->GetPosition().x, Hitbox->body->GetPosition().y);
+				iPoint chicken(goal->body->GetPosition().x, goal->body->GetPosition().y);
+				app->pathfinding->CreatePath(pos, chicken);
+
+				for (int i = 0; i < app->pathfinding->GetLastPath()->Count(); i++) //DRAWING PATH
 				{
-					iPoint pos(Hitbox->body->GetPosition().x, Hitbox->body->GetPosition().y);
-					iPoint chicken(goal->body->GetPosition().x, goal->body->GetPosition().y);
-					app->pathfinding->CreatePath(pos, chicken);
+					app->render->DrawRectangle({ app->pathfinding->GetLastPath()->At(i)->x, app->pathfinding->GetLastPath()->At(i)->y, 48, 48 }, 255, 255, 255, 255);
+				}
 
-					for (int i = 0; i < app->pathfinding->GetLastPath()->Count(); i++) //DRAWING PATH
+				int chosing = app->pathfinding->CreatePath(pos, chicken);
+				if (actual_mov <= 0)
+				{
+					out_of_steps = true;
+				}
+				else
+				{
+
+
+					if (behaviour < 30)
 					{
-						app->render->DrawRectangle({ app->pathfinding->GetLastPath()->At(i)->x, app->pathfinding->GetLastPath()->At(i)->y, 48, 48 }, 255, 255, 255, 255);
-					}
 
-					int chosing = app->pathfinding->CreatePath(pos, chicken);
-
-					if (chosing > 2) // creating path bc creates errors
-					{
-
-						const iPoint* going(app->pathfinding->GetLastPath()->At(1));
-						if (going != nullptr)
+						if (chosing > 2) // creating path bc creates errors
 						{
-							b2Vec2 movement = { 0,0 };
 
-							if (going->x < pos.x) // LEFT
+							const iPoint* going(app->pathfinding->GetLastPath()->At(1));
+							if (going != nullptr)
 							{
-								Interpolate(x + 48, y, inter_speed);
+								b2Vec2 movement = { 0,0 };
+
+								if (going->x < pos.x) // LEFT
+								{
+									Interpolate(x - 48, y, inter_speed);
+								}
+								else if (going->x > pos.x) // RIGHT
+								{
+									Interpolate(x + 48, y, inter_speed);
+								}
+								else if (going->y < pos.y) // UP
+								{
+									Interpolate(x, y - 48, inter_speed);
+								}
+								else if (going->y > pos.y) // DOWN
+								{
+									Interpolate(x, y + 48, inter_speed);
+								}
+								else
+								{
+
+								}
 							}
-							else if (going->x > pos.x) // RIGHT
+
+
+
+						}
+						else if (chosing > 0)
+						{
+							//ATACK
+							if (behaviour < 25)
 							{
-								Interpolate(x - 48, y, inter_speed);
-							}
-							else if (going->y < pos.y) // UP
-							{
-								Interpolate(x, y + 48, inter_speed);
-							}
-							else if (going->y > pos.y) // DOWN
-							{
-								Interpolate(x, y - 48, inter_speed);
+								Attck_01(goal->entity_ptr);
 							}
 							else
 							{
-
+								Attck_01(goal->entity_ptr);
 							}
+
+							out_of_attacks = true;
 						}
-
-
 
 					}
-					else if (chosing > 0)
+					else if (behaviour < 50)
 					{
-						//ATACK
-						if (behaviour < 25)
+						if (chosing > 2) // creating path bc creates errors
 						{
-							Attck_01(goal->entity_ptr);
-						}
-						else
-						{
-							Attck_01(goal->entity_ptr);
-						}
 
-						out_of_attacks = true;
+							const iPoint* going(app->pathfinding->GetLastPath()->At(1));
+							if (going != nullptr)
+							{
+								b2Vec2 movement = { 0,0 };
+
+								if (going->x < pos.x) // LEFT
+								{
+									Interpolate(x + 48, y, inter_speed);
+								}
+								else if (going->x > pos.x) // RIGHT
+								{
+									Interpolate(x - 48, y, inter_speed);
+								}
+								else if (going->y < pos.y) // UP
+								{
+									Interpolate(x, y + 48, inter_speed);
+								}
+								else if (going->y > pos.y) // DOWN
+								{
+									Interpolate(x, y - 48, inter_speed);
+								}
+								else
+								{
+
+								}
+								actual_mov--;
+							}
+						}
 					}
 				}
 			}
@@ -201,23 +246,21 @@ bool SoldorEnemy::Update(float dt)
 	rec_temp_h = recHealth;
 	rec_temp_h.w = to_draw;
 
-	if (out_of_attacks || (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN))
+	if (out_of_steps || out_of_attacks || (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN))
 	{
 		app->entityHandler->NextTurn(Hitbox);
 		out_of_attacks = false;
+		out_of_steps = false;
+		actual_mov = entity_stats.momevent;
+		chosing_ = false;
 	}
 
 	return false;
 }
 
-bool SoldorEnemy::LoadState(pugi::xml_node&)
-{
-	return false;
-}
-bool SoldorEnemy::SaveState(pugi::xml_node&) const
-{
-	return false;
-}
+
+
+
 bool SoldorEnemy::CleanUp()
 {
 	return false;
@@ -232,7 +275,4 @@ void SoldorEnemy::Draw()
 	app->render->DrawTexture(LifeBars, x - 29, y - 60, &rec_temp_h);
 }
 
-int SoldorEnemy::Attack(int enemyType)
-{
-	return 0;
-}
+

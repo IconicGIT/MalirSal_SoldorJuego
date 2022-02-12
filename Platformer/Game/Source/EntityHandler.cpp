@@ -333,7 +333,7 @@ void EntityHandler::CreateEntity(enum EntityType type, int x, int y)
 	case ENTITY_SOLDOR:
 	{
 		b2Vec2 pos(x + 24, y + 24);
-		SoldorEnemy* newSoldor = new SoldorEnemy(pos, 50);
+		SoldorEnemy* newSoldor = new SoldorEnemy(pos);
 		enemies.add(newSoldor);
 		allEntities.add(newSoldor);
 		newSoldor->Start();

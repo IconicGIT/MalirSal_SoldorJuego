@@ -32,18 +32,17 @@
 class SoldorEnemy : public EntityEnemy
 {
 public:
-	SoldorEnemy(b2Vec2 startPosition, int health);
+	SoldorEnemy(b2Vec2 startPosition);
 	virtual ~SoldorEnemy();
 
 	bool Awake();
 	bool Start();
 	bool Update(float dt);
-	bool LoadState(pugi::xml_node&);
-	bool SaveState(pugi::xml_node&) const;
+	
 	bool CleanUp();
 
 	void Draw() override;
-	int Attack(int enemyType) override;
+	
 
 
 
@@ -63,6 +62,7 @@ public:
 
 			pos_dif_x = newX - oldX;
 			pos_dif_y = newY - oldY;
+			actual_mov--;
 		}
 		else {
 			h += iSpeed;
@@ -130,7 +130,10 @@ private:
 
 	bool out_of_steps = false;
 	bool out_of_attacks = false;
+	int actual_mov;
 	//Stats snakeStats;
+	
+	bool chosing_ = false;
 };
 
 
