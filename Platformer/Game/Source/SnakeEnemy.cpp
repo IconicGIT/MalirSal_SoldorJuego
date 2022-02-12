@@ -57,10 +57,10 @@ bool SnakeEnemy::Start()
 	
 	currentAnimation = &idle;
 
-	entity_stats.hp = 10;
-	totalHealth = 10;
+	entity_stats.hp = 8;
+	totalHealth = entity_stats.hp;
 	entity_stats.armour = 1;
-	entity_stats.damage = 4;
+	entity_stats.damage = 3;
 	entity_stats.momevent = 2;
 	entity_stats.speed = 2;
 	changingSpeed = 0.1f;
@@ -170,7 +170,10 @@ bool SnakeEnemy::Update(float dt)
 			}
 		}
 	}
+	else if (state == STATE_DYING)
+	{
 
+	}
 	oldHP = entity_stats.hp;
 	//totalHealth = 10;
 
@@ -193,6 +196,10 @@ bool SnakeEnemy::Update(float dt)
 
 	if (changingHP <= 0)
 	{
+		if (state == STATE_TURN)
+		{
+			app->entityHandler->NextTurn(Hitbox);
+		}
 		app->entityHandler->DestroyEnemy(Hitbox->body);
 	}
 

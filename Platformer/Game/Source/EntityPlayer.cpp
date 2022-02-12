@@ -25,13 +25,13 @@ EntityPlayer::EntityPlayer(b2Vec2 startPosition, int health) : Entity()
 	Hitbox->entity_ptr = this;
 	inter_speed = 0.025f;
 
-	entity_stats.hp = 10;
-	totalHealth = 10;
-	entity_stats.armour = 1;
-	entity_stats.damage = 4;
+	entity_stats.hp = 12;
+	totalHealth = entity_stats.hp;
+	entity_stats.armour = 0.8;
+	entity_stats.damage = 6;
 	entity_stats.momevent = 5;
 	entity_stats.speed = 3;
-	actual_mov = entity_stats.momevent = 5;
+	actual_mov = entity_stats.momevent;
 }
 
 

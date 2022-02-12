@@ -62,7 +62,7 @@ inline const char* const PATH(const char* folder, const char* file)
 struct Stats
 {
 	int hp;
-	int armour;
+	float armour;
 	int damage;
 	int speed;
 	int momevent;
