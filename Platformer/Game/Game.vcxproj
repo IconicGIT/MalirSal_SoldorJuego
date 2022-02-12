@@ -47,6 +47,7 @@
     <OutDir>$(SolutionDir)Build\$(Configuration)</OutDir>
     <LibraryPath>$(LibraryPath)</LibraryPath>
     <IncludePath>$(SolutionDir)/Box2D/Box2D/;$(IncludePath)</IncludePath>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)Build\$(Configuration)</OutDir>
