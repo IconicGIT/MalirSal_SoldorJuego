@@ -74,6 +74,7 @@ struct Stats
 	int momevent;
 	int crit;
 	int dodge;
+	int exp_given;
 };
 enum TileType
 {

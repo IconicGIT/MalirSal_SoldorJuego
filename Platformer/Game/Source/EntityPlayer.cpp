@@ -283,7 +283,7 @@ PhysBody* EntityPlayer::checkCloseEnemies()
 	a = app->map->WorldToMap(a.x, a.y);
 	b = app->map->WorldToMap(x, y);
 	int chosing = app->pathfinding->CreatePath(b, a);
-	if (chosing > 2)
+	if (chosing < 2)
 	{
 		return enemy;
 	}
@@ -449,7 +449,7 @@ bool EntityPlayer::Update(float dt)
 					// change moveType!!!!
 
 					enemyFocused = checkCloseEnemies();
-					if (enemyFocused)
+					if (enemyFocused != NULL)
 					{
 						moveType = FOCUSING;
 					}

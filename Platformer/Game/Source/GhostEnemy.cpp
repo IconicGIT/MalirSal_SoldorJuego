@@ -72,11 +72,11 @@ bool GhostEnemy::Start()
 
 	currentAnimation = &idle;
 
-	entity_stats.hp = 8;
+	entity_stats.hp = 14;
 	totalHealth = entity_stats.hp;
 	entity_stats.armour = 1;
-	entity_stats.damage = 3;
-	entity_stats.momevent = 2;
+	entity_stats.damage = 5;
+	entity_stats.momevent = 4;
 	entity_stats.speed = 2;
 	changingSpeed = 0.1f;
 	actual_mov = entity_stats.momevent;

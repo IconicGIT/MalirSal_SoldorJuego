@@ -9,7 +9,7 @@ SnakeEnemy::SnakeEnemy(b2Vec2 startPosition, int health) : EntityEnemy()
 	entity_stats.hp = health;
 	entity_stats.armour = 1;
 	entity_stats.damage = 10;
-	entity_stats.momevent = 6;
+	entity_stats.momevent = 5;
 	entity_stats.speed = 6;
 	name.Create("snake");
 	Hitbox = app->physics->CreateCircle(startPosition.x, startPosition.y, 16);
@@ -57,12 +57,12 @@ bool SnakeEnemy::Start()
 	
 	currentAnimation = &idle;
 
-	entity_stats.hp = 15;
+	entity_stats.hp = 6;
 	totalHealth = entity_stats.hp;
 	entity_stats.armour = 1;
 	entity_stats.damage = 3;
-	entity_stats.momevent = 2;
-	entity_stats.speed = 2;
+	entity_stats.momevent = 5;
+	entity_stats.speed = 3;
 	changingSpeed = 0.1f;
 	actual_mov = entity_stats.momevent;
 	out_of_steps = false;
