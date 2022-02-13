@@ -80,14 +80,14 @@ void EntityHandler::CreateEntity(EntityType type, int x, int y, int id__)
 		all_ids++;
 	}
 	break;
-	case ENTITY_DUMMY:
+	case ENTITY_MUMMY:
 	{
 		b2Vec2 pos(x + 24, y + 24);
-		EntityDummy* newDummy = new EntityDummy(pos, 2);
-		dummies.add(newDummy);
-		allEntities.add(newDummy);
-		newDummy->Start();
-		newDummy->SetID(all_ids);
+		MummyEnemy* newMummy = new MummyEnemy(pos, 2);
+		enemies.add(newMummy);
+		allEntities.add(newMummy);
+		newMummy->Start();
+		newMummy->SetID(all_ids);
 		all_ids++;
 	}
 	break;
@@ -111,18 +111,30 @@ void EntityHandler::CreateEntity(EntityType type, int x, int y, int id__)
 		newSoldor->SetID(all_ids);
 		all_ids++;
 	} break;
-	/*case ENEMY_SNAKE:
+	case ENTITY_GHOST:
 	{
 		b2Vec2 pos(x, y);
-		EnemySnake* newSnake = new EnemySnake(pos, 2);
-		enemiesSnake.add(newSnake);
-		allEntities.add(newSnake);
-		newSnake->Start();
-		newSnake->SetID(all_ids);
+		GhostEnemy* newGhost = new GhostEnemy(pos, 2);
+		enemies.add(newGhost);
+		allEntities.add(newGhost);
+		newGhost->Start();
+		newGhost->SetID(all_ids);
 		all_ids++;
 
 		break;
-	}*/
+	}
+	case ENTITY_BAT:
+	{
+		b2Vec2 pos(x, y);
+		BatEnemy* newBat = new BatEnemy(pos, 2);
+		enemies.add(newBat);
+		allEntities.add(newBat);
+		newBat->Start();
+		newBat->SetID(all_ids);
+		all_ids++;
+
+		break;
+	}
 	/*case ENEMY_BIRD:
 	{
 		b2Vec2 pos(x, y);
@@ -171,13 +183,10 @@ bool EntityHandler::Update(float dt)
 {
 	srand(time(0));
 
-	for (int i = 0; i < allEntities.count(); i++)
+	for (p2List_item<Entity*>* node = allEntities.getFirst(); node; node = node->next)
 	{
 
-		Entity* entitiy;
-		allEntities.at(i, entitiy);
-
-		entitiy->Update(dt);
+		node->data->Update(dt);
 	}
 
 	return true;
@@ -185,7 +194,7 @@ bool EntityHandler::Update(float dt)
 
 void EntityHandler::DrawAllEntities()
 {
-	Entity* entitiy;
+
 
 	for (p2List_item<Entity*>* node = allEntities.getFirst(); node; node = node->next)
 	{
@@ -405,7 +414,7 @@ bool EntityHandler::SaveState(pugi::xml_node& data) const
 }
 
 
-void EntityHandler::DestroyEnemy(b2Body* body)
+void EntityHandler::DestroyEnemy(PhysBody* body)
 {
 
 	
@@ -413,13 +422,13 @@ void EntityHandler::DestroyEnemy(b2Body* body)
 	{
 
 
-		if (dummy->data->GetPhysBody()->body == body)
+		if (dummy->data->GetPhysBody() == body)
 		{
 			enemies.del(dummy);
 			p2List_item<Entity*>* eToDelete = allEntities.findNode(dummy->data);
 			allEntities.del(eToDelete);
 
-			app->physics->GetWorld()->DestroyBody(body);
+			app->physics->GetWorld()->DestroyBody(body->body);
 
 		}
 		
@@ -716,7 +725,7 @@ void EntityHandler::DestroyAllEnemies()
 		Item* it;
 		items.at(i - 1, it);
 
-		DestroyEnemy(it->GetPhysBody()->body);
+		DestroyEnemy(it->GetPhysBody());
 	}
 
 }

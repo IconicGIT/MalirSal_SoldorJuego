@@ -237,7 +237,11 @@ bool SoldorEnemy::Update(float dt)
 
 	if (changingHP <= 0)
 	{
-		app->entityHandler->DestroyEnemy(Hitbox->body);
+		if (state == STATE_TURN)
+		{
+			app->entityHandler->NextTurn(Hitbox);
+		}
+		app->entityHandler->DestroyEnemy(Hitbox);
 	}
 
 	rec_curr_h = changingHP / (float)totalHealth * (float)recHealth.w;

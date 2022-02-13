@@ -58,7 +58,7 @@ public:
 	bool SaveState(pugi::xml_node&) const;
 	bool CleanUp();
 	void CreateEntity(enum EntityType type, int x, int y, int id__);
-	void DestroyEnemy(b2Body* body);
+	void DestroyEnemy(PhysBody* body);
 	void DestroyPlayer(b2Body* body);
 	
 	/*void DamageEnemy(b2Body* body, int damage);*/

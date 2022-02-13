@@ -263,7 +263,7 @@ bool EntityDummy::Update(float dt)
 
 	if (changingHP <= 0)
 	{
-		app->entityHandler->DestroyEnemy(Hitbox->body);
+		app->entityHandler->DestroyEnemy(Hitbox);
 	}
 
 	rec_curr_h = changingHP / (float)totalHealth * (float)recHealth.w;

@@ -430,9 +430,9 @@ bool Scene::Update(float dt)
 				sensor_01->type = TYPE_NULL;
 
 				app->entityHandler->CreateEntity(ENTITY_SNAKE, 11 * 48, 24 * 48, 0);
-				app->entityHandler->CreateEntity(ENTITY_MUMMY, 11 * 48, 22 * 48, 0);
+				app->entityHandler->CreateEntity(ENTITY_BAT, 11 * 48, 22 * 48, 0);
 				app->entityHandler->CreateEntity(ENTITY_PLAYER, 15 * 48, 20 * 48, 1);
-				app->entityHandler->CreateEntity(ENTITY_BAT, 11 * 48, 23 * 48, 0);
+				app->entityHandler->CreateEntity(ENTITY_MUMMY, 11 * 48, 23 * 48, 0);
 
 				app->entityHandler->CreateEntity(ENTITY_SOLDOR, 10 * 48, 16 * 48, 0);
 

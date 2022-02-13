@@ -201,7 +201,7 @@ bool SnakeEnemy::Update(float dt)
 		{
 			app->entityHandler->NextTurn(Hitbox);
 		}
-		app->entityHandler->DestroyEnemy(Hitbox->body);
+		app->entityHandler->DestroyEnemy(Hitbox);
 	}
 
 	rec_curr_h = changingHP / (float)totalHealth * (float)recHealth.w;
