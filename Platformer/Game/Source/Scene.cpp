@@ -46,7 +46,7 @@ bool Scene::Start()
 	player = app->entityHandler->GetMainPlayer();
 
 	
-	sensor_01 = app->physics->CreateSensorCircle(500, 900, 24);
+	sensor_01 = app->physics->CreateSensorCircle(64 * 13 + 32, 4 * 64 + 32, 24);
 	sensor_01->type = TYPE_ENEMY;
 
 	char lookupTable1[] = { "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[£]çç€!ççç%&'()*+,-.^0123456789:;<=>?/abcdefghijklmnopqrstuvwxyz ççççççç" };
@@ -452,27 +452,33 @@ bool Scene::Update(float dt)
 		{
 			if (sensor_01->body->GetContactList() != NULL)
 			{
-				b2Body* playerB = sensor_01->body->GetContactList()->contact->GetFixtureA()->GetBody();
-				if (playerB == app->entityHandler->players.getFirst()->data->GetPhysBody()->body)
+				if (lvl1_1_done && !app->entityHandler->GetMainPlayer()->interpolating && !lvl1_2_done)
 				{
-					app->entityHandler->players.getFirst()->data->moveType = STEP_TILES;
+					b2Body* playerB = sensor_01->body->GetContactList()->contact->GetFixtureA()->GetBody();
+					if (playerB == app->entityHandler->players.getFirst()->data->GetPhysBody()->body)
+					{
+						app->entityHandler->players.getFirst()->data->moveType = STEP_TILES;
 
-					app->entityHandler->players.getFirst()->data->Interpolate((5 * 48) + 24, (20 * 48) + 24, 0.02);
-					app->render->Interpolate((20 * 48) + 24, (20 * 48) + 24, 0.02);
-					app->physics->GetWorld()->DestroyBody(sensor_01->body);
-					sensor_01->type = TYPE_NULL;
+						app->physics->GetWorld()->DestroyBody(sensor_01->body);
 
-					app->entityHandler->CreateEntity(ENTITY_SNAKE, 11 * 48, 24 * 48, 0);
-					app->entityHandler->CreateEntity(ENTITY_BAT, 11 * 48, 22 * 48, 0);
-					app->entityHandler->CreateEntity(ENTITY_GHOST, 10 * 48, 22 * 48, 0);
-					app->entityHandler->CreateEntity(ENTITY_PLAYER, 15 * 48, 20 * 48, 1);
-					app->entityHandler->CreateEntity(ENTITY_PLAYER, 15 * 48, 19 * 48, 2);
-					app->entityHandler->CreateEntity(ENTITY_MUMMY, 11 * 48, 23 * 48, 0);
 
-					app->entityHandler->CreateEntity(ENTITY_SOLDOR, 10 * 48, 16 * 48, 0);
+						Set_lvl_1_2();
+						// Spawn enemies!!!!
+					}
+				}
+				else if (lvl1_2_done && !app->entityHandler->GetMainPlayer()->interpolating)
+				{
+					b2Body* playerB = sensor_01->body->GetContactList()->contact->GetFixtureA()->GetBody();
+					if (playerB == app->entityHandler->players.getFirst()->data->GetPhysBody()->body)
+					{
+						app->entityHandler->players.getFirst()->data->moveType = STEP_TILES;
 
-					app->entityHandler->StartCombat();
-					// Spawn enemies!!!!
+						app->physics->GetWorld()->DestroyBody(sensor_01->body);
+
+
+						Set_lvl_1_3();
+						// Spawn enemies!!!!
+					}
 				}
 			}
 		}
@@ -771,19 +777,32 @@ bool Scene::SaveState(pugi::xml_node& data) const
 
 void Scene::Set_lvl_1_1()
 {
-	app->entityHandler->players.getFirst()->data->Interpolate(2 * 64, 4 * 64, 0.02);
-	app->entityHandler->CreateEntity(ENTITY_BAT, 7 * 64, 6 * 64, 0);
-	app->entityHandler->CreateEntity(ENTITY_BAT, 5 * 64, 5 * 64, 0);
+	app->entityHandler->players.getFirst()->data->Interpolate(2 * 64 + 32, 4 * 64 + 32, 0.02);
+	//app->entityHandler->CreateEntity(ENTITY_BAT, 7 * 64, 6 * 64, 0);
+	//app->entityHandler->CreateEntity(ENTITY_BAT, 5 * 64, 5 * 64, 0);
 	app->entityHandler->StartCombat();
 	lvl1_1_done = true;
 }
 
 void Scene::Set_lvl_1_2()
 {
-	app->entityHandler->players.getFirst()->data->Interpolate(17 * 64, 4 * 64, 0.02);
+	app->entityHandler->players.getFirst()->data->Interpolate(17 * 64 + 32, 4 * 64 + 32, 0.02);
+	//app->entityHandler->CreateEntity(ENTITY_BAT, 19 * 64, 2 * 64, 0);
+	//app->entityHandler->CreateEntity(ENTITY_BAT, 18 * 64, 4 * 64, 0);
+	//app->entityHandler->CreateEntity(ENTITY_SNAKE, 21 * 64, 6 * 64, 0);
+	app->entityHandler->StartCombat();
+
+	sensor_01 = app->physics->CreateSensorCircle(64 * 20 + 32, 8 * 64 + 32, 24);
+	sensor_01->type = TYPE_ENEMY;
+	lvl1_2_done = true;
 }
 
 void Scene::Set_lvl_1_3()
 {
-	app->entityHandler->players.getFirst()->data->Interpolate(20 * 64, 13 * 64, 0.02);
+	app->entityHandler->players.getFirst()->data->Interpolate(20 * 64 + 32, 13 * 64 + 32, 0.02);
+	app->entityHandler->CreateEntity(ENTITY_BAT, 19 * 64, 14 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_SNAKE, 27 * 64, 15 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_SNAKE, 19 * 64, 19 * 64, 0);
+
+	lvl1_2_done = true;
 }

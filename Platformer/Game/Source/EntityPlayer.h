@@ -110,9 +110,10 @@ public:
 
 	PlayerMovementType moveType;
 	PhysBody* enemyFocused;
+	bool interpolating = false;
 private:
 	float iSpeed;
-	bool interpolating = false;;
+	
 	float oldX;
 	float oldY;
 	float newX;

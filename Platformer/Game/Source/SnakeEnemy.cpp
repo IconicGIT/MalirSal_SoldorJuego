@@ -62,7 +62,7 @@ bool SnakeEnemy::Start()
 	entity_stats.armour = 1;
 	entity_stats.damage = 3;
 	entity_stats.momevent = 5;
-	entity_stats.speed = 3;
+	entity_stats.speed = 2;
 	changingSpeed = 0.1f;
 	actual_mov = entity_stats.momevent;
 	out_of_steps = false;

@@ -686,7 +686,7 @@ void Map::LoadCol()
 					{
 						
 						
-						temp = app->physics->CreateRectangle(screenPos.x + 24, screenPos.y + 24, 48, 48);
+						temp = app->physics->CreateRectangle(screenPos.x + 32, screenPos.y + 32, 64, 64);
 						temp->body->SetType(b2_staticBody);
 						terrain.add(temp);
 					}

@@ -70,7 +70,7 @@ void EntityHandler::CreateEntity(EntityType type, int x, int y, int id__)
 	{
 	case ENTITY_PLAYER:
 	{
-		b2Vec2 pos(x + 24, y + 24);
+		b2Vec2 pos(x + 32, y + 32);
 		EntityPlayer* newPlayer = new EntityPlayer(pos, id__);
 		player = newPlayer;
 		players.add(newPlayer);
@@ -82,7 +82,7 @@ void EntityHandler::CreateEntity(EntityType type, int x, int y, int id__)
 	break;
 	case ENTITY_MUMMY:
 	{
-		b2Vec2 pos(x + 24, y + 24);
+		b2Vec2 pos(x + 32, y + 32);
 		MummyEnemy* newMummy = new MummyEnemy(pos, 2);
 		enemies.add(newMummy);
 		allEntities.add(newMummy);
@@ -93,7 +93,7 @@ void EntityHandler::CreateEntity(EntityType type, int x, int y, int id__)
 	break;
 	case ENTITY_SNAKE:
 	{
-		b2Vec2 pos(x + 24, y + 24);
+		b2Vec2 pos(x + 32, y + 32);
 		SnakeEnemy* newSnake = new SnakeEnemy(pos, 2);
 		enemies.add(newSnake);
 		allEntities.add(newSnake);
@@ -103,7 +103,7 @@ void EntityHandler::CreateEntity(EntityType type, int x, int y, int id__)
 	} break;
 	case ENTITY_SOLDOR:
 	{
-		b2Vec2 pos(x + 24, y + 24);
+		b2Vec2 pos(x + 32, y + 32);
 		SoldorEnemy* newSoldor = new SoldorEnemy(pos);
 		enemies.add(newSoldor);
 		allEntities.add(newSoldor);
@@ -113,7 +113,7 @@ void EntityHandler::CreateEntity(EntityType type, int x, int y, int id__)
 	} break;
 	case ENTITY_GHOST:
 	{
-		b2Vec2 pos(x + 24, y + 24);
+		b2Vec2 pos(x + 32, y + 32);
 		GhostEnemy* newGhost = new GhostEnemy(pos, 2);
 		enemies.add(newGhost);
 		allEntities.add(newGhost);
@@ -125,7 +125,7 @@ void EntityHandler::CreateEntity(EntityType type, int x, int y, int id__)
 	}
 	case ENTITY_BAT:
 	{
-		b2Vec2 pos(x + 24, y + 24);
+		b2Vec2 pos(x + 32, y + 32);
 		BatEnemy* newBat = new BatEnemy(pos, 2);
 		enemies.add(newBat);
 		allEntities.add(newBat);
