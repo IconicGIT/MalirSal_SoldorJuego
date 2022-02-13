@@ -284,7 +284,7 @@ PhysBody* EntityPlayer::checkCloseEnemies()
 	b = app->map->WorldToMap(x, y);
 	int chosing = app->pathfinding->CreatePath(b, a);
 
-	if(id == 2 && (chosing < 8))
+	if(id == 1 && (chosing < 8))
 	{
 		return enemy;
 	}
