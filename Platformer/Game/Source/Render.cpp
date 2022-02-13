@@ -75,7 +75,12 @@ bool Render::PreUpdate()
 bool Render::Update(float dt)
 {
 	//cameraFollow = true;
-	if (cameraFollow == true) // Camera follow at the center, for debug purposes
+	if (camera_0)
+	{
+		camera.x = 0;
+		camera.y = 0;
+	}
+	else if (cameraFollow == true) // Camera follow at the center, for debug purposes
 	{
 		//LOG(" LOL ");
 		if (follow == NULL)
@@ -161,10 +166,10 @@ void Render::ResetViewPort()
 }
 
 // Blit to screen
-bool Render::DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* section, SDL_RendererFlip flip, float speed, double angle, int pivotX, int pivotY) const
+bool Render::DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* section, SDL_RendererFlip flip, uint scale_, float speed, double angle, int pivotX, int pivotY) const
 {
 	bool ret = true;
-	uint scale = app->win->GetScale();
+	uint scale = scale_;
 
 	SDL_Rect rect;
 	rect.x = (int)(camera.x * speed) + x * scale;

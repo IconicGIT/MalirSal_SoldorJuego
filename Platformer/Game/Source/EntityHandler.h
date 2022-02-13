@@ -101,7 +101,7 @@ public:
 	}
 
 
-
+	bool entities_active = true;
 private:
 
 	EntityPlayer* player;
