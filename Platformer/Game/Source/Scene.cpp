@@ -780,9 +780,10 @@ void Scene::Set_lvl_1_1()
 
 void Scene::Set_lvl_1_2()
 {
-
+	app->entityHandler->players.getFirst()->data->Interpolate(17 * 64, 4 * 64, 0.02);
 }
 
 void Scene::Set_lvl_1_3()
 {
+	app->entityHandler->players.getFirst()->data->Interpolate(20 * 64, 13 * 64, 0.02);
 }

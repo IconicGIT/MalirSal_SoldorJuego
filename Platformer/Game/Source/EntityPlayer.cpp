@@ -453,23 +453,23 @@ bool EntityPlayer::Update(float dt)
 					{
 						lastDirection = MOV_RIGHT;
 						lastHorizontalAxis = MOV_RIGHT;
-						Interpolate(x + 48, y, inter_speed);
+						Interpolate(x + 64, y, inter_speed);
 						currentAnimation = &jump;
 					}
 					else if (goLeft)
 					{
-						Interpolate(x - 48, y, inter_speed);
+						Interpolate(x - 64, y, inter_speed);
 						lastDirection = MOV_LEFT;
 						currentAnimation = &jump;
 					}
 					else if (goUp)
 					{
-						Interpolate(x, y - 48, inter_speed);
+						Interpolate(x, y - 64, inter_speed);
 						currentAnimation = &jump;
 					}
 					else if (goDown)
 					{
-						Interpolate(x, y + 48, inter_speed);
+						Interpolate(x, y + 64, inter_speed);
 						currentAnimation = &jump;
 					}
 
