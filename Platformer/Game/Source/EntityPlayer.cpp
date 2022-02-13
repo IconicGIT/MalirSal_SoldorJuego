@@ -213,7 +213,7 @@ bool EntityPlayer::Start()
 bool EntityPlayer::CleanUp()
 {
 	LOG("Unloading player");
-	app->entityHandler->DestroyPlayer(Hitbox->body);
+	app->entityHandler->DestroyPlayer(Hitbox);
 	
 	return true;
 }
@@ -283,7 +283,7 @@ PhysBody* EntityPlayer::checkCloseEnemies()
 	a = app->map->WorldToMap(a.x, a.y);
 	b = app->map->WorldToMap(x, y);
 	int chosing = app->pathfinding->CreatePath(b, a);
-	if (chosing < 2)
+	if (chosing < 3	)
 	{
 		return enemy;
 	}

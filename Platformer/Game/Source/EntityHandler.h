@@ -59,7 +59,7 @@ public:
 	bool CleanUp();
 	void CreateEntity(enum EntityType type, int x, int y, int id__);
 	void DestroyEnemy(PhysBody* body);
-	void DestroyPlayer(b2Body* body);
+	void DestroyPlayer(PhysBody* body);
 	
 	/*void DamageEnemy(b2Body* body, int damage);*/
 	
