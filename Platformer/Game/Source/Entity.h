@@ -43,7 +43,7 @@ public:
 	PhysBody* Hitbox;
 	Stats entity_stats;
 	EntityState state;
-	
+	int totalHealth;
 	Condition enemy_cond = COND_IDLE;
 private:
 

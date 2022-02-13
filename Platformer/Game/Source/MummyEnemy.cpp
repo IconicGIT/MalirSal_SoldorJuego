@@ -9,7 +9,7 @@ MummyEnemy::MummyEnemy(b2Vec2 startPosition, int health) : EntityEnemy()
 	entity_stats.hp = health;
 	entity_stats.armour = 1;
 	entity_stats.damage = 10;
-	entity_stats.momevent = 6;
+	entity_stats.movement = 6;
 	entity_stats.speed = 6;
 	name.Create("mummy");
 	Hitbox = app->physics->CreateCircle(startPosition.x, startPosition.y, 16);
@@ -61,10 +61,10 @@ bool MummyEnemy::Start()
 	totalHealth = entity_stats.hp;
 	entity_stats.armour = 1;
 	entity_stats.damage = 5;
-	entity_stats.momevent = 3;
+	entity_stats.movement = 3;
 	entity_stats.speed = 2;
 	changingSpeed = 0.1f;
-	actual_mov = entity_stats.momevent;
+	actual_mov = entity_stats.movement;
 	out_of_steps = false;
 	return true;
 }
@@ -128,19 +128,19 @@ bool MummyEnemy::Update(float dt)
 
 								if (going->x < pos.x) // LEFT
 								{
-									Interpolate(x - 48, y, inter_speed);
+									Interpolate(x - 64, y, inter_speed);
 								}
 								else if (going->x > pos.x) // RIGHT
 								{
-									Interpolate(x + 48, y, inter_speed);
+									Interpolate(x + 64, y, inter_speed);
 								}
 								else if (going->y < pos.y) // UP
 								{
-									Interpolate(x, y - 48, inter_speed);
+									Interpolate(x, y - 64, inter_speed);
 								}
 								else if (going->y > pos.y) // DOWN
 								{
-									Interpolate(x, y + 48, inter_speed);
+									Interpolate(x, y + 64, inter_speed);
 								}
 								else
 								{
@@ -214,7 +214,7 @@ bool MummyEnemy::Update(float dt)
 		app->entityHandler->NextTurn(Hitbox);
 		out_of_attacks = false;
 		out_of_steps = false;
-		actual_mov = entity_stats.momevent;
+		actual_mov = entity_stats.movement;
 	}
 
 	return false;

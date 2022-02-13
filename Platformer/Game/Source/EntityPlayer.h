@@ -111,6 +111,7 @@ public:
 	PlayerMovementType moveType;
 	PhysBody* enemyFocused;
 	bool interpolating = false;
+	int actual_mov;
 private:
 	float iSpeed;
 	
@@ -178,13 +179,13 @@ private:
 	bool doing_scar = false;
 	SDL_Texture* attack;
 	b2Vec2 pos_anim;
-	int actual_mov;
+	
 	float changingSpeed, changingHP;
 	int newHP, oldHP;
 	float rec_curr_h;
 	int to_draw;
 	SDL_Rect rec_temp_h;
-	int totalHealth;
+	
 };
 
 #endif // __ENEMY_SNAKE_H__                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    

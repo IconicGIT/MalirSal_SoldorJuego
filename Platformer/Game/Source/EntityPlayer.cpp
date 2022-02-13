@@ -31,9 +31,9 @@ EntityPlayer::EntityPlayer(b2Vec2 startPosition, int id_) : Entity()
 	totalHealth = entity_stats.hp;
 	entity_stats.armour = 0.8;
 	entity_stats.damage = 6;
-	entity_stats.momevent = 5;
+	entity_stats.movement = 5;
 	entity_stats.speed = 4;
-	actual_mov = entity_stats.momevent;
+	actual_mov = entity_stats.movement;
 	id = id_;
 }
 
@@ -666,7 +666,7 @@ bool EntityPlayer::Update(float dt)
 		doing_scar = false;
 		out_of_steps = false;
 		out_of_attacks = false;
-		actual_mov = entity_stats.momevent;
+		actual_mov = entity_stats.movement;
 	}
 	return true;
 }

@@ -71,7 +71,7 @@ struct Stats
 	float armour;
 	int damage;
 	int speed;
-	int momevent;
+	int movement;
 	int crit;
 	int dodge;
 	int exp_given;

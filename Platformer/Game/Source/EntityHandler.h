@@ -100,6 +100,7 @@ public:
 		return player;
 	}
 
+	void restoreHp();
 
 	bool entities_active = true;
 private:

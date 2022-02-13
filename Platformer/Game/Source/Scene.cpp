@@ -778,18 +778,19 @@ bool Scene::SaveState(pugi::xml_node& data) const
 void Scene::Set_lvl_1_1()
 {
 	app->entityHandler->players.getFirst()->data->Interpolate(2 * 64 + 32, 4 * 64 + 32, 0.02);
-	//app->entityHandler->CreateEntity(ENTITY_BAT, 7 * 64, 6 * 64, 0);
-	//app->entityHandler->CreateEntity(ENTITY_BAT, 5 * 64, 5 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_BAT, 7 * 64, 6 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_BAT, 5 * 64, 5 * 64, 0);
 	app->entityHandler->StartCombat();
 	lvl1_1_done = true;
 }
 
 void Scene::Set_lvl_1_2()
 {
+	app->entityHandler->restoreHp();
 	app->entityHandler->players.getFirst()->data->Interpolate(17 * 64 + 32, 4 * 64 + 32, 0.02);
-	//app->entityHandler->CreateEntity(ENTITY_BAT, 19 * 64, 2 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_BAT, 19 * 64, 2 * 64, 0);
 	//app->entityHandler->CreateEntity(ENTITY_BAT, 18 * 64, 4 * 64, 0);
-	//app->entityHandler->CreateEntity(ENTITY_SNAKE, 21 * 64, 6 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_SNAKE, 21 * 64, 6 * 64, 0);
 	app->entityHandler->StartCombat();
 
 	sensor_01 = app->physics->CreateSensorCircle(64 * 20 + 32, 8 * 64 + 32, 24);
@@ -799,7 +800,8 @@ void Scene::Set_lvl_1_2()
 
 void Scene::Set_lvl_1_3()
 {
-	app->entityHandler->players.getFirst()->data->Interpolate(20 * 64 + 32, 13 * 64 + 32, 0.02);
+	app->entityHandler->restoreHp();
+	app->entityHandler->players.getFirst()->data->Interpolate(20 * 64 + 32, 12 * 64 + 32, 0.02);
 	app->entityHandler->CreateEntity(ENTITY_BAT, 19 * 64, 14 * 64, 0);
 	app->entityHandler->CreateEntity(ENTITY_SNAKE, 27 * 64, 15 * 64, 0);
 	app->entityHandler->CreateEntity(ENTITY_SNAKE, 19 * 64, 19 * 64, 0);

@@ -64,10 +64,10 @@ bool SoldorEnemy::Start()
 	totalHealth = entity_stats.hp;
 	entity_stats.armour = 1;
 	entity_stats.damage = 4;
-	entity_stats.momevent = 2;
+	entity_stats.movement = 2;
 	entity_stats.speed = 2;
 	changingSpeed = 0.1f;
-	actual_mov = entity_stats.momevent;
+	actual_mov = entity_stats.movement;
 
 	return true;
 }
@@ -137,19 +137,19 @@ bool SoldorEnemy::Update(float dt)
 
 								if (going->x < pos.x) // LEFT
 								{
-									Interpolate(x - 48, y, inter_speed);
+									Interpolate(x - 64, y, inter_speed);
 								}
 								else if (going->x > pos.x) // RIGHT
 								{
-									Interpolate(x + 48, y, inter_speed);
+									Interpolate(x + 64, y, inter_speed);
 								}
 								else if (going->y < pos.y) // UP
 								{
-									Interpolate(x, y - 48, inter_speed);
+									Interpolate(x, y - 64, inter_speed);
 								}
 								else if (going->y > pos.y) // DOWN
 								{
-									Interpolate(x, y + 48, inter_speed);
+									Interpolate(x, y + 64, inter_speed);
 								}
 								else
 								{
@@ -188,19 +188,19 @@ bool SoldorEnemy::Update(float dt)
 
 								if (going->x < pos.x) // LEFT
 								{
-									Interpolate(x + 48, y, inter_speed);
+									Interpolate(x + 64, y, inter_speed);
 								}
 								else if (going->x > pos.x) // RIGHT
 								{
-									Interpolate(x - 48, y, inter_speed);
+									Interpolate(x - 64, y, inter_speed);
 								}
 								else if (going->y < pos.y) // UP
 								{
-									Interpolate(x, y + 48, inter_speed);
+									Interpolate(x, y + 64, inter_speed);
 								}
 								else if (going->y > pos.y) // DOWN
 								{
-									Interpolate(x, y - 48, inter_speed);
+									Interpolate(x, y - 64, inter_speed);
 								}
 								else
 								{
@@ -255,7 +255,7 @@ bool SoldorEnemy::Update(float dt)
 		app->entityHandler->NextTurn(Hitbox);
 		out_of_attacks = false;
 		out_of_steps = false;
-		actual_mov = entity_stats.momevent;
+		actual_mov = entity_stats.movement;
 		chosing_ = false;
 	}
 

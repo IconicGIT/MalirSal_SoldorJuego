@@ -279,6 +279,15 @@ PhysBody* EntityHandler::GetNearestEnemy(PhysBody* Character)
 	
 }
 
+void EntityHandler::restoreHp()
+{
+	for (p2List_item<EntityPlayer*>* node = players.getFirst(); node; node = node->next)
+	{
+		node->data->entity_stats.hp = node->data->totalHealth;
+		node->data->actual_mov = node->data->entity_stats.movement;
+	}
+}
+
 
 bool EntityHandler::LoadState(pugi::xml_node& data)
 {
