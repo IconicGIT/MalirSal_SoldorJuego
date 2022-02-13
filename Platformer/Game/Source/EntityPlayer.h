@@ -104,6 +104,10 @@ public:
 	}
 	void LvlUp(int exp_used);
 	void Attack_01(Entity* enemy);
+	void PushAttack(Entity* enemy);
+	void LongShot(Entity* enemy);
+
+
 	PlayerMovementType moveType;
 	PhysBody* enemyFocused;
 private:

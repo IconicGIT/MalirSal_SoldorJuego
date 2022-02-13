@@ -283,7 +283,12 @@ PhysBody* EntityPlayer::checkCloseEnemies()
 	a = app->map->WorldToMap(a.x, a.y);
 	b = app->map->WorldToMap(x, y);
 	int chosing = app->pathfinding->CreatePath(b, a);
-	if (chosing < 3	)
+
+	if(id == 2 && (chosing < 8))
+	{
+		return enemy;
+	}
+	else if (chosing < 3)
 	{
 		return enemy;
 	}
@@ -303,6 +308,36 @@ void EntityPlayer::LvlUp(int exp_used)
 }
 
 void EntityPlayer::Attack_01(Entity* enemy)
+{
+	//
+	currentAnimation = &attack_;
+	enemy->entity_stats.hp -= this->entity_stats.damage * enemy->entity_stats.armour;
+	int x_, y_;
+	enemy->Hitbox->GetPosition(x_, y_);
+	pos_anim.x = x_;
+	pos_anim.y = y_;
+	doing_scar = true;
+	state = STATE_WAIT;
+	enemy->last_damaged = Hitbox;
+
+}
+
+void EntityPlayer::LongShot(Entity* enemy)
+{
+	//
+	currentAnimation = &attack_;
+	enemy->entity_stats.hp -= this->entity_stats.damage * enemy->entity_stats.armour;
+	int x_, y_;
+	enemy->Hitbox->GetPosition(x_, y_);
+	pos_anim.x = x_;
+	pos_anim.y = y_;
+	doing_scar = true;
+	state = STATE_WAIT;
+	enemy->last_damaged = Hitbox;
+
+}
+
+void EntityPlayer::PushAttack(Entity* enemy)
 {
 	//
 	currentAnimation = &attack_;
@@ -473,6 +508,30 @@ bool EntityPlayer::Update(float dt)
 				moveType = STEP_TILES;
 				
 			}
+
+			if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
+			{
+				if (id = 0)
+				{
+					PushAttack(enemyFocused->entity_ptr);
+
+					moveType = STEP_TILES;
+					out_of_attacks = true;
+				}
+				else if (id == 1)
+				{
+
+				}
+				else if (id == 2)
+				{
+					LongShot(enemyFocused->entity_ptr);
+
+					moveType = STEP_TILES;
+					out_of_attacks = true;
+				}
+
+			}
+
 		} break;
 		default:
 		{
