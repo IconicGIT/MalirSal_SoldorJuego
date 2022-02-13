@@ -105,10 +105,7 @@ bool SnakeEnemy::Update(float dt)
 					iPoint chicken(goal->body->GetPosition().x, goal->body->GetPosition().y);
 					app->pathfinding->CreatePath(pos, chicken);
 
-					for (int i = 0; i < app->pathfinding->GetLastPath()->Count(); i++) //DRAWING PATH
-					{
-						app->render->DrawRectangle({ app->pathfinding->GetLastPath()->At(i)->x, app->pathfinding->GetLastPath()->At(i)->y, 48, 48 }, 255, 255, 255, 255);
-					}
+					
 
 					int chosing = app->pathfinding->CreatePath(pos, chicken);
 

@@ -278,8 +278,12 @@ PhysBody* EntityPlayer::checkCloseEnemies()
 {
 	PhysBody* enemy = app->entityHandler->GetNearestEnemy(Hitbox);
 	iPoint a;
-	Hitbox->GetPosition(a.x, a.y);
-	if (app->pathfinding->CreatePath(iPoint(x, y), a) > 2)
+	iPoint b;
+	enemy->GetPosition(a.x, a.y);
+	a = app->map->WorldToMap(a.x, a.y);
+	b = app->map->WorldToMap(x, y);
+	int chosing = app->pathfinding->CreatePath(b, a);
+	if (chosing > 2)
 	{
 		return enemy;
 	}
