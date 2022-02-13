@@ -87,7 +87,7 @@ bool GhostEnemy::Start()
 void GhostEnemy::Attck_01(Entity* player)
 {
 	player->entity_stats.hp -= entity_stats.damage * player->entity_stats.armour;
-
+	player->last_damaged = Hitbox;
 }
 
 bool GhostEnemy::Update(float dt)
