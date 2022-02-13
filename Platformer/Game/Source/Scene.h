@@ -109,6 +109,15 @@ public:
 
 	Animation menu;
 	SDL_Texture* menu_;
+	void resetChickens();
+
+	void Set_lvl_1_1();
+	void Set_lvl_1_2();
+	void Set_lvl_1_3();
+	bool lvl1_1_done = false;
+	bool lvl1_2_done = false;
+	bool lvl1_3_done = false;
+
 private:
 	
 	EntityPlayer* player;

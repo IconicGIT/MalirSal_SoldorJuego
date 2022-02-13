@@ -378,7 +378,7 @@ bool Scene::Update(float dt)
 		app->render->cameraFollow = false;
 		app->render->camera_0 = true;
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
+	else if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN) // START LVL 1
 	{
 		level_man = LEVEL_01;
 		app->entityHandler->entities_active = true;
@@ -396,10 +396,14 @@ bool Scene::Update(float dt)
 		}
 		app->map->DeleteCol();
 		app->map->LoadCol();
+		Set_lvl_1_1();
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
 	{
 		level_man = LEVEL_02;
+		app->map->DeleteCol();
+		app->render->cameraFollow = true;
+		app->render->camera_0 = false;
 		app->entityHandler->entities_active = true;
 		if (app->map->Load("level_02.tmx") == true)
 		{
@@ -411,16 +415,19 @@ bool Scene::Update(float dt)
 
 			RELEASE_ARRAY(data);
 		}
-		app->map->DeleteCol();
+		
 		app->map->LoadCol();
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
 	{
 		level_man = LEVEL_03;
+		app->map->DeleteCol();
+		app->render->cameraFollow = true;
+		app->render->camera_0 = false;
 		app->entityHandler->entities_active = true;
 		if (app->map->Load("level_03.tmx") == true)
 		{
-			int w, h;
+			int w, h;	
 			uchar* data = NULL;
 
 			if (app->map->CreateWalkabilityMap(w, h, &data))
@@ -428,7 +435,7 @@ bool Scene::Update(float dt)
 
 			RELEASE_ARRAY(data);
 		}
-		app->map->DeleteCol();
+		
 		app->map->LoadCol();
 	}
 
@@ -760,4 +767,22 @@ bool Scene::SaveState(pugi::xml_node& data) const
 	//...
 
 	return true;
+}
+
+void Scene::Set_lvl_1_1()
+{
+	app->entityHandler->players.getFirst()->data->Interpolate(2 * 64, 4 * 64, 0.02);
+	app->entityHandler->CreateEntity(ENTITY_BAT, 7 * 64, 6 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_BAT, 5 * 64, 5 * 64, 0);
+	app->entityHandler->StartCombat();
+	lvl1_1_done = true;
+}
+
+void Scene::Set_lvl_1_2()
+{
+
+}
+
+void Scene::Set_lvl_1_3()
+{
 }

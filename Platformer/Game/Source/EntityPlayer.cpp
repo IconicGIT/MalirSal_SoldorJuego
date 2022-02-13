@@ -603,12 +603,12 @@ bool EntityPlayer::Update(float dt)
 
 	mapPos = app->map->WorldToMap(METERS_TO_PIXELS(Hitbox->body->GetPosition().x), METERS_TO_PIXELS(Hitbox->body->GetPosition().y));
 
-	gidNow = app->map->data.layers.start->data->Get(mapPos.x, mapPos.y);
-
-	gidLeft = app->map->data.layers.start->data->Get(mapPos.x - 1, mapPos.y);
-	gidRight = app->map->data.layers.start->data->Get(mapPos.x + 1, mapPos.y);
-	gidUp = app->map->data.layers.start->data->Get(mapPos.x, mapPos.y - 1);
-	gidDown = app->map->data.layers.start->data->Get(mapPos.x, mapPos.y + 1);
+	//gidNow = app->map->data.layers.start->data->Get(mapPos.x, mapPos.y);
+	//
+	//gidLeft = app->map->data.layers.start->data->Get(mapPos.x - 1, mapPos.y);
+	//gidRight = app->map->data.layers.start->data->Get(mapPos.x + 1, mapPos.y);
+	//gidUp = app->map->data.layers.start->data->Get(mapPos.x, mapPos.y - 1);
+	//gidDown = app->map->data.layers.start->data->Get(mapPos.x, mapPos.y + 1);
 
 
 
