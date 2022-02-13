@@ -65,6 +65,11 @@ bool EntityPlayer::Start()
 	speed = 3;
 	Vspeed = { speed,speed };
 
+	right = true;
+	left = true;
+	up = true;
+	down = true;
+
 	newX = 0;
 	newY = 0;
 	oldX = 0;
@@ -206,6 +211,18 @@ bool EntityPlayer::Start()
 	changingSpeed = 0.1f;
 
 	// La changing speed tiene que ser siempre inferior al daño que se le aplica a la entidad
+
+	CheckRight = app->physics->CreateSensorCircle(spawnPosition.x+48.f, spawnPosition.y, 16);
+	CheckRight->type = TYPE_ENEMY;
+
+	CheckUp = app->physics->CreateSensorCircle(spawnPosition.x, spawnPosition.y - 48.f, 16);
+	CheckUp->type = TYPE_ENEMY;
+
+	CheckLeft = app->physics->CreateSensorCircle(spawnPosition.x - 48.f, spawnPosition.y , 16);
+	CheckLeft->type = TYPE_ENEMY;
+
+	CheckDown = app->physics->CreateSensorCircle(spawnPosition.x , spawnPosition.y + 48.f, 16);
+	CheckDown->type = TYPE_ENEMY;
 
 	return true;
 }
@@ -357,6 +374,68 @@ bool EntityPlayer::Update(float dt)
 
 	x = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().x);
 	y = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().y);
+
+	CheckRight->body->SetTransform({x+48,y}, 0);
+	CheckLeft->body->SetTransform({ x-48,y }, 0);
+	CheckUp->body->SetTransform({ x,y-48 }, 0);
+	CheckDown->body->SetTransform({ x,y+48 }, 0);
+		//EntityCollider->body->SetTransform(v, 0);
+
+	if (CheckRight->type != TYPE_NULL)
+	{
+		if (CheckRight->body->GetContactList() != NULL)
+		{
+			//b2Body* playerB = CheckRight->body->GetContactList()->contact->GetFixtureA()->GetBody();
+			right = true;
+			
+		}
+		else
+		{
+			right = false;
+		}
+	}
+
+	if (CheckUp->type != TYPE_NULL)
+	{
+		if (CheckUp->body->GetContactList() != NULL)
+		{
+			//b2Body* playerB = CheckRight->body->GetContactList()->contact->GetFixtureA()->GetBody();
+			up = true;
+
+		}
+		else
+		{
+			up = false;
+		}
+	}
+
+	if (CheckDown->type != TYPE_NULL)
+	{
+		if (CheckDown->body->GetContactList() != NULL)
+		{
+			//b2Body* playerB = CheckRight->body->GetContactList()->contact->GetFixtureA()->GetBody();
+			down = true;
+
+		}
+		else
+		{
+			down = false;
+		}
+	}
+
+	if (CheckLeft->type != TYPE_NULL)
+	{
+		if (CheckLeft->body->GetContactList() != NULL)
+		{
+			//b2Body* playerB = CheckRight->body->GetContactList()->contact->GetFixtureA()->GetBody();
+			left = true;
+
+		}
+		else
+		{
+			left = false;
+		}
+	}
 
 	if (state == STATE_TURN)
 	{

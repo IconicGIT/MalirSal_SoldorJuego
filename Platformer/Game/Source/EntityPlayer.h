@@ -12,6 +12,7 @@
 #include "Log.h"
 #include "EntityHandler.h"
 #include "EntityEnemies.h"
+
 class EntityPlayer : public Entity
 {
 public:
@@ -164,7 +165,16 @@ private:
 	Animation* currentAnimation;
 
 	bool out_of_attacks = false;
+
+	PhysBody* CheckRight;
+	PhysBody* CheckLeft;
+	PhysBody* CheckUp;
+	PhysBody* CheckDown;
 	
+	bool right;
+	bool left;
+	bool up;
+	bool down;
 
 	// Heath bar members
 	SDL_Texture* LifeBars;
