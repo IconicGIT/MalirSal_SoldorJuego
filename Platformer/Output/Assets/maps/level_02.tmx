@@ -3,8 +3,8 @@
  <tileset firstgid="1" name="meta" tilewidth="48" tileheight="48" tilecount="12" columns="6">
   <image source="meta.png" width="288" height="124"/>
  </tileset>
- <tileset firstgid="13" name="programmerArt" tilewidth="48" tileheight="48" tilecount="77" columns="11">
-  <image source="soldor_tileset.png" trans="ff00ff" width="534" height="371"/>
+ <tileset firstgid="13" name="programmerArt" tilewidth="48" tileheight="48" tilecount="126" columns="14">
+  <image source="soldor_tileset.png" trans="ff00ff" width="704" height="448"/>
  </tileset>
  <layer id="1" name="Graphics" width="36" height="27">
   <properties>
