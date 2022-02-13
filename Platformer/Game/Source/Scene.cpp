@@ -423,11 +423,15 @@ bool Scene::Update(float dt)
 	{
 		level_man = LEVEL_MENU;
 		app->entityHandler->entities_active = false;
+		app->render->cameraFollow = false;
+		app->render->camera_0 = true;
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
 	{
 		level_man = LEVEL_01;
 		app->entityHandler->entities_active = true;
+		app->render->cameraFollow = true;
+		app->render->camera_0 = false;
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
 	{
