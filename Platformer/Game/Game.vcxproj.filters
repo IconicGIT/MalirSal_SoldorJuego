@@ -49,7 +49,6 @@
     <ClCompile Include="Source\MummyEnemy.cpp">
       <Filter>Entities\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="Source\MainMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -125,7 +124,6 @@
     <ClInclude Include="Source\MummyEnemy.h">
       <Filter>Entities\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="Source\MainMenu.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

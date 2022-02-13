@@ -105,7 +105,6 @@
     <ClCompile Include="Source\App.cpp" />
     <ClCompile Include="Source\Audio.cpp" />
     <ClCompile Include="Source\Input.cpp" />
-    <ClCompile Include="Source\MainMenu.cpp" />
     <ClCompile Include="Source\Map.cpp" />
     <ClCompile Include="Source\ModuleFonts.cpp" />
     <ClCompile Include="Source\MummyEnemy.cpp" />
@@ -125,7 +124,6 @@
     <ClInclude Include="Source\GhostEnemy.h" />
     <ClInclude Include="Source\BatEnemy.h" />
     <ClInclude Include="Source\Item.h" />
-    <ClInclude Include="Source\MainMenu.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\ModuleFonts.h" />
     <ClInclude Include="Source\MummyEnemy.h" />
