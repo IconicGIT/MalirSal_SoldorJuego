@@ -92,7 +92,7 @@ bool Render::Update(float dt)
 			follow->Hitbox->GetPosition(camera.x, camera.y);
 		}
 		
-		LOG("%i", camera.x);
+		//LOG("%i", camera.x);
 		app->win->GetWindowSize(windowX, windowY);
 		//LOG("%i", windowX);
 		//.x = camera.x +windowX * 0.5;

@@ -166,7 +166,7 @@ bool App::Update()
 		ret = PostUpdate();
 	end = SDL_GetTicks();
 	
-	LOG("%f", (float)(end - init));
+	//LOG("%f", (float)(end - init));
 
 
 	long elapsedTime = (float)(end - init);

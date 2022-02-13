@@ -172,6 +172,9 @@ int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 	int ret = -1;
 	int iterations = 0;
 	
+	LOG("ori %i", IsWalkable(origin));
+	LOG("dest %i", IsWalkable(destination));
+
 	// L12b: TODO 1: if origin or destination are not walkable, return -1
 	if (IsWalkable(origin) && IsWalkable(destination))
 	{
