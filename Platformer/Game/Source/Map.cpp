@@ -3,10 +3,10 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Map.h"
-
+#include "Physics.h"
 #include "Defs.h"
 #include "Log.h"
-
+#include "p2List.h"
 #include <math.h>
 
 Map::Map() : Module(), mapLoaded(false)
@@ -575,7 +575,17 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	}
 
 	return ret;
-}	
+}
+
+void Map::DeleteCol()
+{
+	for (p2List_item<PhysBody*>* node = terrain.getFirst(); node; node = node->next)
+	{
+		app->physics->GetWorld()->DestroyBody(node->data->body);
+		terrain.del(node);
+	}
+}
+
 
 // Load a group of properties from a node and fill a list with it
 bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
@@ -649,4 +659,58 @@ bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 	}
 
 	return ret;
+}
+
+void Map::LoadCol()
+{
+	ListItem<MapLayer*>* item = data.layers.start;
+	MapLayer* layer = data.layers.start->data;
+
+	while (item != nullptr)
+	{
+		layer = item->data;
+
+		for (int y = 0; y < app->map->data.height; ++y)
+		{
+			for (int x = 0; x < app->map->data.width; ++x)
+			{
+				int gid = layer->Get(x, y);
+				if (gid > 0)
+				{
+
+					iPoint screenPos = app->map->MapToWorld(x, y);
+					PhysBody* temp;
+
+
+					if (gid == 4)
+					{
+						
+						
+						temp = app->physics->CreateRectangle(screenPos.x + 24, screenPos.y + 24, 48, 48);
+						temp->body->SetType(b2_staticBody);
+						terrain.add(temp);
+					}
+
+
+					//ListItem<TileSet*>* currTileset = app->map->data.tilesets.start;
+					//TileSet* tileset = currTileset->data;
+
+					//while (currTileset->next != nullptr && tileId >= currTileset->next->data->firstgid)
+					//{
+					//	tileset = currTileset->next->data;
+					//	currTileset = currTileset->next;
+
+					//}
+
+
+
+					//SDL_Rect rec = tileset->GetTileRect(tileId);
+					//iPoint pos = app->map->MapToWorld(x, y);
+
+					//app->render->DrawTexture(tileset->texture, pos.x + tileset->offsetX, pos.y + tileset->offsetY, &rec);
+				}
+			}
+		}
+		item = item->next;
+	}
 }

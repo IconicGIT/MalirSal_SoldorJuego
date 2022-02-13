@@ -6,7 +6,8 @@
 #include "PQueue.h"
 #include "p2Point.h"
 #include "DynArray.h"
-
+#include "p2List.h"
+#include "Physics.h"
 #include "PugiXml\src\pugixml.hpp"
 
 #define COST_MAP_SIZE	100
@@ -163,7 +164,9 @@ public:
 	
 	// L12b: Create walkability map for pathfinding
 	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
-
+	void LoadCol();
+	void DeleteCol();
+	p2List<PhysBody*> terrain;
 private:
 
 	// L03: Methods to load all required map data
@@ -171,13 +174,13 @@ private:
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
-
+	
 	// L06: TODO 6: Load a group of properties 
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
 
 	// L06: DONE 3: Pick the right Tileset based on a tile id
 	TileSet* GetTilesetFromTileId(int id) const;
-
+	
 public:
 
     // L03: DONE 1: Add your struct for map info
@@ -189,6 +192,7 @@ private:
     SString folder;
     bool mapLoaded;
     
+
 	// BFS/Dijkstra variables not required any more: Using PathFinding class
 	/*
 	// L10: BFS Pathfinding variables

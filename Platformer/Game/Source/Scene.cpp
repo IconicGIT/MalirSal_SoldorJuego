@@ -136,55 +136,7 @@ bool Scene::Start()
 
 	}*/
 
-	ListItem<MapLayer*>* item = app->map->data.layers.start;
-	MapLayer* layer = app->map->data.layers.start->data;
-
-	while (item != nullptr)
-	{
-		layer = item->data;
-
-		for (int y = 0; y < app->map->data.height; ++y)
-		{
-			for (int x = 0; x < app->map->data.width; ++x)
-			{
-				int gid = layer->Get(x, y);
-				if (gid > 0)
-				{
-
-					iPoint screenPos = app->map->MapToWorld(x, y);
-					PhysBody* temp;
-
-
-					if (gid == 4)
-					{
-						LOG("found tile");
-						temp = app->physics->CreateRectangle(screenPos.x + 24, screenPos.y + 24, 48, 48);
-						temp->body->SetType(b2_staticBody);
-					}
-
-
-					//ListItem<TileSet*>* currTileset = app->map->data.tilesets.start;
-					//TileSet* tileset = currTileset->data;
-
-					//while (currTileset->next != nullptr && tileId >= currTileset->next->data->firstgid)
-					//{
-					//	tileset = currTileset->next->data;
-					//	currTileset = currTileset->next;
-
-					//}
-
-
-
-					//SDL_Rect rec = tileset->GetTileRect(tileId);
-					//iPoint pos = app->map->MapToWorld(x, y);
-
-					//app->render->DrawTexture(tileset->texture, pos.x + tileset->offsetX, pos.y + tileset->offsetY, &rec);
-				}
-			}
-		}
-		item = item->next;
-	}
-
+	
 	
 
 	/*app->entityHandler->CreateEntity(EntityType::ENEMY_BIRD, 48 * 10 - 24, 48 * 10 - 24);
@@ -432,16 +384,52 @@ bool Scene::Update(float dt)
 		app->entityHandler->entities_active = true;
 		app->render->cameraFollow = true;
 		app->render->camera_0 = false;
+		if (app->map->Load("level_01.tmx") == true)
+		{
+			int w, h;
+			uchar* data = NULL;
+
+			if (app->map->CreateWalkabilityMap(w, h, &data))
+				app->pathfinding->SetMap(w, h, data);
+
+			RELEASE_ARRAY(data);
+		}
+		app->map->DeleteCol();
+		app->map->LoadCol();
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
 	{
 		level_man = LEVEL_02;
 		app->entityHandler->entities_active = true;
+		if (app->map->Load("level_02.tmx") == true)
+		{
+			int w, h;
+			uchar* data = NULL;
+
+			if (app->map->CreateWalkabilityMap(w, h, &data))
+				app->pathfinding->SetMap(w, h, data);
+
+			RELEASE_ARRAY(data);
+		}
+		app->map->DeleteCol();
+		app->map->LoadCol();
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
 	{
 		level_man = LEVEL_03;
 		app->entityHandler->entities_active = true;
+		if (app->map->Load("level_03.tmx") == true)
+		{
+			int w, h;
+			uchar* data = NULL;
+
+			if (app->map->CreateWalkabilityMap(w, h, &data))
+				app->pathfinding->SetMap(w, h, data);
+
+			RELEASE_ARRAY(data);
+		}
+		app->map->DeleteCol();
+		app->map->LoadCol();
 	}
 
 	currentTime += 16;
