@@ -105,7 +105,10 @@ public:
 	int currentTime = 0;
 	int lastTime = 0;
 	
+	Level_choosing level_man;
 
+	Animation menu;
+	SDL_Texture* menu_;
 private:
 	
 	EntityPlayer* player;

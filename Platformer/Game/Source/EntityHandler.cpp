@@ -113,7 +113,7 @@ void EntityHandler::CreateEntity(EntityType type, int x, int y, int id__)
 	} break;
 	case ENTITY_GHOST:
 	{
-		b2Vec2 pos(x, y);
+		b2Vec2 pos(x + 24, y + 24);
 		GhostEnemy* newGhost = new GhostEnemy(pos, 2);
 		enemies.add(newGhost);
 		allEntities.add(newGhost);
@@ -125,7 +125,7 @@ void EntityHandler::CreateEntity(EntityType type, int x, int y, int id__)
 	}
 	case ENTITY_BAT:
 	{
-		b2Vec2 pos(x, y);
+		b2Vec2 pos(x + 24, y + 24);
 		BatEnemy* newBat = new BatEnemy(pos, 2);
 		enemies.add(newBat);
 		allEntities.add(newBat);
@@ -181,14 +181,15 @@ void EntityHandler::CreateEntity(EntityType type, int x, int y, int id__)
 
 bool EntityHandler::Update(float dt)
 {
-	srand(time(0));
-
-	for (p2List_item<Entity*>* node = allEntities.getFirst(); node; node = node->next)
+	if (entities_active)
 	{
+		srand(time(0));
 
-		node->data->Update(dt);
+		for (p2List_item<Entity*>* node = allEntities.getFirst(); node; node = node->next)
+		{
+			node->data->Update(dt);
+		}
 	}
-
 	return true;
 }
 

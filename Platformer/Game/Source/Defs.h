@@ -84,6 +84,14 @@ enum TileType
 	TILE_WALL = 4
 };
 
+enum Level_choosing
+{
+	LEVEL_MENU = 0,
+	LEVEL_01,
+	LEVEL_02,
+	LEVEL_03
+};
+
 enum MovementDirection
 {
 	MOV_NULL = 0,

@@ -43,6 +43,7 @@ public:
 	PhysBody* Hitbox;
 	Stats entity_stats;
 	EntityState state;
+	
 	Condition enemy_cond = COND_IDLE;
 private:
 
