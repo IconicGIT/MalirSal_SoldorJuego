@@ -424,11 +424,13 @@ void EntityHandler::DestroyEnemy(PhysBody* body)
 
 		if (dummy->data->GetPhysBody() == body)
 		{
+			app->physics->GetWorld()->DestroyBody(body->body);
+
 			enemies.del(dummy);
 			p2List_item<Entity*>* eToDelete = allEntities.findNode(dummy->data);
 			allEntities.del(eToDelete);
 
-			app->physics->GetWorld()->DestroyBody(body->body);
+			//app->physics->GetWorld()->DestroyBody(body->body);
 
 		}
 		
@@ -445,11 +447,13 @@ void EntityHandler::DestroyPlayer(b2Body* body)
 
 			if (dummy->data->GetPhysBody()->body == body)
 			{
+				app->physics->GetWorld()->DestroyBody(body);
+
 				players.del(dummy);
 				p2List_item<Entity*>* eToDelete = allEntities.findNode(dummy->data);
 				allEntities.del(eToDelete);
 
-				app->physics->GetWorld()->DestroyBody(body);
+				//app->physics->GetWorld()->DestroyBody(body);
 
 			}
 		}

@@ -171,6 +171,37 @@ bool EntityPlayer::Start()
 	scar.speed = 0.1f;
 	scar.loop = false;
 
+	attack_.PushBack({ 0 * 64, 3 * 64, 64, 64 });
+	attack_.PushBack({ 1 * 64, 3 * 64, 64, 64 });
+	attack_.PushBack({ 2 * 64, 3 * 64, 64, 64 });
+	attack_.PushBack({ 3 * 64, 3 * 64, 64, 64 });
+	attack_.PushBack({ 4 * 64, 3 * 64, 64, 64 });
+	attack_.PushBack({ 5 * 64, 3 * 64, 64, 64 });
+	attack_.PushBack({ 6 * 64, 3 * 64, 64, 64 });
+	attack_.PushBack({ 7 * 64, 3 * 64, 64, 64 });
+	attack_.PushBack({ 8 * 64, 3 * 64, 64, 64 });
+	attack_.PushBack({ 9 * 64, 3 * 64, 64, 64 });
+	attack_.PushBack({ 10 * 64, 3 * 64, 64, 64 });
+	attack_.PushBack({ 11 * 64, 3 * 64, 64, 64 });
+
+	attack_.loop = false;
+	attack_.speed = 0.16f;
+
+	damage.PushBack({ 0 * 64, 2 * 64, 64, 64 });
+	damage.PushBack({ 1 * 64, 2 * 64, 64, 64 });
+	damage.PushBack({ 2 * 64, 2 * 64, 64, 64 });
+	damage.PushBack({ 3 * 64, 2 * 64, 64, 64 });
+	damage.PushBack({ 4 * 64, 2 * 64, 64, 64 });
+	damage.PushBack({ 5 * 64, 2 * 64, 64, 64 });
+	damage.PushBack({ 6 * 64, 2 * 64, 64, 64 });
+	damage.PushBack({ 7 * 64, 2 * 64, 64, 64 });
+	damage.PushBack({ 8 * 64, 2 * 64, 64, 64 });
+	
+
+	damage.loop = false;
+	damage.speed = 0.16f;
+	
+
 	currentAnimation = &idle;
 	changingSpeed = 0.1f;
 
@@ -178,6 +209,7 @@ bool EntityPlayer::Start()
 
 	return true;
 }
+
 bool EntityPlayer::CleanUp()
 {
 	LOG("Unloading player");
@@ -196,6 +228,16 @@ void EntityPlayer::Draw()
 		{
 			currentAnimation = &idle;
 			jump.Reset();
+		}
+		else if (currentAnimation == &attack_ )
+		{
+			currentAnimation = &idle;
+			attack_.Reset();
+		}
+		else if (currentAnimation == &damage)
+		{
+			currentAnimation = &idle;
+			damage.Reset();
 		}
 	}
 	if (lastDirection == MOV_LEFT)
@@ -248,6 +290,8 @@ void EntityPlayer::LvlUp(int exp_used)
 
 void EntityPlayer::Attack_01(Entity* enemy)
 {
+	//
+	currentAnimation = &attack_;
 	enemy->entity_stats.hp -= this->entity_stats.damage * enemy->entity_stats.armour;
 	int x_, y_;
 	enemy->Hitbox->GetPosition(x_, y_);
@@ -526,7 +570,7 @@ bool EntityPlayer::Update(float dt)
 
 	if (changingHP <= 0)
 	{
-		app->entityHandler->DestroyEnemy(Hitbox);
+		app->entityHandler->DestroyEnemy(Hitbox->body);
 	}
 
 	rec_curr_h = changingHP / (float)totalHealth * (float)recHealth.w;

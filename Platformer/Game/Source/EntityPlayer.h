@@ -154,6 +154,7 @@ private:
 	Animation idle_right;
 	Animation jump;
 	Animation damage;
+	Animation attack_;
 	Animation* currentAnimation;
 
 	bool out_of_attacks = false;
