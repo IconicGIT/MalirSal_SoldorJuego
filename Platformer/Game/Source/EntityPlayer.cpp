@@ -32,7 +32,7 @@ EntityPlayer::EntityPlayer(b2Vec2 startPosition, int id_) : Entity()
 	entity_stats.armour = 0.8;
 	entity_stats.damage = 6;
 	entity_stats.momevent = 5;
-	entity_stats.speed = 3;
+	entity_stats.speed = 2;
 	actual_mov = entity_stats.momevent;
 	id = id_;
 }
@@ -171,31 +171,31 @@ bool EntityPlayer::Start()
 	scar.speed = 0.1f;
 	scar.loop = false;
 
-	attack_.PushBack({ 0 * 64, 3 * 64, 64, 64 });
-	attack_.PushBack({ 1 * 64, 3 * 64, 64, 64 });
-	attack_.PushBack({ 2 * 64, 3 * 64, 64, 64 });
-	attack_.PushBack({ 3 * 64, 3 * 64, 64, 64 });
-	attack_.PushBack({ 4 * 64, 3 * 64, 64, 64 });
-	attack_.PushBack({ 5 * 64, 3 * 64, 64, 64 });
-	attack_.PushBack({ 6 * 64, 3 * 64, 64, 64 });
-	attack_.PushBack({ 7 * 64, 3 * 64, 64, 64 });
-	attack_.PushBack({ 8 * 64, 3 * 64, 64, 64 });
-	attack_.PushBack({ 9 * 64, 3 * 64, 64, 64 });
-	attack_.PushBack({ 10 * 64, 3 * 64, 64, 64 });
-	attack_.PushBack({ 11 * 64, 3 * 64, 64, 64 });
+	attack_.PushBack({ 0 * 64, (id * 64 * 4) + 3 * 64, 64, 64 });
+	attack_.PushBack({ 1 * 64, (id * 64 * 4) + 3 * 64, 64, 64 });
+	attack_.PushBack({ 2 * 64, (id * 64 * 4) + 3 * 64, 64, 64 });
+	attack_.PushBack({ 3 * 64, (id * 64 * 4) + 3 * 64, 64, 64 });
+	attack_.PushBack({ 4 * 64, (id * 64 * 4) + 3 * 64, 64, 64 });
+	attack_.PushBack({ 5 * 64, (id * 64 * 4) + 3 * 64, 64, 64 });
+	attack_.PushBack({ 6 * 64, (id * 64 * 4) + 3 * 64, 64, 64 });
+	attack_.PushBack({ 7 * 64, (id * 64 * 4) + 3 * 64, 64, 64 });
+	attack_.PushBack({ 8 * 64, (id * 64 * 4) + 3 * 64, 64, 64 });
+	attack_.PushBack({ 9 * 64, (id * 64 * 4) + 3 * 64, 64, 64 });
+	attack_.PushBack({ 10 * 64,(id * 64 * 4) +  3 * 64, 64, 64 });
+	attack_.PushBack({ 11 * 64,(id * 64 * 4) +  3 * 64, 64, 64 });
 
 	attack_.loop = false;
 	attack_.speed = 0.16f;
 
-	damage.PushBack({ 0 * 64, 2 * 64, 64, 64 });
-	damage.PushBack({ 1 * 64, 2 * 64, 64, 64 });
-	damage.PushBack({ 2 * 64, 2 * 64, 64, 64 });
-	damage.PushBack({ 3 * 64, 2 * 64, 64, 64 });
-	damage.PushBack({ 4 * 64, 2 * 64, 64, 64 });
-	damage.PushBack({ 5 * 64, 2 * 64, 64, 64 });
-	damage.PushBack({ 6 * 64, 2 * 64, 64, 64 });
-	damage.PushBack({ 7 * 64, 2 * 64, 64, 64 });
-	damage.PushBack({ 8 * 64, 2 * 64, 64, 64 });
+	damage.PushBack({ 0 * 64, (id * 64 * 4) +  2 * 64, 64, 64 });
+	damage.PushBack({ 1 * 64, (id * 64 * 4) +  2 * 64, 64, 64 });
+	damage.PushBack({ 2 * 64, (id * 64 * 4) +  2 * 64, 64, 64 });
+	damage.PushBack({ 3 * 64, (id * 64 * 4) +  2 * 64, 64, 64 });
+	damage.PushBack({ 4 * 64, (id * 64 * 4) +  2 * 64, 64, 64 });
+	damage.PushBack({ 5 * 64, (id * 64 * 4) +  2 * 64, 64, 64 });
+	damage.PushBack({ 6 * 64, (id * 64 * 4) +  2 * 64, 64, 64 });
+	damage.PushBack({ 7 * 64, (id * 64 * 4) +  2 * 64, 64, 64 });
+	damage.PushBack({ 8 * 64, (id * 64 * 4) +  2 * 64, 64, 64 });
 	
 
 	damage.loop = false;
@@ -277,7 +277,17 @@ void EntityPlayer::DrawUI()
 PhysBody* EntityPlayer::checkCloseEnemies()
 {
 	PhysBody* enemy = app->entityHandler->GetNearestEnemy(Hitbox);
-	return enemy;
+	iPoint a;
+	Hitbox->GetPosition(a.x, a.y);
+	if (app->pathfinding->CreatePath(iPoint(x, y), a) > 2)
+	{
+		return enemy;
+	}
+	else
+	{
+		return NULL;
+	}
+	
 }
 
 void EntityPlayer::LvlUp(int exp_used)
@@ -384,18 +394,7 @@ bool EntityPlayer::Update(float dt)
 
 			}
 
-			// implement attack !!
-			if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-			{
-				enemyFocused = NULL;
-				// change moveType!!!!
-
-				enemyFocused = checkCloseEnemies();
-				if (enemyFocused)
-				{
-					moveType = FOCUSING;
-				}
-			}
+			
 
 			
 			if (interpolating)
@@ -439,6 +438,18 @@ bool EntityPlayer::Update(float dt)
 					
 				}
 
+				// implement attack !!
+				if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+				{
+					enemyFocused = NULL;
+					// change moveType!!!!
+
+					enemyFocused = checkCloseEnemies();
+					if (enemyFocused)
+					{
+						moveType = FOCUSING;
+					}
+				}
 			}
 			
 			
@@ -570,7 +581,7 @@ bool EntityPlayer::Update(float dt)
 
 	if (changingHP <= 0)
 	{
-		app->entityHandler->DestroyEnemy(Hitbox->body);
+		app->entityHandler->DestroyEnemy(Hitbox);
 	}
 
 	rec_curr_h = changingHP / (float)totalHealth * (float)recHealth.w;

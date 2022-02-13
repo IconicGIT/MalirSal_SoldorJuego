@@ -6,11 +6,7 @@
 BatEnemy::BatEnemy(b2Vec2 startPosition, int health) : EntityEnemy()
 {
 	setPosition(startPosition.x, startPosition.y);
-	entity_stats.hp = health;
-	entity_stats.armour = 1;
-	entity_stats.damage = 10;
-	entity_stats.momevent = 6;
-	entity_stats.speed = 6;
+	
 	name.Create("bat");
 	Hitbox = app->physics->CreateCircle(startPosition.x, startPosition.y, 16);
 	Hitbox->body->SetSleepingAllowed(false);
@@ -61,7 +57,7 @@ bool BatEnemy::Start()
 	totalHealth = entity_stats.hp;
 	entity_stats.armour = 1;
 	entity_stats.damage = 3;
-	entity_stats.momevent = 2;
+	entity_stats.momevent = 4;
 	entity_stats.speed = 2;
 	changingSpeed = 0.1f;
 	actual_mov = entity_stats.momevent;
