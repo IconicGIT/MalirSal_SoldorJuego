@@ -227,23 +227,30 @@ bool EntityHandler::checkForEnemies()
 
 PhysBody* EntityHandler::GetNearestChicken(PhysBody* Character)
 {
-	
-	p2List_item<EntityPlayer*>* chicken = app->entityHandler->players.getFirst();
-	int temp = chicken->data->CheckDistanceToPhysBody(Character);
-
-	PhysBody* NearPlayer = chicken->data->GetPhysBody();
-	for (int i = 0; chicken; chicken = chicken->next)
+	if (app->entityHandler->players.getFirst() != nullptr)
 	{
-		
+		p2List_item<EntityPlayer*>* chicken = app->entityHandler->players.getFirst();
+		int temp = chicken->data->CheckDistanceToPhysBody(Character);
 
-		int j = chicken->data->CheckDistanceToPhysBody(Character);
-		if (j<temp)
+		PhysBody* NearPlayer = chicken->data->GetPhysBody();
+		for (int i = 0; chicken; chicken = chicken->next)
 		{
-			temp = j;
-			NearPlayer = chicken->data->GetPhysBody();
+
+
+			int j = chicken->data->CheckDistanceToPhysBody(Character);
+			if (j < temp)
+			{
+				temp = j;
+				NearPlayer = chicken->data->GetPhysBody();
+			}
 		}
+		return NearPlayer;
 	}
-	return NearPlayer;
+	else
+	{
+		return nullptr;
+	}
+	
 }
 
 PhysBody* EntityHandler::GetNearestEnemy(PhysBody* Character)
