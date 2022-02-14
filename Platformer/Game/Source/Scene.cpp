@@ -380,7 +380,8 @@ bool Scene::Update(float dt)
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN) // START LVL 1
 	{
-		level_man = LEVEL_01;
+		level_man = LEVEL_01; 
+		app->map->DeleteCol();
 		app->entityHandler->entities_active = true;
 		app->render->cameraFollow = true;
 		app->render->camera_0 = false;
@@ -394,7 +395,7 @@ bool Scene::Update(float dt)
 
 			RELEASE_ARRAY(data);
 		}
-		app->map->DeleteCol();
+		
 		app->map->LoadCol();
 		Set_lvl_1_1();
 	}
@@ -417,6 +418,7 @@ bool Scene::Update(float dt)
 		}
 		
 		app->map->LoadCol();
+		Set_lvl_2_1();
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
 	{
@@ -579,6 +581,197 @@ bool Scene::Update(float dt)
 		}
 
 	}
+	else if (level_man = LEVEL_02)
+	{
+
+
+	int cameraSpeed = 10;
+
+
+	if (sensor_01->type != TYPE_NULL)
+	{
+		if (sensor_01->body->GetContactList() != NULL)
+		{
+			if (lvl2_1_done && !lvl2_2_done)
+			{
+				if (!app->entityHandler->players.getFirst()->data->interpolating &&
+					!app->entityHandler->players.getFirst()->next->data->interpolating)
+				{
+
+					b2Body* playerB = sensor_01->body->GetContactList()->contact->GetFixtureA()->GetBody();
+					if (playerB == app->entityHandler->players.getFirst()->data->GetPhysBody()->body)
+					{
+
+
+						app->entityHandler->players.getFirst()->data->moveType = STEP_TILES;
+
+						app->physics->GetWorld()->DestroyBody(sensor_01->body);
+
+
+						Set_lvl_2_2();
+						// Spawn enemies!!!!
+
+					}
+				}
+			}
+			if (lvl2_2_done)
+			{
+				if (!app->entityHandler->players.getFirst()->data->interpolating &&
+					!app->entityHandler->players.getFirst()->next->data->interpolating)
+				{
+					b2Body* playerB = sensor_01->body->GetContactList()->contact->GetFixtureA()->GetBody();
+					if (playerB == app->entityHandler->players.getFirst()->data->GetPhysBody()->body)
+					{
+
+						app->entityHandler->players.getFirst()->data->moveType = STEP_TILES;
+
+						app->physics->GetWorld()->DestroyBody(sensor_01->body);
+
+
+						Set_lvl_2_3();
+						// Spawn enemies!!!!
+
+					}
+				}
+			}
+		}
+	}
+
+		if (freeCam)
+		{
+			app->render->cameraFollow = false;
+			//move cam sith arrows
+			if ((app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT))
+
+				app->render->camera.y += cameraSpeed;
+
+
+
+			if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+
+				app->render->camera.y -= cameraSpeed;
+
+
+
+
+			if ((app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT))
+
+				app->render->camera.x += cameraSpeed;
+
+
+
+
+			if ((app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT))
+				app->render->camera.x -= cameraSpeed;
+
+
+		}
+		else
+		{
+			app->render->cameraFollow = true;
+		}
+
+
+
+
+		app->map->Draw();
+		app->entityHandler->DrawAllEntities();
+	}
+	else if (level_man == LEVEL_03)
+	{
+
+	int cameraSpeed = 10;
+
+
+	if (sensor_01->type != TYPE_NULL)
+	{
+		if (sensor_01->body->GetContactList() != NULL)
+		{
+			if (lvl2_1_done && !lvl2_2_done)
+			{
+				if (!app->entityHandler->players.getFirst()->data->interpolating &&
+					!app->entityHandler->players.getFirst()->next->data->interpolating)
+				{
+
+					b2Body* playerB = sensor_01->body->GetContactList()->contact->GetFixtureA()->GetBody();
+					if (playerB == app->entityHandler->players.getFirst()->data->GetPhysBody()->body)
+					{
+
+
+						app->entityHandler->players.getFirst()->data->moveType = STEP_TILES;
+
+						app->physics->GetWorld()->DestroyBody(sensor_01->body);
+
+
+						Set_lvl_2_2();
+						// Spawn enemies!!!!
+
+					}
+				}
+			}
+			if (lvl2_2_done)
+			{
+				if (!app->entityHandler->players.getFirst()->data->interpolating &&
+					!app->entityHandler->players.getFirst()->next->data->interpolating)
+				{
+					b2Body* playerB = sensor_01->body->GetContactList()->contact->GetFixtureA()->GetBody();
+					if (playerB == app->entityHandler->players.getFirst()->data->GetPhysBody()->body)
+					{
+
+						app->entityHandler->players.getFirst()->data->moveType = STEP_TILES;
+
+						app->physics->GetWorld()->DestroyBody(sensor_01->body);
+
+
+						Set_lvl_2_3();
+						// Spawn enemies!!!!
+
+					}
+				}
+			}
+		}
+	}
+
+	if (freeCam)
+	{
+		app->render->cameraFollow = false;
+		//move cam sith arrows
+		if ((app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT))
+
+			app->render->camera.y += cameraSpeed;
+
+
+
+		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+
+			app->render->camera.y -= cameraSpeed;
+
+
+
+
+		if ((app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT))
+
+			app->render->camera.x += cameraSpeed;
+
+
+
+
+		if ((app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT))
+			app->render->camera.x -= cameraSpeed;
+
+
+	}
+	else
+	{
+		app->render->cameraFollow = true;
+	}
+
+
+
+
+	app->map->Draw();
+	app->entityHandler->DrawAllEntities();
+ }
 
 	return true;
 }
@@ -806,5 +999,89 @@ void Scene::Set_lvl_1_3()
 	app->entityHandler->CreateEntity(ENTITY_SNAKE, 27 * 64, 15 * 64, 0);
 	app->entityHandler->CreateEntity(ENTITY_SNAKE, 19 * 64, 19 * 64, 0);
 
+	
+	app->entityHandler->StartCombat();
 	lvl1_2_done = true;
+}
+
+void Scene::Set_lvl_2_1()
+{
+	app->entityHandler->players.getFirst()->data->Interpolate(2 * 64 + 32, 5 * 64 + 32, 0.02);
+	app->entityHandler->CreateEntity(ENTITY_PLAYER, 2 * 64, 7 * 64, 1);
+	app->entityHandler->CreateEntity(ENTITY_BAT, 7 * 64, 7 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_BAT, 8 * 64, 6 * 64, 0);
+	//app->entityHandler->CreateEntity(ENTITY_BAT, 8 * 64, 8 * 64, 0);
+
+	app->entityHandler->CreateEntity(ENTITY_SNAKE,  8 * 64, 2* 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_SNAKE, 12 * 64, 6 * 64, 0);
+	
+	app->physics->GetWorld()->DestroyBody(sensor_01->body);
+	sensor_01 = app->physics->CreateSensorCircle(64 * 7 + 32, 9 * 64 + 32, 24);
+	sensor_01->type = TYPE_ENEMY;
+
+	app->entityHandler->StartCombat();
+	lvl2_1_done = true;
+}
+
+void Scene::Set_lvl_2_2()
+{
+	app->entityHandler->players.getFirst()->data->state = STATE_TURN;
+	app->entityHandler->players.getFirst()->next->data->state = STATE_TURN;
+	app->entityHandler->players.getFirst()->data->actual_mov = app->entityHandler->players.getFirst()->data->entity_stats.hp + 1;
+	app->entityHandler->players.getFirst()->next->data->actual_mov = app->entityHandler->players.getFirst()->next->data->entity_stats.hp + 1;
+	app->entityHandler->players.getFirst()->data->Interpolate(7 * 64 + 32, 16 * 64 + 32, 0.02);
+	app->entityHandler->players.getFirst()->next->data->Interpolate(7 * 64 + 32, 15 * 64 + 32, 0.02);
+
+
+	app->entityHandler->CreateEntity(ENTITY_BAT, 5 * 64, 17 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_BAT, 11 * 64, 15 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_SNAKE, 12 * 64,18 * 64, 0);
+
+	app->entityHandler->CreateEntity(ENTITY_SNAKE, 8 * 64, 23 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_SNAKE, 7 * 64, 23 * 64, 0);
+
+	app->physics->GetWorld()->DestroyBody(sensor_01->body);
+	sensor_01 = app->physics->CreateSensorCircle(64 * 13 + 32, 16 * 64 + 32, 24);
+	sensor_01->type = TYPE_ENEMY;
+	app->entityHandler->restoreHp();
+	app->entityHandler->StartCombat();
+	lvl2_2_done = true;
+}
+
+void Scene::Set_lvl_2_3()
+{
+	app->entityHandler->players.getFirst()->data->state = STATE_TURN;
+	app->entityHandler->players.getFirst()->next->data->state = STATE_TURN;
+	app->entityHandler->players.getFirst()->data->actual_mov = app->entityHandler->players.getFirst()->data->entity_stats.hp + 1;
+	app->entityHandler->players.getFirst()->next->data->actual_mov = app->entityHandler->players.getFirst()->next->data->entity_stats.hp + 1;
+	app->entityHandler->players.getFirst()->data->Interpolate(19 * 64 + 32, 17 * 64 + 32, 0.02);
+	app->entityHandler->players.getFirst()->next->data->Interpolate(19 * 64 + 32, 15 * 64 + 32, 0.02);
+
+
+	app->entityHandler->CreateEntity(ENTITY_BAT, 20 * 64, 17 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_BAT, 21 * 64, 15 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_BAT, 17 * 64, 15 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_SNAKE, 23 * 64, 14 * 64, 0);
+
+	app->entityHandler->CreateEntity(ENTITY_SNAKE, 23 * 64, 16 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_SNAKE, 23 * 64, 15 * 64, 0);
+
+	app->physics->GetWorld()->DestroyBody(sensor_01->body);
+	sensor_01 = app->physics->CreateSensorCircle(64 * 7 + 32, 9 * 64 + 32, 24);
+	sensor_01->type = TYPE_ENEMY;
+
+	app->entityHandler->StartCombat();
+	lvl2_3_done = true;
+}
+
+void Scene::Set_lvl_3_1()
+{
+}
+
+void Scene::Set_lvl_3_2()
+{
+}
+
+void Scene::Set_lvl_3_3()
+{
 }
