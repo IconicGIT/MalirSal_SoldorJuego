@@ -744,14 +744,10 @@ void EntityHandler::DestroyAllEnemies()
 		DestroyEnemy(iteratorRocket->GetPhysBody()->body);
 	}*/
 
-	a = items.count();
-	for (int i = a; i > 0; i--)
+	
+	for (p2List_item<Entity*>* node = allEntities.getFirst(); node; node = node->next)
 	{
-
-		Item* it;
-		items.at(i - 1, it);
-
-		DestroyEnemy(it->GetPhysBody());
+		DestroyEnemy(node->data->Hitbox);
 	}
 
 }

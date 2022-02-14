@@ -186,7 +186,6 @@ bool BatEnemy::Update(float dt)
 
 	if (changingHP > (float)entity_stats.hp)
 	{
-
 		changingHP -= changingSpeed;
 	}
 	else

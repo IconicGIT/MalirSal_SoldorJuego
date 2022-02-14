@@ -1033,8 +1033,7 @@ void Scene::chicken_inter_3_2()
 }
 
 void Scene::Set_lvl_3_2()
-{
-	
+{	
 
 	app->entityHandler->CreateEntity(ENTITY_MUMMY, 17 * 64, 27 * 64, 0);
 	app->entityHandler->CreateEntity(ENTITY_MUMMY, 17 * 64, 28 * 64, 0);
@@ -1051,6 +1050,7 @@ void Scene::Set_lvl_3_2()
 	app->entityHandler->restoreHp();
 	app->entityHandler->StartCombat();
 	lvl3_2_done = true;
+	inter3_2 = false;
 }
 
 void Scene::Set_lvl_3_3()
