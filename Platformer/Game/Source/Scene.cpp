@@ -971,8 +971,9 @@ bool Scene::SaveState(pugi::xml_node& data) const
 void Scene::Set_lvl_1_1()
 {
 	app->entityHandler->players.getFirst()->data->Interpolate(2 * 64 + 32, 4 * 64 + 32, 0.02);
-	app->entityHandler->CreateEntity(ENTITY_BAT, 7 * 64, 6 * 64, 0);
-	app->entityHandler->CreateEntity(ENTITY_BAT, 5 * 64, 5 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_SOLDOR, 7 * 64, 6 * 64, 0);
+	//app->entityHandler->CreateEntity(ENTITY_BAT, 7 * 64, 6 * 64, 0);
+	//app->entityHandler->CreateEntity(ENTITY_BAT, 5 * 64, 5 * 64, 0);
 	app->entityHandler->StartCombat();
 	lvl1_1_done = true;
 }

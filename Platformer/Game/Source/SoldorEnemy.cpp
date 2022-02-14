@@ -58,6 +58,36 @@ bool SoldorEnemy::Start()
 
 	inter_speed = 0.02f;
 
+	
+	attack.PushBack({ 0, 128 * 3, 144, 128 });
+	attack.PushBack({ 144 * 1, 128 * 3, 144, 128 });
+	attack.PushBack({ 144 * 2, 128 * 3, 144, 128 });
+	attack.PushBack({ 144 * 3, 128 * 3, 144, 128 });
+	attack.PushBack({ 144 * 4, 128 * 3, 144, 128 });
+	attack.PushBack({ 144 * 5, 128 * 3, 144, 128 });
+	attack.PushBack({ 144 * 6, 128 * 3, 144, 128 });
+	attack.PushBack({ 144 * 7, 128 * 3, 144, 128 });
+	attack.PushBack({ 144 * 8, 128 * 3, 144, 128 });
+	attack.PushBack({ 144 * 9, 128 * 3, 144, 128 });
+	attack.PushBack({ 144 * 10, 128 * 3, 144, 128 });
+	attack.PushBack({ 144 * 11, 128 * 3, 144, 128 });
+	attack.PushBack({ 144 * 12, 128 * 3, 144, 128 });
+	
+	//Animation damage;
+
+	damage.PushBack({ 0, 128 * 1, 144, 128 });
+	damage.PushBack({ 144 * 1, 128 * 1, 144, 128 });
+	damage.PushBack({ 144 * 2, 128 * 1, 144, 128 });
+	damage.PushBack({ 144 * 3, 128 * 1, 144, 128 });
+	damage.PushBack({ 144 * 4, 128 * 1, 144, 128 });
+	damage.PushBack({ 144 * 5, 128 * 1, 144, 128 });
+	damage.PushBack({ 144 * 6, 128 * 1, 144, 128 });
+	damage.PushBack({ 144 * 7, 128 * 1, 144, 128 });
+	damage.PushBack({ 144 * 8, 128 * 1, 144, 128 });
+	//damage.PushBack({ 144 * 9, 128 * 1, 144, 128 });
+	
+	// Animacion de muerte
+
 	currentAnimation = &idle;
 
 	entity_stats.hp = 10;
@@ -74,6 +104,7 @@ bool SoldorEnemy::Start()
 
 void SoldorEnemy::Attck_01(Entity* player)
 {
+	currentAnimation = &attack;
 	player->entity_stats.hp -= entity_stats.damage * player->entity_stats.armour;
 	player->last_damaged = Hitbox;
 }
@@ -116,13 +147,14 @@ bool SoldorEnemy::Update(float dt)
 				}
 
 				int chosing = app->pathfinding->CreatePath(pos, chicken);
+
 				if (actual_mov <= 0)
 				{
 					out_of_steps = true;
 				}
 				else
 				{
-
+					//behaviour = 49;
 
 					if (behaviour < 30)
 					{
@@ -135,25 +167,31 @@ bool SoldorEnemy::Update(float dt)
 							{
 								b2Vec2 movement = { 0,0 };
 
+								// Flee behaviour
+
 								if (going->x < pos.x) // LEFT
 								{
-									Interpolate(x - 64, y, inter_speed);
+									Interpolate(x + 64, y, inter_speed);
+									//Attck_01(goal->entity_ptr);
 								}
 								else if (going->x > pos.x) // RIGHT
 								{
-									Interpolate(x + 64, y, inter_speed);
+									Interpolate(x - 64, y, inter_speed);
+									//Attck_01(goal->entity_ptr);
 								}
 								else if (going->y < pos.y) // UP
 								{
-									Interpolate(x, y - 64, inter_speed);
+									Interpolate(x, y + 64, inter_speed);
+									//Attck_01(goal->entity_ptr);
 								}
 								else if (going->y > pos.y) // DOWN
 								{
-									Interpolate(x, y + 64, inter_speed);
+									Interpolate(x, y - 64, inter_speed);
+									//Attck_01(goal->entity_ptr);
 								}
 								else
 								{
-
+									//Attck_01(goal->entity_ptr);
 								}
 							}
 
@@ -178,35 +216,45 @@ bool SoldorEnemy::Update(float dt)
 					}
 					else if (behaviour < 50)
 					{
+						const iPoint* going(app->pathfinding->GetLastPath()->At(1));
+
 						if (chosing > 2) // creating path bc creates errors
 						{
 
-							const iPoint* going(app->pathfinding->GetLastPath()->At(1));
+							//const iPoint* going(app->pathfinding->GetLastPath()->At(1));
 							if (going != nullptr)
 							{
 								b2Vec2 movement = { 0,0 };
 
 								if (going->x < pos.x) // LEFT
 								{
-									Interpolate(x + 64, y, inter_speed);
+									Interpolate(x - 64, y, inter_speed);
 								}
 								else if (going->x > pos.x) // RIGHT
 								{
-									Interpolate(x - 64, y, inter_speed);
+									Interpolate(x + 64, y, inter_speed);
 								}
 								else if (going->y < pos.y) // UP
 								{
-									Interpolate(x, y + 64, inter_speed);
+									Interpolate(x, y - 64, inter_speed);
 								}
 								else if (going->y > pos.y) // DOWN
 								{
-									Interpolate(x, y - 64, inter_speed);
+									Interpolate(x, y + 64, inter_speed);
 								}
 								else
 								{
 
 								}
 								actual_mov--;
+							}
+							
+						}
+						else
+						{
+							if (going != nullptr)
+							{
+								Attck_01(goal->entity_ptr);
 							}
 						}
 					}
@@ -272,6 +320,20 @@ bool SoldorEnemy::CleanUp()
 void SoldorEnemy::Draw()
 {
 	currentAnimation->Update();
+
+	if (currentAnimation->HasFinished())
+	{
+		if (currentAnimation == &attack)
+		{
+			currentAnimation = &idle;
+			attack.Reset();
+		}
+		else if (currentAnimation == &damage)
+		{
+			currentAnimation = &idle;
+			damage.Reset();
+		}
+	}
 
 	app->render->DrawTexture(pac, x - (144*0.5f), y - (128*0.5), &idle.GetCurrentFrame());
 

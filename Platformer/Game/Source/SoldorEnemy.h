@@ -93,6 +93,8 @@ public:
 
 	Animation* currentAnimation;
 	Animation idle;
+	Animation attack;
+	Animation damage;
 	SDL_Texture* pac;
 	float x, y;
 	int behaviour;
