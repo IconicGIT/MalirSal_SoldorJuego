@@ -698,6 +698,18 @@ return EntityType();
 void EntityHandler::DestroyAllEnemies()
 {
 	int a = 0;
+	a = enemies.count();
+	for (int i = a; i > 0; i--)
+	{
+
+		EntityEnemy* enemy;
+		bool ret = enemies.at(i - 1, enemy);
+
+		DestroyEnemy(enemy->GetPhysBody());
+	}
+
+
+
 	/*a = enemiesMushroom.count();
 	for (int i = a; i > 0; i--)
 	{
@@ -707,6 +719,8 @@ void EntityHandler::DestroyAllEnemies()
 		
 		DestroyEnemy(iteratorMushroom->GetPhysBody()->body);
 	}
+
+
 
 	a = enemiesBird.count();
 	for (int i = a; i > 0; i--)
@@ -739,10 +753,10 @@ void EntityHandler::DestroyAllEnemies()
 	}*/
 
 	
-	for (p2List_item<Entity*>* node = allEntities.getFirst(); node; node = node->next)
+	/*for (p2List_item<Entity*>* node = allEntities.getFirst(); node; node = node->next)
 	{
 		DestroyEnemy(node->data->Hitbox);
-	}
+	}*/
 
 }
 
