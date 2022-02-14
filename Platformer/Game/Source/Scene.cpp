@@ -63,6 +63,9 @@ bool Scene::Start()
 	font1_black_3 = app->fonts->Load("Assets/textures/UI/fonts/font1_black_3.png", lookupTable1, 6);
 	font1_white_3 = app->fonts->Load("Assets/textures/UI/fonts/font1_white_3.png", lookupTable1, 6);
 
+	textBack = app->tex->Load("Assets/textures/UI/Cube_Text.png");
+	keysShowcase = app->tex->Load("Assets/textures/UI/Menu_Controles_consombra.png");
+
 	menu_ = app->tex->Load("Assets/textures/Menu/main_menu.png");
 	//menu_ = app->tex->Load("Assets/textures/chickens/main_menu.png");
 	menu.PushBack({ 1 * 540, 0 * 360, 540, 360 });
@@ -206,8 +209,42 @@ bool Scene::Update(float dt)
 	currentTime += 16;
 	if (level_man == LEVEL_MENU)
 	{
-		menu.Update();
+		//menu.Update();
+
 		app->render->DrawTexture(menu_, 0, 0, &menu.GetCurrentFrame(), SDL_FLIP_NONE, 2);
+
+	
+
+		if (first == false)
+		{
+			menu.Update();
+		}
+
+
+		if ((app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) && (first == true))
+		{
+			second = true;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+		{
+			first = true;
+		}
+
+		
+
+		if(first == true)
+		{
+			SDL_Rect UWU = { 0,0,540,360 };
+			app->render->DrawTexture(keysShowcase, 0, 0, &UWU, SDL_FLIP_NONE, 2);
+		}
+
+		if (second == true)
+		{
+			//app->render->DrawTexture(menu_, 0, 0, &menu.GetCurrentFrame(), SDL_FLIP_NONE, 2);
+			SDL_Rect UWU = { 0,0,503,67 };
+			app->render->DrawTexture(textBack, 0, 0, &UWU, SDL_FLIP_NONE, 2);
+		}
 		
 	}
 	else if (level_man == LEVEL_01)
@@ -670,9 +707,9 @@ bool Scene::SaveState(pugi::xml_node& data) const
 void Scene::Set_lvl_1_1()
 {
 	app->entityHandler->players.getFirst()->data->Interpolate(2 * 64 + 32, 4 * 64 + 32, 0.02);
-	app->entityHandler->CreateEntity(ENTITY_SOLDOR, 7 * 64, 6 * 64, 0);
-	//app->entityHandler->CreateEntity(ENTITY_BAT, 7 * 64, 6 * 64, 0);
-	//app->entityHandler->CreateEntity(ENTITY_BAT, 5 * 64, 5 * 64, 0);
+	//app->entityHandler->CreateEntity(ENTITY_SOLDOR, 7 * 64, 6 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_BAT, 7 * 64, 6 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_BAT, 5 * 64, 5 * 64, 0);
 	app->entityHandler->StartCombat();
 	lvl1_1_done = true;
 }

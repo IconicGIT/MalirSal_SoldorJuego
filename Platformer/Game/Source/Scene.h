@@ -145,6 +145,13 @@ private:
 	bool start_lvl3 = false;
 	/*p2List<PhysBody*> trespasableElements;*/
 
+
+	SDL_Texture* textBack;
+	SDL_Texture* keysShowcase;
+
+	bool first = false;
+	bool second = false;
+
 };
 
 #endif // __SCENE_H__

@@ -195,6 +195,7 @@ private:
 	float rec_curr_h;
 	int to_draw;
 	SDL_Rect rec_temp_h;
+
 	
 };
 
