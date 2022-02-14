@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Defs.h"
 #include "Physics.h"
+#include "p2Point.h"
 
 class PhysBody;
 
@@ -33,25 +34,31 @@ public:
 	virtual void Draw()
 	{
 
-	};
+	}
 
 	virtual void DrawUI()
 	{
 
-	};
+	}
+
+	virtual iPoint GetMapPosition()
+	{
+		iPoint ret = { 0,0 };
+		return ret;
+	}
+
 	PhysBody* last_damaged;
-	PhysBody* Hitbox;
+	PhysBody* Hitbox = nullptr;
 	Stats entity_stats;
 	EntityState state;
 	int totalHealth;
-	Condition enemy_cond = COND_IDLE;
+
+	
 private:
 
 protected:
 
 	int id;
-
-	;
 };
 
 

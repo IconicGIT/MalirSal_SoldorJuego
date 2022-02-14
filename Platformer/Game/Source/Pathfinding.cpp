@@ -3,6 +3,8 @@
 #include "p2Point.h"
 #include "Defs.h"
 #include "Log.h"
+#include "Physics.h"
+#include "EntityHandler.h"
 
 PathFinding::PathFinding() : Module(), map(NULL), lastPath(DEFAULT_PATH_LENGTH), width(0), height(0)
 {
@@ -46,10 +48,38 @@ bool PathFinding::CheckBoundaries(const iPoint& pos) const
 }
 
 // Utility: returns true is the tile is walkable
-bool PathFinding::IsWalkable(const iPoint& pos) const
+bool PathFinding::IsWalkable(const iPoint& pos, PhysBody* bodyToSkip) const
 {
+	bool ret1 = true;
+	bool ret2 = true;
+
 	uchar t = GetTileAt(pos);
-	return t != INVALID_WALK_CODE && t > 0;
+	ret1 = t != INVALID_WALK_CODE && t > 0;
+
+	if (bodyToSkip != nullptr && ret2)
+	{
+		p2List_item<EntityEnemy*>* entity = app->entityHandler->enemies.getFirst();
+		while (entity != nullptr)
+		{
+			if (entity->data->Hitbox->body == bodyToSkip->body)
+			{
+				entity = entity->next;
+				continue;
+			}
+			iPoint testOcuppied = entity->data->GetMapPosition();
+
+			if (testOcuppied == pos)
+			{
+				ret2 = false;
+			}
+
+			entity = entity->next;
+		}
+
+	}
+
+	bool total_ret = ret1 && ret2;
+	return total_ret;
 }
 
 // Utility: return the walkability value of a tile
@@ -118,28 +148,28 @@ PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), pos(node.pos), 
 // PathNode -------------------------------------------------------------------------
 // Fills a list (PathList) of all valid adjacent pathnodes
 // ----------------------------------------------------------------------------------
-uint PathNode::FindWalkableAdjacents(PathList& listToFill) const
+uint PathNode::FindWalkableAdjacents(PathList& listToFill, PhysBody* originBody) const
 {	
 	uint before = listToFill.list.count();
 
 	// north
 	iPoint cellN(pos.x, pos.y + 1);
-	if(app->pathfinding->IsWalkable(cellN))
+	if(app->pathfinding->IsWalkable(cellN, originBody))
 		listToFill.list.add(PathNode(-1, -1, cellN, this));
 
 	// south
 	iPoint cellS(pos.x, pos.y - 1);
-	if(app->pathfinding->IsWalkable(cellS))
+	if(app->pathfinding->IsWalkable(cellS, originBody))
 		listToFill.list.add(PathNode(-1, -1, cellS, this));
 
 	// east
 	iPoint cellE(pos.x + 1, pos.y);
-	if(app->pathfinding->IsWalkable(cellE))
+	if(app->pathfinding->IsWalkable(cellE, originBody))
 		listToFill.list.add(PathNode(-1, -1, cellE, this));
 
 	// west
 	iPoint cellW(pos.x - 1, pos.y);
-	if(app->pathfinding->IsWalkable(cellW))
+	if(app->pathfinding->IsWalkable(cellW, originBody))
 		listToFill.list.add(PathNode(-1, -1, cellW, this));
 
 	return listToFill.list.count();
@@ -167,13 +197,10 @@ int PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 // Actual A* algorithm: return number of steps in the creation of the path or -1 ----
 // ----------------------------------------------------------------------------------
-int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
+int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, PhysBody* originBody)
 {
 	int ret = -1;
 	int iterations = 0;
-	
-	LOG("ori %i", IsWalkable(origin));
-	LOG("dest %i", IsWalkable(destination));
 
 	// L12b: TODO 1: if origin or destination are not walkable, return -1
 	if (IsWalkable(origin) && IsWalkable(destination))
@@ -217,7 +244,7 @@ int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 
 			// L12b: TODO 5: Fill a list of all adjancent nodes
 			PathList adjacent;
-			node->data.FindWalkableAdjacents(adjacent);
+			node->data.FindWalkableAdjacents(adjacent, originBody);
 
 			// L12b: TODO 6: Iterate adjancent nodes:
 			// If it is a better path, Update the parent

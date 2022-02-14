@@ -490,15 +490,6 @@ bool EntityPlayer::Update(float dt)
 			currentAnimation = &jump;
 		}
 
-		/*if (app->render->cameraFollow == true)
-		{
-			LOG("True");
-		}
-		else
-		{
-			LOG("False");
-		}*/
-
 
 		switch (moveType)
 		{

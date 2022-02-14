@@ -19,6 +19,8 @@ BatEnemy::BatEnemy(b2Vec2 startPosition, int health) : EntityEnemy()
 
 }
 
+
+
 BatEnemy::~BatEnemy() {}
 
 bool BatEnemy::Awake()
@@ -97,11 +99,16 @@ bool BatEnemy::Update(float dt)
 				{
 					iPoint pos(Hitbox->body->GetPosition().x, Hitbox->body->GetPosition().y);
 					iPoint chicken(goal->body->GetPosition().x, goal->body->GetPosition().y);
-					app->pathfinding->CreatePath(pos, chicken);
+					app->pathfinding->CreatePath(pos, chicken, Hitbox);
 
-					for (int i = 0; i < app->pathfinding->GetLastPath()->Count(); i++) //DRAWING PATH
+					int count = app->pathfinding->GetLastPath()->Count();
+
+					for (int i = 0; i < count; i++) //DRAWING PATH
 					{
-						app->render->DrawRectangle({ app->pathfinding->GetLastPath()->At(i)->x, app->pathfinding->GetLastPath()->At(i)->y, 48, 48 }, 255, 255, 255, 255);
+						int x__ = app->pathfinding->GetLastPath()->At(i)->x;
+						int y__ = app->pathfinding->GetLastPath()->At(i)->y;
+
+						app->render->DrawRectangle({ x__ * 64, y__ * 64, 64, 64 }, 255, 255, 255, 255);
 					}
 
 					int chosing = app->pathfinding->CreatePath(pos, chicken);

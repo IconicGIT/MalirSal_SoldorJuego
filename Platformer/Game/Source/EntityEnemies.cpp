@@ -34,6 +34,16 @@ EntityEnemy::EntityEnemy()
 	Start();
 }
 
+iPoint EntityEnemy::GetMapPosition()
+{
+	int x, y;
+
+	Hitbox->GetPosition(x, y);
+
+	iPoint ret = app->map->WorldToMap(x, y);
+	return ret;
+}
+
 EntityEnemy::~EntityEnemy()
 {
 }

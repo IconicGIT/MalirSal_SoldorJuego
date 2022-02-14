@@ -29,6 +29,8 @@ public:
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&) const;
 	bool CleanUp();
+	iPoint GetMapPosition() override;
+
 
 	bool PhysBodyIsInMap(PhysBody* phys)
 	{
