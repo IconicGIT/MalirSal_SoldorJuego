@@ -194,14 +194,7 @@ bool BatEnemy::Update(float dt)
 		changingHP = (float)entity_stats.hp;
 	}
 
-	if (changingHP <= 0)
-	{
-		if (state == STATE_TURN)
-		{
-			app->entityHandler->NextTurn(Hitbox);
-		}
-		app->entityHandler->DestroyEnemy(Hitbox);
-	}
+	
 
 	rec_curr_h = changingHP / (float)totalHealth * (float)recHealth.w;
 	to_draw = (int)rec_curr_h;
@@ -215,6 +208,12 @@ bool BatEnemy::Update(float dt)
 		out_of_attacks = false;
 		out_of_steps = false;
 		actual_mov = entity_stats.movement;
+	}
+
+	if (changingHP <= 0)
+	{
+		app->entityHandler->DestroyEnemy(Hitbox);
+		
 	}
 
 	return false;

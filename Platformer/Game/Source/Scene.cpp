@@ -684,7 +684,7 @@ bool Scene::Update(float dt)
 	{
 		if (sensor_01->body->GetContactList() != NULL)
 		{
-			if (lvl3_1_done && !lvl3_2_done)
+			if (lvl3_1_done && !inter3_2)
 			{
 				if (!app->entityHandler->players.getFirst()->data->interpolating &&
 					!app->entityHandler->players.getFirst()->next->data->interpolating &&
@@ -700,8 +700,8 @@ bool Scene::Update(float dt)
 
 						app->physics->GetWorld()->DestroyBody(sensor_01->body);
 
-
-						Set_lvl_3_2();
+						chicken_inter_3_2();
+						
 						// Spawn enemies!!!!
 
 					}
@@ -731,6 +731,13 @@ bool Scene::Update(float dt)
 		}
 	}
 
+	if (inter3_2&&
+		!app->entityHandler->players.getFirst()->data->interpolating &&
+		!app->entityHandler->players.getFirst()->next->data->interpolating &&
+		!app->entityHandler->players.getLast()->data->interpolating)
+	{
+		Set_lvl_3_2();
+	}
 	if (freeCam)
 	{
 		app->render->cameraFollow = false;
@@ -1011,7 +1018,7 @@ void Scene::Set_lvl_3_1()
 	lvl3_1_done = true;
 }
 
-void Scene::Set_lvl_3_2()
+void Scene::chicken_inter_3_2()
 {
 	app->entityHandler->players.getFirst()->data->state = STATE_TURN;
 	app->entityHandler->players.getFirst()->next->data->state = STATE_TURN;
@@ -1022,6 +1029,12 @@ void Scene::Set_lvl_3_2()
 	app->entityHandler->players.getFirst()->data->Interpolate(14 * 64 + 32, 27 * 64 + 32, 0.02);
 	app->entityHandler->players.getFirst()->next->data->Interpolate(15 * 64 + 32, 28 * 64 + 32, 0.02);
 	app->entityHandler->players.getLast()->data->Interpolate(14 * 64 + 32, 29 * 64 + 32, 0.02);
+	inter3_2 = true;
+}
+
+void Scene::Set_lvl_3_2()
+{
+	
 
 	app->entityHandler->CreateEntity(ENTITY_MUMMY, 17 * 64, 27 * 64, 0);
 	app->entityHandler->CreateEntity(ENTITY_MUMMY, 17 * 64, 28 * 64, 0);

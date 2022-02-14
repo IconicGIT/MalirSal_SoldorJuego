@@ -441,6 +441,10 @@ void EntityHandler::DestroyEnemy(PhysBody* body)
 
 		if (dummy->data->GetPhysBody() == body)
 		{
+			if (dummy->data->state == STATE_TURN)
+			{
+				NextTurn(dummy->data->Hitbox);
+			}
 			app->physics->GetWorld()->DestroyBody(body->body);
 
 			enemies.del(dummy);
@@ -760,6 +764,11 @@ void EntityHandler::OrderBySpeed()
 
 void EntityHandler::StartCombat()
 {
+	for (p2List_item<Entity*>* node = allEntities.getFirst(); node; node = node->next)
+	{
+		node->data->state = STATE_WAIT;
+	}
+
 	OrderBySpeed();
 
 	int turn = false;

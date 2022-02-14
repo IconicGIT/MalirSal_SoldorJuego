@@ -130,8 +130,10 @@ public:
 	void Set_lvl_3_3();
 	bool lvl3_1_done = false;
 	bool lvl3_2_done = false;
+	bool inter3_2 = false;
 	bool lvl3_3_done = false;
 
+	void chicken_inter_3_2();
 private:
 	
 	EntityPlayer* player;
