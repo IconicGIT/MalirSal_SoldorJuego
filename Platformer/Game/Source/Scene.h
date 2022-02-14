@@ -109,7 +109,7 @@ public:
 
 	Animation menu;
 	SDL_Texture* menu_;
-	void resetChickens();
+	
 
 	void Set_lvl_1_1();
 	void Set_lvl_1_2();
@@ -117,6 +117,20 @@ public:
 	bool lvl1_1_done = false;
 	bool lvl1_2_done = false;
 	bool lvl1_3_done = false;
+
+	void Set_lvl_2_1();
+	void Set_lvl_2_2();
+	void Set_lvl_2_3();
+	bool lvl2_1_done = false;
+	bool lvl2_2_done = false;
+	bool lvl2_3_done = false;
+
+	void Set_lvl_3_1();
+	void Set_lvl_3_2();
+	void Set_lvl_3_3();
+	bool lvl3_1_done = false;
+	bool lvl3_2_done = false;
+	bool lvl3_3_done = false;
 
 private:
 	
