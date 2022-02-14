@@ -102,258 +102,13 @@ bool Scene::Start()
 		RELEASE_ARRAY(data);
 	}
 
-	//jungleMusic = app->audio->PlayMusic("Assets/audio/music/cyber.ogg");
-
-	//Mix_Music* music = Mix_LoadMUS("Assets/audio/music/mission_1_repeat.ogg");
-	//Mix_PlayMusic(music, -1);
-
-	//app->audio->PlayMusic("Assets/audio/music/videoplayback.ogg");    Destroy ears
-	//app->audio->PlayFx(jungleMusic, 0);
-
-
-	//arcaic code
-	/*for (int x = 0; x < app->map->data.layers.start->data->width; x++)
-	{
-		for (int y = 0; y < app->map->data.layers.start->data->height; y++)
-		{
-
-			int gid = app->map->data.layers.start->data->Get(x, y);
-
-			iPoint screenPos = app->map->MapToWorld(x, y);
-			PhysBody* temp;
-
-
-			if (gid == 4)
-			{
-				LOG("found tile");
-				temp = app->physics->CreateRectangle(screenPos.x + 24, screenPos.y + 24, 48, 48);
-				temp->body->SetType(b2_staticBody);
-			}
-
-
-		}
-
-
-	}*/
-
-	
-	
-
-	/*app->entityHandler->CreateEntity(EntityType::ENEMY_BIRD, 48 * 10 - 24, 48 * 10 - 24);
-	app->entityHandler->CreateEntity(EntityType::ENEMY_BIRD, 48 * 28 - 24, 48 * 7 - 24);
-	app->entityHandler->CreateEntity(EntityType::ENEMY_BIRD, 48 * 43 - 24, 48 * 13 - 24);
-	app->entityHandler->CreateEntity(EntityType::ENEMY_BIRD, 48 * 73 - 24, 48 * 25 - 24);
-	app->entityHandler->CreateEntity(EntityType::ENEMY_BIRD, 48 * 74 - 24, 48 * 6 - 24);
-	
-	app->entityHandler->CreateEntity(EntityType::ENEMY_MUSHROOM, 48 * 12 - 24, 48 * 22 - 24);
-	app->entityHandler->CreateEntity(EntityType::ENEMY_MUSHROOM, 48 * 15 - 22, 48 * 2 - 24);
-	app->entityHandler->CreateEntity(EntityType::ENEMY_MUSHROOM, 48 * 70 - 22, 48 * 20 - 24);
-	app->entityHandler->CreateEntity(EntityType::ENEMY_MUSHROOM, 48 * 45 - 45, 48 * 22 - 24);
-	app->entityHandler->CreateEntity(EntityType::ENEMY_MUSHROOM, 48 * 70 - 67, 48 * 27 - 24);
-	app->entityHandler->CreateEntity(EntityType::ENEMY_MUSHROOM, 48 * 70 - 67, 48 * 7 - 24);
-	app->entityHandler->CreateEntity(EntityType::ENEMY_MUSHROOM, METERS_TO_PIXELS(25), METERS_TO_PIXELS(25));
-	app->entityHandler->CreateEntity(EntityType::ENEMY_MUSHROOM, METERS_TO_PIXELS(53.6f), METERS_TO_PIXELS(9.5f));
-
-	app->entityHandler->CreateEntity(EntityType::ENEMY_SNAKE, METERS_TO_PIXELS(39), METERS_TO_PIXELS(21.5f) + 8 );
-	app->entityHandler->CreateEntity(EntityType::ENEMY_SNAKE, METERS_TO_PIXELS(54.f), METERS_TO_PIXELS(28.5f) + 8);
-	app->entityHandler->CreateEntity(EntityType::ENEMY_SNAKE, METERS_TO_PIXELS(79.5f), METERS_TO_PIXELS(25.5f) + 8);
-	app->entityHandler->CreateEntity(EntityType::ENEMY_SNAKE, METERS_TO_PIXELS(67.5f), METERS_TO_PIXELS(3.5f) + 8);
-	app->entityHandler->CreateEntity(EntityType::ENEMY_SNAKE, METERS_TO_PIXELS(36.5f), METERS_TO_PIXELS(27.5f) + 8);
-
-	app->entityHandler->CreateEntity(EntityType::ITEM_BANANA, 48 * 13 - 24, 48 * 22 - 24);
-	app->entityHandler->CreateEntity(EntityType::ITEM_BANANA, METERS_TO_PIXELS(33.52f), METERS_TO_PIXELS(24.52f));
-	app->entityHandler->CreateEntity(EntityType::ITEM_BANANA, METERS_TO_PIXELS(3.52f), METERS_TO_PIXELS(3.52f));
-	app->entityHandler->CreateEntity(EntityType::ITEM_BANANA, METERS_TO_PIXELS(39.52f), METERS_TO_PIXELS(14.52f));
-	app->entityHandler->CreateEntity(EntityType::ITEM_BANANA, METERS_TO_PIXELS(37), METERS_TO_PIXELS(21.5f));
-	app->entityHandler->CreateEntity(EntityType::ITEM_BANANA, METERS_TO_PIXELS(37), METERS_TO_PIXELS(22.5f));
-	app->entityHandler->CreateEntity(EntityType::ITEM_BANANA, METERS_TO_PIXELS(47), METERS_TO_PIXELS(28));
-	app->entityHandler->CreateEntity(EntityType::ITEM_BANANA, METERS_TO_PIXELS(47), METERS_TO_PIXELS(28));
-	app->entityHandler->CreateEntity(EntityType::ITEM_BANANA, METERS_TO_PIXELS(71), METERS_TO_PIXELS(20));
-	app->entityHandler->CreateEntity(EntityType::ITEM_BANANA, METERS_TO_PIXELS(6), METERS_TO_PIXELS(28.11f));
-	app->entityHandler->CreateEntity(EntityType::ITEM_BANANA, METERS_TO_PIXELS(15.7f), METERS_TO_PIXELS(28.4f));
-	app->entityHandler->CreateEntity(EntityType::ENEMY_SNAKE, 48 * 20 + 25, 48 * 25 + 35);
-	app->entityHandler->CreateEntity(EntityType::ENEMY_SNAKE, 48 * 30, 48 * 13 + 35);*/
-	
-
-	//app->entityHandler->CreateEntity(EntityType::ROCKET_BANANA, 48 * 10 - 24, 48 * 15 - 24);
-
-	
 
 
 	
 	marginX = 48 * 11;
 	marginY = 48 * 7;
 
-	////player lifes
-	//SDL_Rect rec_panel = { 0,188,340,124 };
-	//UI_player_lifes = app->UI_handler->CreatePanel(app->UI_handler->spritesheet, 0, 5, 0, 0);
-	//UI_player_lifes->sprite = app->UI_handler->spritesheet;
-	//UI_player_lifes->rec_sprite = rec_panel;
 
-	////skill icon
-	//rec_panel = { 368, 200, 80, 80 };
-	//UI_player_skill_icon = app->UI_handler->CreatePanel(app->UI_handler->spritesheet, 16, 150, 0, 0);
-	//UI_player_skill_icon->sprite = app->UI_handler->spritesheet;
-	//UI_player_skill_icon->rec_sprite = rec_panel;
-
-	////player skill_bg
-	//rec_panel = { 260, 60, 140, 24 };
-	//UI_player_skill_bar_bg = app->UI_handler->CreatePanel(app->UI_handler->spritesheet, 100, 200, 0, 0);
-	//UI_player_skill_bar_bg->sprite = app->UI_handler->spritesheet;
-	//UI_player_skill_bar_bg->rec_sprite = rec_panel;
-
-	////player skill fill
-	//rec_panel = { 264, 92, 132, 20 };
-	//UI_player_skill_bar_fill = app->UI_handler->CreatePanel(app->UI_handler->spritesheet, 100 + 4, 200 + 4, 0, 0);
-	//UI_player_skill_bar_fill->sprite = app->UI_handler->spritesheet;
-	//UI_player_skill_bar_fill->rec_sprite = rec_panel;
-
-	//////panel pause
-	////rec_panel = { 0, 312, 672, 432 };
-	////UI_panel_pause_menu = app->UI_handler->CreatePanel(app->UI_handler->spritesheet, 1080/2 - 672 /2, 720/2 - 432/2, 672, 432);
-	////UI_panel_pause_menu->sprite = app->UI_handler->spritesheet;
-	////UI_panel_pause_menu->rec_sprite = rec_panel;
-
-	//////panel exit game
-	////rec_panel = { 692, 4, 268, 48 };
-	////UI_panel_pause_menu_exit_game = app->UI_handler->CreatePanel(app->UI_handler->spritesheet, 1080 / 2 + 14, 720 / 2 + 432/4 + 128, 268, 48);
-	////UI_panel_pause_menu_exit_game->sprite = app->UI_handler->spritesheet;
-	////UI_panel_pause_menu_exit_game->rec_sprite = rec_panel;
-
-	////pause open button
-	//rec_panel = { 468, 4, 48, 48 };
-	//UI_button_open_pause_menu = app->UI_handler->CreateButton(app->UI_handler->spritesheet, 1080 - 48 - 14, 14, 48, 48);
-	//UI_button_open_pause_menu->sprite = app->UI_handler->spritesheet;
-	//UI_button_open_pause_menu->rec_sprite = rec_panel;
-	//UI_button_open_pause_menu->action = ACTION_PAUSE_OPEN;
-
-	////pause close button
-	//rec_panel = { 412, 60, 48, 48 };
-	//UI_button_close_pause_menu = app->UI_handler->CreateButton(
-	//	app->UI_handler->spritesheet,
-	//	1080 / 2 + 584/2 -28,
-	//	584/2 - 432/4,
-	//	48,
-	//	48);
-	//UI_button_close_pause_menu->sprite = app->UI_handler->spritesheet;
-	//UI_button_close_pause_menu->rec_sprite = rec_panel;
-	//UI_button_close_pause_menu->action = ACTION_PAUSE_CLOSE;
-
-	//
-	//
-	////exit button
-	//rec_panel = { 468, 60, 48, 48 };
-	//UI_button_exit_game = app->UI_handler->CreateButton(
-	//	app->UI_handler->spritesheet,
-	//	1080 / 2 + 584 / 2 - 28,
-	//	720 / 2 + 432 / 2 - 64,
-	//	48,
-	//	48);
-	//UI_button_exit_game->sprite = app->UI_handler->spritesheet;
-	//UI_button_exit_game->rec_sprite = rec_panel;
-	//UI_button_exit_game->action = ACTION_EXIT_GAME;
-
-	////exit button confirm
-	//rec_panel = { 412, 4, 48, 48 };
-	//UI_button_exit_game_confirm = app->UI_handler->CreateButton(
-	//	app->UI_handler->spritesheet,
-	//	1080 / 2 - 584 / 2 + 584 + 4,
-	//	720 / 2 + 432 / 4 + 128,
-	//	48,
-	//	48
-	//);
-	//UI_button_exit_game_confirm->sprite = app->UI_handler->spritesheet;
-	//UI_button_exit_game_confirm->rec_sprite = rec_panel;
-	//UI_button_exit_game_confirm->action = ACTION_EXIT_GAME_CONFIRM;
-
-	////exit button deny
-	//rec_panel = { 468, 60, 48, 48 };
-	//UI_button_exit_game_deny = app->UI_handler->CreateButton(
-	//	app->UI_handler->spritesheet,
-	//	1080 / 2 - 584 / 2 + 584 + 48 + 16,
-	//	720 / 2 + 432 / 4 + 128,
-	//	48,
-	//	48
-	//);
-	//UI_button_exit_game_deny->sprite = app->UI_handler->spritesheet;
-	//UI_button_exit_game_deny->rec_sprite = rec_panel;
-	//UI_button_exit_game_deny->action = ACTION_EXIT_GAME_DENY;
-
-	////save button
-	//rec_panel = { 320, 116, 132, 48 };
-	//UI_button_save_game = app->UI_handler->CreateButton(
-	//	app->UI_handler->spritesheet,
-	//	 1080 / 2 - 584 / 2 + 584 / 4,
-	//	720 / 2 + 432 / 4 + 24,
-	//	132,
-	//	48
-	//);
-	//UI_button_save_game->sprite = app->UI_handler->spritesheet;
-	//UI_button_save_game->rec_sprite = rec_panel;
-	//UI_button_save_game->rec_over = {468,112,140,56};
-	//UI_button_save_game->rec_hold = { 472,172,132,48 };
-	//UI_button_save_game->action = ACTION_SAVE_GAME;
-
-	////load button
-	//rec_panel = { 180, 116, 132, 48 };
-	//UI_button_load_game = app->UI_handler->CreateButton(
-	//	app->UI_handler->spritesheet,
-	//	1080 / 2 + 584 / 2 - 584 / 4 - 132,
-	//	720 / 2 + 432 / 4 + 24,
-	//	132,
-	//	48
-	//);
-	//UI_button_load_game->sprite = app->UI_handler->spritesheet;
-	//UI_button_load_game->rec_sprite = rec_panel;
-	//UI_button_load_game->rec_over = { 468,112,140,56 };
-	//UI_button_load_game->rec_hold = { 472,172,132,48 };
-	//UI_button_load_game->action = ACTION_LOAD_GAME;
-
-	////sfx volume slider
-	//rec_panel = { 0, 60, 256, 24 };
-	//UI_slider_sfx_vol = app->UI_handler->CreateSlider(450, 420, 128, app->UI_handler->spritesheet, { 0 }, { 0 }, { 0 }, { 0 });
-	//UI_slider_sfx_vol->rec_sprite = rec_panel;
-	//rec_panel = { 4, 92, 244, 16 };
-	//UI_slider_sfx_vol->rec_body_fill = rec_panel;
-	//rec_panel = { 0, 0, 116, 60 };
-	//UI_slider_sfx_vol->rec_slider_hold = rec_panel;
-	//rec_panel = { 120, 0, 120, 60 };
-	//UI_slider_sfx_vol->rec_slider = rec_panel;
-	//UI_slider_sfx_vol->w = 256;
-	//UI_slider_sfx_vol->h = 24;
-	//UI_slider_sfx_vol->set = SET_SFX_VOLUME;
-
-	////global audio slider
-	//rec_panel = { 0, 60, 256, 24 };
-	//UI_slider_global_audio = app->UI_handler->CreateSlider(450, 320, 100, app->UI_handler->spritesheet, { 0 }, { 0 }, { 0 }, { 0 });
-	//UI_slider_global_audio->rec_sprite = rec_panel;
-	//rec_panel = { 4, 92, 244, 16 };
-	//UI_slider_global_audio->rec_body_fill = rec_panel;
-	//rec_panel = { 0, 0, 116, 60 };
-	//UI_slider_global_audio->rec_slider_hold = rec_panel;
-	//rec_panel = { 120, 0, 120, 60 };
-	//UI_slider_global_audio->rec_slider = rec_panel;
-	//UI_slider_global_audio->w = 256;
-	//UI_slider_global_audio->h = 24;
-	//UI_slider_global_audio->set = SET_GLOBAL_VOLUME;
-
-
-	////music volume slider
-	//rec_panel = { 0, 60, 256, 24 };
-	//UI_slider_music_vol = app->UI_handler->CreateSlider(450, 370, 128, app->UI_handler->spritesheet, { 0 }, { 0 }, { 0 }, { 0 });
-	//UI_slider_music_vol->rec_sprite = rec_panel;
-	//rec_panel = { 4, 92, 244, 16 };
-	//UI_slider_music_vol->rec_body_fill = rec_panel;
-	//rec_panel = { 0, 0, 116, 60 };
-	//UI_slider_music_vol->rec_slider_hold = rec_panel;
-	//rec_panel = { 120, 0, 120, 60 };
-	//UI_slider_music_vol->rec_slider = rec_panel;
-	//UI_slider_music_vol->w = 256;
-	//UI_slider_music_vol->h = 24;
-	//UI_slider_music_vol->set = SET_MUSIC_VOLUME;
-
-	//176, 120, 140, 24
-	//180, 124, 132, 20
 
 
 app->render->camera_0 = true;
@@ -382,6 +137,7 @@ bool Scene::Update(float dt)
 	{
 		level_man = LEVEL_01; 
 		app->map->DeleteCol();
+		app->map->CleanUp();
 		app->entityHandler->entities_active = true;
 		app->render->cameraFollow = true;
 		app->render->camera_0 = false;
@@ -403,6 +159,7 @@ bool Scene::Update(float dt)
 	{
 		level_man = LEVEL_02;
 		app->map->DeleteCol();
+		app->map->CleanUp();
 		app->render->cameraFollow = true;
 		app->render->camera_0 = false;
 		app->entityHandler->entities_active = true;
@@ -424,6 +181,7 @@ bool Scene::Update(float dt)
 	{
 		level_man = LEVEL_03;
 		app->map->DeleteCol();
+		app->map->CleanUp();
 		app->render->cameraFollow = true;
 		app->render->camera_0 = false;
 		app->entityHandler->entities_active = true;
