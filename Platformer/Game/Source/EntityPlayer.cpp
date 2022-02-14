@@ -211,7 +211,6 @@ bool EntityPlayer::Start()
 	changingSpeed = 0.1f;
 
 	// La changing speed tiene que ser siempre inferior al daño que se le aplica a la entidad
-
 	CheckRight = app->physics->CreateSensorCircle(spawnPosition.x+48.f, spawnPosition.y, 16);
 	CheckRight->type = TYPE_ENEMY;
 
@@ -371,15 +370,19 @@ void EntityPlayer::PushAttack(Entity* enemy)
 
 bool EntityPlayer::Update(float dt)
 {
-
 	x = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().x);
 	y = (float)METERS_TO_PIXELS(Hitbox->body->GetPosition().y);
 
-	CheckRight->body->SetTransform({x+48,y}, 0);
-	CheckLeft->body->SetTransform({ x-48,y }, 0);
-	CheckUp->body->SetTransform({ x,y-48 }, 0);
-	CheckDown->body->SetTransform({ x,y+48 }, 0);
-		//EntityCollider->body->SetTransform(v, 0);
+	if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
+		LOG("test");
+
+
+	CheckRight->body->SetTransform({ x+48,y }, 0);
+	CheckLeft->body->SetTransform( { x-48,y }, 0);
+	CheckUp->body->SetTransform(   { x,y-48 }, 0);
+	CheckDown->body->SetTransform( { x,y+48 }, 0);
+	//EntityCollider->body->SetTransform(v, 0);
+
 
 	if (CheckRight->type != TYPE_NULL)
 	{
@@ -507,12 +510,17 @@ bool EntityPlayer::Update(float dt)
 			goUp = (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN);
 			goDown = (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN);
 
-			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+			mapPos = app->map->WorldToMap(METERS_TO_PIXELS(Hitbox->body->GetPosition().x), METERS_TO_PIXELS(Hitbox->body->GetPosition().y));
+
+			if (app->map->data.layers.end != NULL)
 			{
+				gidNow = app->map->data.layers.end->data->Get(mapPos.x, mapPos.y);
 
+				gidLeft = app->map->data.layers.end->data->Get(mapPos.x - 1, mapPos.y);
+				gidRight = app->map->data.layers.end->data->Get(mapPos.x + 1, mapPos.y);
+				gidUp = app->map->data.layers.end->data->Get(mapPos.x, mapPos.y - 1);
+				gidDown = app->map->data.layers.end->data->Get(mapPos.x, mapPos.y + 1);
 			}
-
-			
 
 			
 			if (interpolating)
@@ -528,25 +536,25 @@ bool EntityPlayer::Update(float dt)
 				}
 				else
 				{
-					if (goRight)
+					if (goRight && gidRight == 0)
 					{
 						lastDirection = MOV_RIGHT;
 						lastHorizontalAxis = MOV_RIGHT;
 						Interpolate(x + 64, y, inter_speed);
 						currentAnimation = &jump;
 					}
-					else if (goLeft)
+					else if (goLeft && gidLeft == 0)
 					{
 						Interpolate(x - 64, y, inter_speed);
 						lastDirection = MOV_LEFT;
 						currentAnimation = &jump;
 					}
-					else if (goUp)
+					else if (goUp && gidUp == 0)
 					{
 						Interpolate(x, y - 64, inter_speed);
 						currentAnimation = &jump;
 					}
-					else if (goDown)
+					else if (goDown && gidDown == 0)
 					{
 						Interpolate(x, y + 64, inter_speed);
 						currentAnimation = &jump;
@@ -680,24 +688,17 @@ bool EntityPlayer::Update(float dt)
 
 	
 
-	mapPos = app->map->WorldToMap(METERS_TO_PIXELS(Hitbox->body->GetPosition().x), METERS_TO_PIXELS(Hitbox->body->GetPosition().y));
-
-	//gidNow = app->map->data.layers.start->data->Get(mapPos.x, mapPos.y);
-	//
-	//gidLeft = app->map->data.layers.start->data->Get(mapPos.x - 1, mapPos.y);
-	//gidRight = app->map->data.layers.start->data->Get(mapPos.x + 1, mapPos.y);
-	//gidUp = app->map->data.layers.start->data->Get(mapPos.x, mapPos.y - 1);
-	//gidDown = app->map->data.layers.start->data->Get(mapPos.x, mapPos.y + 1);
+	
 
 
 
 
-	/*LOG("gidNow %i", gidNow);
+	LOG("gidNow %i", gidNow);
 	LOG("gidUp %i", gidUp);
 	LOG("gidDown %i", gidDown);
 	LOG("gidLeft %i", gidLeft);
 	LOG("gidRight %i", gidRight);
-	LOG("------------------------");*/
+	LOG("------------------------");
 
 	
 	
