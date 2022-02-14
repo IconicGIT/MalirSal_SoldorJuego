@@ -133,7 +133,7 @@ bool Scene::Update(float dt)
 		app->render->cameraFollow = false;
 		app->render->camera_0 = true;
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN) // START LVL 1
+	else if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || start_lvl1) // START LVL 1
 	{
 		level_man = LEVEL_01; 
 		app->map->DeleteCol();
@@ -154,8 +154,9 @@ bool Scene::Update(float dt)
 		
 		app->map->LoadCol();
 		Set_lvl_1_1();
+		start_lvl1 = false;
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
+	else if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN || start_lvl2)
 	{
 		level_man = LEVEL_02;
 		app->map->DeleteCol();
@@ -176,8 +177,9 @@ bool Scene::Update(float dt)
 		
 		app->map->LoadCol();
 		Set_lvl_2_1();
+		start_lvl2 = false;
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
+	else if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN || start_lvl3)
 	{
 		level_man = LEVEL_03;
 		app->map->DeleteCol();
@@ -198,6 +200,7 @@ bool Scene::Update(float dt)
 		
 		app->map->LoadCol();
 		Set_lvl_3_1();
+		start_lvl3;
 	}
 
 	currentTime += 16;
@@ -334,6 +337,11 @@ bool Scene::Update(float dt)
 		}
 		
 
+		if (lvl1_3_done && !app->entityHandler->checkForEnemies())
+		{
+			start_lvl2 = true;
+		}
+
 	}
 	
 	if (level_man == LEVEL_02)
@@ -431,6 +439,11 @@ bool Scene::Update(float dt)
 
 		app->map->Draw();
 		app->entityHandler->DrawAllEntities();
+
+		if (lvl2_3_done && !app->entityHandler->checkForEnemies())
+		{
+			start_lvl3 = true;
+		}
 	}
 	if (level_man == LEVEL_03)
 	{
@@ -535,6 +548,11 @@ bool Scene::Update(float dt)
 
 	app->map->Draw();
 	app->entityHandler->DrawAllEntities();
+
+	if (lvl3_3_done && !app->entityHandler->checkForEnemies())
+	{
+		return true;
+	}
  }
 
 	return true;
@@ -683,7 +701,7 @@ void Scene::Set_lvl_1_3()
 
 	
 	app->entityHandler->StartCombat();
-	lvl1_2_done = true;
+	lvl1_3_done = true;
 }
 
 void Scene::Set_lvl_2_1()

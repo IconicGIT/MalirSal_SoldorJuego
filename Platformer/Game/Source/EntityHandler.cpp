@@ -211,19 +211,13 @@ void EntityHandler::DrawAllEntities()
 
 bool EntityHandler::checkForEnemies()
 {
-	Entity* entitiy;
-
-	for (int i = 0; i < allEntities.count(); i++)
+	
+	if (enemies.getFirst() == NULL)
 	{
-		allEntities.at(i, entitiy);
-
-		if (entitiy->isEnemy)
-		{
-			return true;
-		}
+		return false;
 	}
 
-	return false;
+	return true;
 }
 
 PhysBody* EntityHandler::GetNearestChicken(PhysBody* Character)

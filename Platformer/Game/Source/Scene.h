@@ -140,6 +140,9 @@ private:
 	int marginX;
 	int marginY;
 
+	bool start_lvl1 = false;
+	bool start_lvl2 = false;
+	bool start_lvl3 = false;
 	/*p2List<PhysBody*> trespasableElements;*/
 
 };
