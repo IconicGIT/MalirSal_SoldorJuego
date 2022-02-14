@@ -663,6 +663,7 @@ bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 
 void Map::LoadCol()
 {
+
 	ListItem<MapLayer*>* item = data.layers.start;
 	MapLayer* layer = data.layers.start->data;
 

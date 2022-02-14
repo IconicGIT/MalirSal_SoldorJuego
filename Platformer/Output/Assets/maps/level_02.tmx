@@ -7,7 +7,6 @@
   <grid orientation="orthogonal" width="48" height="48"/>
   <image source="soldor_tileset.png" trans="ff00ff" width="704" height="448"/>
  </tileset>
- <tileset firstgid="90" source="soldor_tileset.tsx"/>
  <layer id="1" name="Graphics" width="36" height="27">
   <properties>
    <property name="Navegation" type="int" value="0"/>
@@ -338,22 +337,17 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="134"/>
-   <tile gid="134"/>
-   <tile gid="134"/>
-   <tile gid="135"/>
-   <tile gid="136"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="49"/>
    <tile gid="29"/>
    <tile gid="14"/>
    <tile gid="27"/>
    <tile gid="50"/>
    <tile gid="51"/>
-   <tile gid="134"/>
-   <tile gid="134"/>
-   <tile gid="134"/>
-   <tile gid="135"/>
-   <tile gid="136"/>
    <tile/>
    <tile/>
    <tile/>
@@ -379,12 +373,17 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="134"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="38"/>
    <tile gid="14"/>
    <tile gid="38"/>
-   <tile gid="134"/>
-   <tile gid="136"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -677,9 +676,9 @@
    <tile gid="14"/>
    <tile gid="14"/>
    <tile gid="38"/>
-   <tile gid="134"/>
-   <tile gid="135"/>
-   <tile gid="136"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="38"/>
    <tile gid="14"/>
    <tile gid="14"/>
@@ -734,10 +733,10 @@
    <tile gid="50"/>
    <tile gid="51"/>
    <tile/>
-   <tile gid="134"/>
-   <tile gid="134"/>
-   <tile gid="135"/>
-   <tile gid="136"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="38"/>
    <tile gid="14"/>
    <tile gid="14"/>
@@ -745,30 +744,30 @@
    <tile gid="14"/>
    <tile gid="14"/>
    <tile gid="38"/>
-   <tile gid="134"/>
-   <tile gid="134"/>
-   <tile gid="135"/>
-   <tile gid="136"/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="134"/>
-   <tile gid="134"/>
-   <tile gid="134"/>
-   <tile gid="134"/>
-   <tile gid="134"/>
-   <tile gid="134"/>
-   <tile gid="134"/>
-   <tile gid="134"/>
-   <tile gid="134"/>
-   <tile gid="134"/>
-   <tile gid="134"/>
-   <tile gid="134"/>
-   <tile gid="134"/>
-   <tile gid="134"/>
-   <tile gid="134"/>
-   <tile gid="135"/>
-   <tile gid="136"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -918,13 +917,13 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="134"/>
-   <tile gid="135"/>
-   <tile gid="136"/>
-   <tile gid="136"/>
-   <tile gid="136"/>
-   <tile gid="136"/>
-   <tile gid="136"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -988,7 +987,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="4" name="Navigation" width="36" height="27" visible="0">
+ <layer id="4" name="Navigation" width="36" height="27">
   <properties>
    <property name="Navigation" type="int" value="1"/>
    <property name="NoDraw" type="int" value="0"/>
