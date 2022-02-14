@@ -60,9 +60,9 @@ bool MummyEnemy::Start()
 	entity_stats.hp = 20;
 	totalHealth = entity_stats.hp;
 	entity_stats.armour = 1;
-	entity_stats.damage = 5;
+	entity_stats.damage = 3;
 	entity_stats.movement = 3;
-	entity_stats.speed = 2;
+	entity_stats.speed = 1;
 	changingSpeed = 0.1f;
 	actual_mov = entity_stats.movement;
 	out_of_steps = false;

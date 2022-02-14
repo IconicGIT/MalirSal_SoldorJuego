@@ -439,6 +439,7 @@ bool Scene::Update(float dt)
 		}
 		
 		app->map->LoadCol();
+		Set_lvl_3_1();
 	}
 
 	currentTime += 16;
@@ -497,7 +498,7 @@ bool Scene::Update(float dt)
 		{
 		case INTRO:
 		{
-			
+
 		}break;
 		case GAMEPLAY:
 		{
@@ -571,17 +572,13 @@ bool Scene::Update(float dt)
 
 			app->map->Draw();
 			app->entityHandler->DrawAllEntities();
-
-		}break;
-		case END:
-		{
-
-
 		}break;
 		}
+		
 
 	}
-	else if (level_man = LEVEL_02)
+	
+	if (level_man == LEVEL_02)
 	{
 
 
@@ -635,8 +632,8 @@ bool Scene::Update(float dt)
 				}
 			}
 		}
-	}
 
+	}
 		if (freeCam)
 		{
 			app->render->cameraFollow = false;
@@ -677,7 +674,7 @@ bool Scene::Update(float dt)
 		app->map->Draw();
 		app->entityHandler->DrawAllEntities();
 	}
-	else if (level_man == LEVEL_03)
+	if (level_man == LEVEL_03)
 	{
 
 	int cameraSpeed = 10;
@@ -687,10 +684,11 @@ bool Scene::Update(float dt)
 	{
 		if (sensor_01->body->GetContactList() != NULL)
 		{
-			if (lvl2_1_done && !lvl2_2_done)
+			if (lvl3_1_done && !lvl3_2_done)
 			{
 				if (!app->entityHandler->players.getFirst()->data->interpolating &&
-					!app->entityHandler->players.getFirst()->next->data->interpolating)
+					!app->entityHandler->players.getFirst()->next->data->interpolating &&
+					!app->entityHandler->players.getLast()->data->interpolating)
 				{
 
 					b2Body* playerB = sensor_01->body->GetContactList()->contact->GetFixtureA()->GetBody();
@@ -703,16 +701,17 @@ bool Scene::Update(float dt)
 						app->physics->GetWorld()->DestroyBody(sensor_01->body);
 
 
-						Set_lvl_2_2();
+						Set_lvl_3_2();
 						// Spawn enemies!!!!
 
 					}
 				}
 			}
-			if (lvl2_2_done)
+			if (lvl3_2_done)
 			{
 				if (!app->entityHandler->players.getFirst()->data->interpolating &&
-					!app->entityHandler->players.getFirst()->next->data->interpolating)
+					!app->entityHandler->players.getFirst()->next->data->interpolating && 
+					!app->entityHandler->players.getLast()->data->interpolating)
 				{
 					b2Body* playerB = sensor_01->body->GetContactList()->contact->GetFixtureA()->GetBody();
 					if (playerB == app->entityHandler->players.getFirst()->data->GetPhysBody()->body)
@@ -723,7 +722,7 @@ bool Scene::Update(float dt)
 						app->physics->GetWorld()->DestroyBody(sensor_01->body);
 
 
-						Set_lvl_2_3();
+						Set_lvl_3_3();
 						// Spawn enemies!!!!
 
 					}
@@ -779,170 +778,87 @@ bool Scene::Update(float dt)
 // Called each loop iteration
 bool Scene::PostUpdate()
 {
-	bool ret = true;
-
-	switch (state)
-	{
-	case INTRO:
-	{
-
-
-		//if (!menuOpen)
-		//{
-		//	UI_panel_pause_menu->SetActive(false);
-		//}
-
-		//if (UI_panel_pause_menu->IsActive())
-		//{
-		//	app->fonts->DrawText(1080 / 3 + 50, 200 - 24, font1_gold_2, "Settings");
-
-
-		//	char val[4];
-
-		//	app->fonts->DrawText(310, 320 - 8, font1_black_1, "Global");
-		//	app->fonts->DrawText(310, 320 + 8, font1_black_1, "Vol:");
-
-		//	sprintf_s(val, "%i", UI_slider_global_audio->GetValue());
-
-		//	app->fonts->DrawText(310 + 4 * 16, 320 + 8, font1_black_1, val);
-		//	app->fonts->DrawText(310 + (4 + strlen(val)) * 16, 320 + 8, font1_black_1, "%");
-
-		//	app->fonts->DrawText(310, 370 - 8, font1_black_1, "Music");
-		//	app->fonts->DrawText(310, 370 + 8, font1_black_1, "Vol:");
-
-		//	sprintf_s(val, "%i", (int)((float)UI_slider_music_vol->GetValue() / 128.f * 100));
-
-		//	app->fonts->DrawText(310 + 4 * 16, 370 + 8, font1_black_1, val);
-		//	app->fonts->DrawText(310 + (4 + strlen(val)) * 16, 370 + 8, font1_black_1, "%");
-
-		//	app->fonts->DrawText(310, 420 - 8, font1_black_1, "SFX");
-		//	app->fonts->DrawText(310, 420 + 8, font1_black_1, "Vol:");
-
-		//	sprintf_s(val, "%i", (int)((float)UI_slider_sfx_vol->GetValue() / 128.f * 100));
-
-		//	app->fonts->DrawText(310 + 4 * 16, 420 + 8, font1_black_1, val);
-		//	app->fonts->DrawText(310 + (4 + strlen(val)) * 16, 420 + 8, font1_black_1, "%");
-
-
-
-		//	UI_button_close_pause_menu->SetActive(true);
-		//	//UI_button_exit_game->SetActive(true);
-		//	//UI_button_load_game->SetActive(true);
-		//	//UI_button_save_game->SetActive(true);
-		//	UI_slider_global_audio->SetActive(true);
-		//	UI_slider_music_vol->SetActive(true);
-		//	UI_slider_sfx_vol->SetActive(true);
-
-		//}
-		//else
-		//{
-		//	UI_panel_pause_menu->SetActive(false);
-		//	UI_button_close_pause_menu->SetActive(false);
-		//	
-		//	if (!loadingScreenActive)
-		//		UI_button_settings->SetActive(true);
-		//	else {
-		//		UI_button_settings->SetActive(false);
-
-		//	}
-
-		//	UI_panel_pause_menu_exit_game->SetActive(false);
-		//	UI_button_exit_game->SetActive(false);
-		//	UI_button_exit_game_confirm->SetActive(false);
-		//	UI_button_exit_game_deny->SetActive(false);
-		//	UI_button_load_game->SetActive(false);
-		//	UI_button_save_game->SetActive(false);
-		//	UI_slider_global_audio->SetActive(false);
-		//	UI_slider_music_vol->SetActive(false);
-		//	UI_slider_sfx_vol->SetActive(false);
-
-
-
-		//}
-	}
-		break;
-	case GAMEPLAY:
-	{
 
 
 
 
-		/*if (app->GameIsPaused())
-		{
-			app->fonts->DrawText(1080 / 3, 200 - 24, font1_gold_2, "Game Paused");
+	//if (!menuOpen)
+	//{
+	//	UI_panel_pause_menu->SetActive(false);
+	//}
+
+	//if (UI_panel_pause_menu->IsActive())
+	//{
+	//	app->fonts->DrawText(1080 / 3 + 50, 200 - 24, font1_gold_2, "Settings");
 
 
-			char val[4];
+	//	char val[4];
 
-			app->fonts->DrawText(310, 320 - 8, font1_black_1, "Global");
-			app->fonts->DrawText(310, 320 + 8, font1_black_1, "Vol:");
-			
-			sprintf_s(val, "%i", UI_slider_global_audio->GetValue());
+	//	app->fonts->DrawText(310, 320 - 8, font1_black_1, "Global");
+	//	app->fonts->DrawText(310, 320 + 8, font1_black_1, "Vol:");
 
-			app->fonts->DrawText(310 + 4 * 16, 320 + 8, font1_black_1, val);
-			app->fonts->DrawText(310 + (4 + strlen(val))*16, 320 + 8, font1_black_1, "%");
+	//	sprintf_s(val, "%i", UI_slider_global_audio->GetValue());
 
-			app->fonts->DrawText(310, 370 - 8, font1_black_1, "Music");
-			app->fonts->DrawText(310, 370 + 8, font1_black_1, "Vol:");
+	//	app->fonts->DrawText(310 + 4 * 16, 320 + 8, font1_black_1, val);
+	//	app->fonts->DrawText(310 + (4 + strlen(val)) * 16, 320 + 8, font1_black_1, "%");
 
-			sprintf_s(val, "%i", (int)((float)UI_slider_music_vol->GetValue() / 128.f * 100));
+	//	app->fonts->DrawText(310, 370 - 8, font1_black_1, "Music");
+	//	app->fonts->DrawText(310, 370 + 8, font1_black_1, "Vol:");
 
-			app->fonts->DrawText(310 + 4 * 16, 370 + 8, font1_black_1, val);
-			app->fonts->DrawText(310 + (4 + strlen(val)) * 16, 370 + 8, font1_black_1, "%");
+	//	sprintf_s(val, "%i", (int)((float)UI_slider_music_vol->GetValue() / 128.f * 100));
 
-			app->fonts->DrawText(310, 420 - 8, font1_black_1, "SFX");
-			app->fonts->DrawText(310, 420 + 8, font1_black_1, "Vol:");
-			
-			sprintf_s(val, "%i", (int)((float)UI_slider_sfx_vol->GetValue() / 128.f * 100));
+	//	app->fonts->DrawText(310 + 4 * 16, 370 + 8, font1_black_1, val);
+	//	app->fonts->DrawText(310 + (4 + strlen(val)) * 16, 370 + 8, font1_black_1, "%");
 
-			app->fonts->DrawText(310 + 4 * 16, 420 + 8, font1_black_1, val);
-			app->fonts->DrawText(310 + (4 + strlen(val)) * 16, 420 + 8, font1_black_1, "%");
+	//	app->fonts->DrawText(310, 420 - 8, font1_black_1, "SFX");
+	//	app->fonts->DrawText(310, 420 + 8, font1_black_1, "Vol:");
 
+	//	sprintf_s(val, "%i", (int)((float)UI_slider_sfx_vol->GetValue() / 128.f * 100));
 
-			UI_panel_pause_menu->SetActive(true);
-			UI_button_close_pause_menu->SetActive(true);
-			UI_button_open_pause_menu->SetActive(false);
-			UI_button_exit_game->SetActive(true);
-			UI_button_load_game->SetActive(true);
-			UI_button_save_game->SetActive(true);
-			UI_slider_global_audio->SetActive(true);
-			UI_slider_music_vol->SetActive(true);
-			UI_slider_sfx_vol->SetActive(true);
-			 
-		}
-		else
-		{
-			UI_panel_pause_menu->SetActive(false);
-			UI_button_close_pause_menu->SetActive(false);
-			UI_button_open_pause_menu->SetActive(true);
-			UI_panel_pause_menu_exit_game->SetActive(false);
-			UI_button_exit_game->SetActive(false);
-			UI_button_exit_game_confirm->SetActive(false);
-			UI_button_exit_game_deny->SetActive(false);
-			UI_button_load_game->SetActive(false);
-			UI_button_save_game->SetActive(false);
-			UI_slider_global_audio->SetActive(false);
-			UI_slider_music_vol->SetActive(false);
-			UI_slider_sfx_vol->SetActive(false);
+	//	app->fonts->DrawText(310 + 4 * 16, 420 + 8, font1_black_1, val);
+	//	app->fonts->DrawText(310 + (4 + strlen(val)) * 16, 420 + 8, font1_black_1, "%");
 
 
-		}*/
-	}
-		break;
-	case END:
-		break;
-	case NONE:
-		break;
-	default:
-		break;
-	}
 
-	
+	//	UI_button_close_pause_menu->SetActive(true);
+	//	//UI_button_exit_game->SetActive(true);
+	//	//UI_button_load_game->SetActive(true);
+	//	//UI_button_save_game->SetActive(true);
+	//	UI_slider_global_audio->SetActive(true);
+	//	UI_slider_music_vol->SetActive(true);
+	//	UI_slider_sfx_vol->SetActive(true);
 
-	//
-	//
+	//}
+	//else
+	//{
+	//	UI_panel_pause_menu->SetActive(false);
+	//	UI_button_close_pause_menu->SetActive(false);
+	//	
+	//	if (!loadingScreenActive)
+	//		UI_button_settings->SetActive(true);
+	//	else {
+	//		UI_button_settings->SetActive(false);
 
-	return ret;
+	//	}
+
+	//	UI_panel_pause_menu_exit_game->SetActive(false);
+	//	UI_button_exit_game->SetActive(false);
+	//	UI_button_exit_game_confirm->SetActive(false);
+	//	UI_button_exit_game_deny->SetActive(false);
+	//	UI_button_load_game->SetActive(false);
+	//	UI_button_save_game->SetActive(false);
+	//	UI_slider_global_audio->SetActive(false);
+	//	UI_slider_music_vol->SetActive(false);
+	//	UI_slider_sfx_vol->SetActive(false);
+
+
+
+	//}
+
+
+
+	return true;
+
 }
 
 // Called before quitting
@@ -1068,8 +984,7 @@ void Scene::Set_lvl_2_3()
 	app->entityHandler->CreateEntity(ENTITY_SNAKE, 23 * 64, 15 * 64, 0);
 
 	app->physics->GetWorld()->DestroyBody(sensor_01->body);
-	sensor_01 = app->physics->CreateSensorCircle(64 * 7 + 32, 9 * 64 + 32, 24);
-	sensor_01->type = TYPE_ENEMY;
+	
 
 	app->entityHandler->StartCombat();
 	lvl2_3_done = true;
@@ -1077,12 +992,79 @@ void Scene::Set_lvl_2_3()
 
 void Scene::Set_lvl_3_1()
 {
+	app->entityHandler->players.getFirst()->data->Interpolate(2 * 64 + 32, 28 * 64 + 32, 0.02);
+	app->entityHandler->CreateEntity(ENTITY_PLAYER, 2 * 64, 29 * 64, 1);
+	app->entityHandler->CreateEntity(ENTITY_PLAYER, 2 * 64, 27 * 64, 2);
+	app->entityHandler->CreateEntity(ENTITY_MUMMY, 7 * 64, 27 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_MUMMY, 7 * 64, 28 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_MUMMY, 7 * 64, 29 * 64, 0);
+	//app->entityHandler->CreateEntity(ENTITY_BAT, 8 * 64, 8 * 64, 0);
+
+	//app->entityHandler->CreateEntity(ENTITY_SNAKE, 8 * 64, 2 * 64, 0);
+	//app->entityHandler->CreateEntity(ENTITY_SNAKE, 12 * 64, 6 * 64, 0);
+
+	app->physics->GetWorld()->DestroyBody(sensor_01->body);
+	sensor_01 = app->physics->CreateSensorCircle(64 * 9 + 32, 28 * 64 + 32, 24);
+	sensor_01->type = TYPE_ENEMY;
+
+	app->entityHandler->StartCombat();
+	lvl3_1_done = true;
 }
 
 void Scene::Set_lvl_3_2()
 {
+	app->entityHandler->players.getFirst()->data->state = STATE_TURN;
+	app->entityHandler->players.getFirst()->next->data->state = STATE_TURN;
+	app->entityHandler->players.getLast()->data->state = STATE_TURN;
+	app->entityHandler->players.getFirst()->data->actual_mov = app->entityHandler->players.getFirst()->data->entity_stats.hp + 1;
+	app->entityHandler->players.getFirst()->next->data->actual_mov = app->entityHandler->players.getFirst()->next->data->entity_stats.hp + 1;
+	app->entityHandler->players.getLast()->data->actual_mov = app->entityHandler->players.getLast()->data->entity_stats.hp + 1;
+	app->entityHandler->players.getFirst()->data->Interpolate(14 * 64 + 32, 27 * 64 + 32, 0.02);
+	app->entityHandler->players.getFirst()->next->data->Interpolate(15 * 64 + 32, 28 * 64 + 32, 0.02);
+	app->entityHandler->players.getLast()->data->Interpolate(14 * 64 + 32, 29 * 64 + 32, 0.02);
+
+	app->entityHandler->CreateEntity(ENTITY_MUMMY, 17 * 64, 27 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_MUMMY, 17 * 64, 28 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_BAT, 20 * 64, 31 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_BAT, 22 * 64, 33 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_SNAKE, 15 * 64, 24 * 64, 0);
+
+	app->entityHandler->CreateEntity(ENTITY_SNAKE, 14 * 64, 33 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_SNAKE, 26 * 64, 23 * 64, 0);
+
+	app->physics->GetWorld()->DestroyBody(sensor_01->body);
+	sensor_01 = app->physics->CreateSensorCircle(64 * 28 + 32, 33 * 64 + 32, 24);
+	sensor_01->type = TYPE_ENEMY;
+	app->entityHandler->restoreHp();
+	app->entityHandler->StartCombat();
+	lvl3_2_done = true;
 }
 
 void Scene::Set_lvl_3_3()
 {
+	app->entityHandler->players.getFirst()->data->state = STATE_TURN;
+	app->entityHandler->players.getFirst()->next->data->state = STATE_TURN;
+	app->entityHandler->players.getLast()->data->state = STATE_TURN;
+	app->entityHandler->players.getFirst()->data->actual_mov = app->entityHandler->players.getFirst()->data->entity_stats.hp + 1;
+	app->entityHandler->players.getFirst()->next->data->actual_mov = app->entityHandler->players.getFirst()->next->data->entity_stats.hp + 1;
+	app->entityHandler->players.getLast()->data->actual_mov = app->entityHandler->players.getLast()->data->entity_stats.hp + 1;
+	app->entityHandler->players.getFirst()->data->Interpolate(39 * 64 + 32, 28 * 64 + 32, 0.02);
+	app->entityHandler->players.getFirst()->next->data->Interpolate(40 * 64 + 32, 28 * 64 + 32, 0.02);
+	app->entityHandler->players.getLast()->data->Interpolate(41 * 64 + 32, 28 * 64 + 32, 0.02);
+
+
+	app->entityHandler->CreateEntity(ENTITY_SOLDOR, 40 * 64, 4 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_MUMMY, 45 * 64, 10 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_BAT, 40 * 64, 20 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_SNAKE, 48 * 64, 25 * 64, 0);
+
+	app->entityHandler->CreateEntity(ENTITY_SNAKE, 32 * 64, 25 * 64, 0);
+	app->entityHandler->CreateEntity(ENTITY_SNAKE, 32 * 64, 20 * 64, 0);
+
+	app->physics->GetWorld()->DestroyBody(sensor_01->body);
+
+
+	app->entityHandler->StartCombat();
+	lvl3_3_done = true;
+
 }
