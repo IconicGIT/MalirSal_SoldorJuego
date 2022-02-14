@@ -165,11 +165,6 @@ private:
 	Animation* currentAnimation;
 
 	bool out_of_attacks = false;
-
-	PhysBody* CheckRight;
-	PhysBody* CheckLeft;
-	PhysBody* CheckUp;
-	PhysBody* CheckDown;
 	
 	bool right;
 	bool left;

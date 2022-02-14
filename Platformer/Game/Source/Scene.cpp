@@ -133,6 +133,10 @@ bool Scene::Update(float dt)
 	{
 		level_man = LEVEL_MENU;
 		app->entityHandler->entities_active = false;
+
+		app->map->DeleteCol();
+		app->map->CleanUp();
+		app->entityHandler->DestroyAllEnemies();
 		app->render->cameraFollow = false;
 		app->render->camera_0 = true;
 	}
@@ -141,6 +145,8 @@ bool Scene::Update(float dt)
 		level_man = LEVEL_01; 
 		app->map->DeleteCol();
 		app->map->CleanUp();
+		app->entityHandler->DestroyAllEnemies();
+
 		app->entityHandler->entities_active = true;
 		app->render->cameraFollow = true;
 		app->render->camera_0 = false;
@@ -164,6 +170,8 @@ bool Scene::Update(float dt)
 		level_man = LEVEL_02;
 		app->map->DeleteCol();
 		app->map->CleanUp();
+		app->entityHandler->DestroyAllEnemies();
+
 		app->render->cameraFollow = true;
 		app->render->camera_0 = false;
 		app->entityHandler->entities_active = true;
@@ -187,6 +195,8 @@ bool Scene::Update(float dt)
 		level_man = LEVEL_03;
 		app->map->DeleteCol();
 		app->map->CleanUp();
+		app->entityHandler->DestroyAllEnemies();
+
 		app->render->cameraFollow = true;
 		app->render->camera_0 = false;
 		app->entityHandler->entities_active = true;
